@@ -1,0 +1,2106 @@
+# Multi-objective optimization
+
+Why solving the multi-objective optimization problem is different from the single-objective or scalar optimization problem?
+Therefore, we are always looking for those that do not dominate among all the possible answers.
+We have two categories of methods: 
+1- multi-objective and 2- single-objective decomposition
+In fact, in this way, we were able to discover a point of parato front.
+The main drawback of this weighted conversion method is that the concave parts of the curve cannot be discovered. (yellow highlight)
+But in terms of calculation, it is a simple method.
+
+## The second method: ideal planning
+minimizes the distance from the ideal point. For this we need an ideal point, we set a target corresponding to each fi.
+To solve it, they normalize. Normalized as follows:
+What do we want to achieve with this now?
+The problem with this method: it is hard to find the right target point. Determining the goal is difficult and very effective in the result.
+If the objective function is linear or can be linearly approximated, these methods can be very efficient
+If this target is a target, we always have this:
+Goal attainment and goal programming are all the same methods.
+
+## Next method:
+We subtract the complexity of the target space and add it to the constraint space.
+This is exactly the method we know as the penalty function, which we mentioned below:
+We are not very comfortable with the problem we have, it is possible that this problem does not have a visible answer and in this sense, this method is not effective.
+But finding epsilon is difficult and its computational complexity increases.
+
+### second session:
+The objective function space of the set is not ordered, and we have a comparison in the one-dimensional space, but it is not like this in the two-dimensional space above.
+To describe this, we need to describe the concept of Dominance.
+In the following relationship, x actually dominates y. And the concept of dominance:
+The quality of the answers is more important to us and we are looking for a suitable approximation of the parato front. And these answers should cover all para to front.
+For single-purpose ideas
+The only difference between single-objective and multi-objective algorithms is option 4 below.
+We consider the original population at t value p(t).
+The combination of the following three values becomes p'(t)
+We will define another concept called crowding distance.
+
+We want to rank the following answers:
+F1 points are not dominated by any of them and we delete them and they remain F2 and we delete these too and so on.
+They are compared two by two and those who are not defeated are selected.
+We remove the effect of Fk.
+In some cases, the rank cannot be decisive
+In the figure below, which point is more important for us?
+The greater the congestion distance, it means that it covers a larger area and is better, and it has greatly helped the variety of our answers.
+We defined all these to reach the sorting operator.
+There was a competition between them and some were eliminated.
+Binary means two members are selected from the population and the one who is better is pulled out
+
+In MATLAB, we write the relevant issues:
+We implement the desired cost function.
+The optimization problem we want is defined.
+Same code as MOP2
+Implementation of the algorithm:
+Defining the problem information (definition of the MOP2 cost function, the number of variables which is three) and adding to the NSGA II parameter definition dimension - the initialization dimension and the dimension
+
+In the classical algorithm, we only had the first two cases, each of our individuals has the following properties.
+Now we define these. Because we are repeating, we use the repeat function.
+When does domination happen?
+
+This code defines a function called "Dominates", which is used to check the "Dominance" relationship between two points in the multi-objective space.
+
+Line 1: Define the dominant function with two inputs x and y.
+
+Line 3-4: If x is a structure and there is a Cost field in it, it sets the value of x equal to the value of the Cost field.
+
+Line 6-7: If y is a structure and there is a Cost field in it, it sets the value of y equal to the value of the Cost field.
+
+Line 9: Checking the dominance relationship between x and y. This line first checks if x is less than or equal to y for all variables. It then checks that at least one variable for x is smaller than the corresponding variable for y.
+
+Output (b) is True (1) if x exceeds y and False (0) otherwise.
+
+It is very widely used in clustering.
+We have a large matrix called sigma.
+function [y1, y2]=Crossover(x1,x2,params)
+ 
+     gamma=params.gamma;
+     VarMin=params.VarMin;
+     VarMax=params.VarMax;
+    
+     alpha=unifrnd(-gamma,1+gamma,size(x1));
+    
+     y1=alpha.*x1+(1-alpha).*x2;
+     y2=alpha.*x2+(1-alpha).*x1;
+    
+     y1=min(max(y1,VarMin),VarMax);
+     y2=min(max(y2,VarMin),VarMax);
+ 
+end
+
+This code defines a function named "Crossover" which is used to perform a "Crossover" operation (combination of genes) between two points (x1 and x2) in evolutionary algorithms. This operation uses the combination of the parents to generate two new points (y1 and y2).
+
+Line 1: Crossover function definition with three inputs x1, x2, and params.
+
+Line 3-5: extract the values of gamma, VarMin, and VarMax variables from the parameters.
+
+Line 7: Generate a random number with a uniform distribution in the interval (-gamma, +1gamma) for each element of the x1 matrix for its dimensions.
+
+Line 9-10: Create a new point y1 by combining x1 and x2 based on alpha values and crossover rules.
+
+Line 11-12: Create a new point y2 by combining x2 and x1 based on alpha values and crossover rules.
+
+Line 14-15: reduce the minimum and maximum values of the new points y1 and y2 to the maximum and minimum allowed values (VarMin and VarMax).
+
+Output result: two new points y1 and y2 are generated from the combination of parents x1 and x2 using the alpha coefficient. This code is a function called "PlotCosts" that takes an array called "pop" as input and plots the costs.
+
+This function does the following:
+
+1. Extract the costs from the "pop" array and store them in the "Costs" array.
+
+2. Draws a cost chart. This is done with the command "plot(Costs(1,:),Costs(2,:),'r*','MarkerSize',8)". In this command, the values related to the first cost are placed on the x-axis and the values related to the second cost are placed on the y-axis. Also, the graph points are drawn in red color (r) and the form of a star (*) with size 8.
+
+3. Sets the x-axis label as "1st Objective" and the y-axis label as "2nd Objective".
+
+4. Activates the grid display using the "grid on" command.
+
+In general, this function plots the costs and is useful for visualizing and checking the targets of a population or data sample.
+function z=MOP4(x)
+ 
+     a=0.8;
+    
+     b=3;
+    
+     z1=sum(-10*exp(-0.2*sqrt(x(1:end-1).^2+x(2:end).^2)));
+    
+     z2=sum(abs(x).^a+5*(sin(x)).^b);
+    
+     z=[z1 z2]';
+ 
+end
+
+
+This code is a function named "MOP4" that takes an array named "x" as input calculates two values z1 and z2 and stores them in an array named "z".
+
+This function does the following:
+
+1. Set the constant value a to 0.8 using the command "a=0.8".
+
+2. Sets the value of the constant b equal to 3 using the command "b=3".
+
+3. Calculate the value of z1. This is done using the command "z1=sum(-10*exp(-0.2*sqrt(x(1:end-1).^2+x(2:end).^2)))". This command calculates the value of z1 based on a formula that includes the squares of the elements of the array x and mathematical calculations.
+
+4. Calculate the value of z2. This is done using the command "z2=sum(abs(x).^a+5*(sin(x)).^b)". This command calculates the value of z2 based on a formula that includes the absolute value and power and sine power.
+
+5. Places the calculated values for z1 and z2 into the array z and transposes the array using the command "z=[z1 z2]'".
+ 
+In general, this function calculates two values z1 and z2 based on specific formulas and stores them in an array.
+
+
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+CostFunction=@(x) MOP4(x);      % Cost Function
+ 
+nVar=3;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Size of Decision Variables Matrix
+ 
+VarMin=-5;          % Lower Bound of Variables
+VarMax= 5;          % Upper Bound of Variables
+ 
+% Number of Objective Functions
+nObj=numel(CostFunction(unifrnd(VarMin,VarMax,VarSize)));
+ 
+ 
+%% NSGA-II Parameters
+ 
+MaxIt=100;      % Maximum Number of Iterations
+ 
+nPop=50;        % Population Size
+ 
+pCrossover=0.7;                         % Crossover Percentage
+nCrossover=2*round(pCrossover*nPop/2);  % Number of Parnets (Offsprings)
+ 
+pMutation=0.4;                          % Mutation Percentage
+nMutation=round(pMutation*nPop);        % Number of Mutants
+ 
+mu=0.02;                    % Mutation Rate
+ 
+sigma=0.1*(VarMax-VarMin);  % Mutation Step Size
+ 
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Rank=[];
+empty_individual.DominationSet=[];
+empty_individual.DominatedCount=[];
+empty_individual.CrowdingDistance=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    pop(i).Cost=CostFunction(pop(i).Position);
+    
+end
+ 
+% Non-Dominated Sorting
+[pop F]=NonDominatedSorting(pop);
+ 
+% Calculate Crowding Distance
+pop=CalcCrowdingDistance(pop,F);
+ 
+% Sort Population
+[pop F]=SortPopulation(pop);
+ 
+ 
+%% NSGA-II Main Loop
+ 
+for it=1:MaxIt
+    
+    % Crossover
+    popc=repmat(empty_individual,nCrossover/2,2);
+    fork=1:nCrossover/2
+        
+        i1=randi([1 nPop]);
+        p1=pop(i1);
+        
+        i2=randi([1 nPop]);
+        p2=pop(i2);
+        
+        [popc(k,1).Position popc(k,2).Position]=Crossover(p1.Position,p2.Position);
+        
+        popc(k,1).Cost=CostFunction(popc(k,1).Position);
+        popc(k,2).Cost=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    % Mutation
+    popm=repmat(empty_individual,mutation,1);
+    for k=1:nMutation
+        
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        popm(k).Position=Mutate(p.Position,mu,sigma);
+        
+        popm(k).Cost=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Merge
+    pop=[pop
+         popc
+         popm];
+     
+    % Non-Dominated Sorting
+    [pop F]=NonDominatedSorting(pop);
+ 
+    % Calculate Crowding Distance
+    pop=CalcCrowdingDistance(pop,F);
+ 
+    % Sort Population
+    [pop F]=SortPopulation(pop);
+    
+    % Truncate
+    pop=pop(1:nPop);
+    
+    % Non-Dominated Sorting
+    [pop F]=NonDominatedSorting(pop);
+ 
+    % Calculate Crowding Distance
+    pop=CalcCrowdingDistance(pop,F);
+ 
+    % Sort Population
+    [pop F]=SortPopulation(pop);
+    
+    % Store F1
+    F1=pop(F{1});
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Number of F1 Members = ' num2str(numel(F1))]);
+    
+    % Plot F1 Costs
+    figure(1);
+    PlotCosts(F1);
+    
+end
+ 
+%% Results
+ 
+ 
+ 
+This code has implemented an optimization algorithm called NSGA-II (Multi-Objective Genetic Algorithm II). The NSGA-II algorithm is a genetic method for solving multi-objective optimization problems.
+
+Here is a brief explanation of each line of code:
+
+- Lines 1 to 3: perform commands to clear the command screen and close all windows.
+
+- Lines 5 to 11: Variables and parameters related to the optimization problem are defined. Variables such as cost function (cost function), number of decision variables (nVar), minimum and maximum values of variables (VarMin and VarMax), etc.
+
+- Lines 15 to 22: The initial amount of individuals is produced in the initial population. Each individual includes the mechanisms Position (the individual's location in the search space) and Cost (the value of the cost function for the current position).
+
+- Lines 25 to 48: Implement the original NSGA-II algorithm. It includes the main steps of the algorithm, including the generation of new individuals using crossover and mutation operators, cost evaluation, sorting based on impossible heterogeneity, and population spacing. The algorithm continues iteratively (loop condition) until the specified stopping condition (MaxIt) is reached.
+
+- Lines 50 to 58: The final results are reported in this part.
+
+To explain more about each part of the code, you probably need access to the functions called "NonDominatedSorting", "CalcCrowdingDistance", "SortPopulation", "Crossover" and "Mutate", which cannot be fully explained here.
+
+You cannot touch any line to this border. This is an approximation of the part front. We increase and decrease the population and check its effect.
+Backpack issue
+It has a capacity and several items with specific volume and weight.  Part of its capacity is lost - we can choose a series of items with a condition or condition, on the one hand, we have considered a value for each of these items that we want to maximize the value of those we took. This problem can be solved in a multi-purpose way. There are several methods:
+Let's calculate the maximum value that can be taken from the different volumes and weights that Memisheh put in the backpack.
+
+When the problem is continuous, a fraction can be taken into account - it is not yours.
+
+functionmodel=CreateModel()
+ 
+    w=[31    26    39    37    42    49    33    24    17    42];
+    v=[59    66    52    68    79    35    56    40    75    74];
+    M=[19    14    17    17    20    14    13    10    14    17];
+    
+    n=numel(w);
+    
+    Wmax=1800;
+    
+    model.n=n;
+    model.w=w;
+    model.v=v;
+    model.M=M;
+    model.Wmax=Wmax;
+    
+end
+This code implements a function called "CreateModel". This function creates a model that contains the information needed for an optimization problem.
+
+Here is a brief explanation of each line of code:
+
+- Lines 3 to 5: Three arrays named "w", "v" and "M" are defined, which respectively show the weight, value, and number of availability of each item. These arrays are the input data of the problem.
+
+- Line 7: calculates the total number of goods.
+
+- Line 9: Determines the maximum weight allowed for packing goods.
+
+- Lines 11 to 16: Define the model. This model includes the following information:
+   - total number of goods (n)
+   - array of weights (w)
+   - array of values (v)
+   - Availability count array (M)
+   - Maximum allowed weight (Wmax)
+
+- Line 18: Returns the model in the output of the function.
+
+This code probably implements part of a knapsack problem. In this issue, the goal is to select the goods in such a way that the weight of a set of goods is minimized and at the same time the value of the total goods is maximized (observing the limit of the allowed weight of the packaging
+
+
+function [z sol]=MyCost(x,model)
+ 
+    v=model.v;
+    w=model.w;
+    M=model.M;
+    Wmax=model.Wmax;
+ 
+    V1=sum(v.*x);
+    V2=sum(v.*(M-x));
+    W1=sum(w.*x);
+    W2=sum(w.*(M-x));
+    
+    S=max(W1/Wmax-1,0);
+    
+    z=[-V1
+        W1];
+    
+   
+    sol.V1=V1;
+    sol.V2=V2;
+    sol.W1=W1;
+    sol.W2=W2;
+    sol.S=S;
+    
+end
+
+This code implements a function called "MyCost". This function takes two inputs: a binary vector called "x" and a model called "model".
+
+Here is a brief explanation of each line of code:
+
+- Lines 3 to 6: The values of the "v", "w", "M" and "Wmax" arrays are taken from the model and assigned to the appropriate variables. These arrays from the information model show the weight, value, and number of goods available and the maximum allowed weight.
+
+- Lines 8 and 9: Using internal multiplication (dot product), the values of V1 (total value of selected goods) and V2 (total value of goods that are not selected) are calculated.
+
+- Lines 11 and 12: Using internal multiplication (dot product), the value of W1 (total weight of selected goods) and W2 (total weight of goods that are not selected) are calculated.
+
+- Line 14: The variable S is calculated, which is equal to the highest value that causes a violation of the maximum allowed weight (Wmax). If the value of this variable is negative, it will be reduced to zero with the max function.
+
+- Lines 17 and 18: The z vector contains two members. The first member is the negative weight and the second member is the total weight of the selected goods.
+
+- Lines 20 to 24: The calculated values of V1, V2, W1, W2 and S are stored in sol variables.
+
+- Line 26: Returns the values of z and sol as the output of the function.
+
+This code is probably part of the objective function in an optimization problem. The objective function returns the value and weight values of the selected goods and a violation of the maximum allowed weight
+The target function is the value of those we lost and the weight of those we want to take.
+
+functiony=Mutate(x,mu,sigma,VarMin,VarMax)
+ 
+    nVar=numel(x);
+    
+    nMu=ceil(mu*nVar);
+ 
+    j=randsample(nVar,nMu);
+    
+    xnew=x+sigma.*randn(size(x));
+    
+    y=x;
+    y(j)=xnew(j);
+    
+    y=max(y,VarMin);
+    y=min(y,VarMax);
+ 
+end
+
+This code implements a function called "Mutate". This function takes five inputs: a numeric vector named "x", a "mu" parameter that represents the ratio of the number of changed variables to the total number of variables, a "sigma" parameter that represents the noise step size of the changes, and Two parameters "VarMin" and "VarMax" that specify the allowed range for variable values.
+
+Here is a brief explanation of each line of code:
+
+- Line 3: Specifies the number of input variables (the dimension of the vector "x") in the form of the number of elements of the vector "x".
+
+- Line 5: Calculates the number of variables to be changed (by the "mu" parameter). This number is equal to raising the value of "mu" multiplied by the total number of variables.
+
+- Line 7: Using the randsample function, it returns some indices of the variables in a random (non-repeating) way. The number of desired indices is equal to the value of "nMu" (the number of changed variables).
+
+- Line 9: A new vector named "new" equal to the original "x" vector plus the multiplication of "sigma" is produced in a Gaussian noise vector with the same dimensions as "x".
+
+- Line 11: The "y" vector is equal to the original "x" vector. This causes the unchanged members of the "x" vector to be preserved in the "y" vector.
+
+- Line 12: updates the members of the "y" vector with new values from the "new" vector at the indices of the variables selected in the previous step.
+
+- Lines 14 and 15: it is ranged to the lowest value allowed for variables (VarMin) and to the maximum value allowed for variables (VarMax). This will keep the values of the variables within the specified range.
+
+- Line 17: The vector "y" is returned as the output of the function.
+
+This code is probably part of an Exploration and Exploitation algorithm to improve search optimization algorithms. The function "Mutate" performs a change in the values of the variables and makes the algorithm able to move to new points in the search space.
+
+function PlotCosts(pop)
+ 
+     Costs=[pop.Cost];
+    
+     plot(-Costs(1,:),Costs(2,:),'r*','MarkerSize',8);
+     label('1st Objective');
+     label('2nd Objective');
+     grid on;
+ 
+end
+
+
+This code implements a function called "PlotCosts". This function receives an input called "pop" which is an n x m matrix, where n is the number of population and m is the number of objectives.
+
+The line-by-line description of this code is as follows:
+
+- Line 3: Rewrite all the cost values in the "pop" matrix using the command "[pop.Cost]". By default, the [pop.Cost] pattern returns, for each element in the "pop" matrix, the corresponding value in the "Cost" field of that element.
+
+- Line 5: Draws a two-dimensional graph of cost values. The primary vector of cost values is used as the horizontal axis and the secondary vector of cost values is used as the vertical axis. Points specifying cost values are indicated on the graph using the symbol "*" with a red color ("r") and pixel size of 8 ("MarkerSize").
+
+- Lines 6 and 7: The horizontal axis label is set from "1st Objective" and the vertical axis label is set from "2nd Objective".
+
+- Line 8: Enables the graph grid.
+
+This code is generally used to plot the cost values for each element in the population. This graph can provide information about the distribution and characteristics of costs in the given problem
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+model=CreateModel();
+ 
+CostFunction=@(x) MyCost(x,model);      % Cost Function
+ 
+nVar=model.n;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Size of Decision Variables Matrix
+ 
+VarMin=0;           % Lower Bound of Variables
+VarMax=model.M;     % Upper Bound of Variables
+ 
+% Number of Objective Functions
+nObj=numel(CostFunction(unifrnd(VarMin,VarMax,VarSize)));
+ 
+ 
+%% NSGA-II Parameters
+ 
+MaxIt=100;      % Maximum Number of Iterations
+ 
+nPop=50;        % Population Size
+ 
+pCrossover=0.7;                         % Crossover Percentage
+nCrossover=2*round(pCrossover*nPop/2);  % Number of Parnets (Offsprings)
+ 
+pMutation=0.4;                          % Mutation Percentage
+nMutation=round(pMutation*nPop);        % Number of Mutants
+ 
+mu=0.02;                    % Mutation Rate
+ 
+sigma=0.1*(VarMax-VarMin);  % Mutation Step Size
+ 
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Sol=[];
+empty_individual.Rank=[];
+empty_individual.DominationSet=[];
+empty_individual.DominatedCount=[];
+empty_individual.CrowdingDistance=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    [pop(i).Cost pop(i).Sol]=CostFunction(pop(i).Position);
+    
+end
+ 
+% Non-Dominated Sorting
+[pop F]=NonDominatedSorting(pop);
+ 
+% Calculate Crowding Distance
+pop=CalcCrowdingDistance(pop,F);
+ 
+% Sort Population
+[pop F]=SortPopulation(pop);
+ 
+ 
+%% NSGA-II Main Loop
+ 
+for it=1:MaxIt
+    
+    % Crossover
+    popc=repmat(empty_individual,nCrossover/2,2);
+    fork=1:nCrossover/2
+        
+        i1=randi([1 nPop]);
+        p1=pop(i1);
+        
+        i2=randi([1 nPop]);
+        p2=pop(i2);
+        
+        [popc(k,1).Position popc(k,2).Position]=Crossover(p1.Position,p2.Position);
+        
+        [popc(k,1).Cost popc(k,1).Sol]=CostFunction(popc(k,1).Position);
+        [popc(k,2).Cost popc(k,2).Sol]=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    % Mutation
+    popm=repmat(empty_individual,mutation,1);
+    for k=1:nMutation
+        
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        popm(k).Position=Mutate(p.Position,mu,sigma,VarMin,VarMax);
+        
+        [popm(k).Cost popm(k).Sol]=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Merge
+    pop=[pop
+         popc
+         popm];
+     
+    % Non-Dominated Sorting
+    [pop F]=NonDominatedSorting(pop);
+ 
+    % Calculate Crowding Distance
+    pop=CalcCrowdingDistance(pop,F);
+ 
+    % Sort Population
+    [pop F]=SortPopulation(pop);
+    
+    % Truncate
+    pop=pop(1:nPop);
+    
+    % Non-Dominated Sorting
+    [pop F]=NonDominatedSorting(pop);
+ 
+    % Calculate Crowding Distance
+    pop=CalcCrowdingDistance(pop,F);
+ 
+    % Sort Population
+    [pop F]=SortPopulation(pop);
+    
+    % Store F1
+    F1=pop(F{1});
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Number of F1 Members = ' num2str(numel(F1))]);
+    
+    % Plot F1 Costs
+    figure(1);
+    PlotCosts(F1);
+    
+end
+ 
+%% Results
+
+This code generally implements a multi-objective optimization algorithm called NSGA-II (Non-dominated Sorting Genetic Algorithm II). This algorithm is related to the problem of a model in which the number of decisions (Decision Variables), the cost function (Cost Function), and the restrictions that are applied to the decisions are determined. By running this code, the best populations representing the improvements to the problem are printed and displayed for the cost function.
+
+The line-by-line description of this code is as follows:
+
+- Lines 1 to 3: These lines are related to clearing all updated information in MATLAB and closing all graphs.
+
+- Lines 6 to 18: In this section, the desired problem is defined. A model is created and the cost functions and objective functions are defined to be used in the rest of the code.
+
+- Lines 20 and 21: In these lines, the number of decision-making variables, the size of the decision-making matrix, and the range of values of the decision-making variables are determined.
+
+- Lines 24 and 28: In these lines, the number of the objective function is determined. This number is equal to the number of return values of the cost function determined by calling the cost function with random input.
+
+- Lines 31 to 46: The section related to NSGA-II algorithm parameters. This section contains fixed values for the number of symmetric representatives in the crossover and mutation generation stage, the crossover and mutation rate, the mutation step size, etc.
+
+- Lines 49 to 65: In this section, the initial stage of optimization takes place. The initial population is constructed and for each element of the population a random value is selected for the decision variables and then the cost function is calculated.
+
+- Lines 69 to 71: In this section, the steps related to sorting non-representatives are performed. First, the non-representatives are sorted, and then the scattering distance of each element is calculated, and the representatives are sorted in order of best representation.
+
+- Lines 75 to 96: The main loop of the NSGA-II algorithm, which is repeated a certain number of times. In each iteration, crossover and mutation steps are performed. Then the generated population is combined with the previous population and the steps of sorting, calculation of dispersion distance, and re-sorting are applied. Finally, the prime (F1) representatives of the population are selected as the best representatives for that iteration and are plotted and displayed along with the cost information.
+
+- Line 99: In this line, the findings obtained as the result of the best population are saved in an output file or in any other way.
+
+## MOPSO
+
+Define the cost function first, define the variables, define the parameters,
+We set beta and gamma values to 1.
+
+We consider the empty particle and define the above.
+Definition of a function whose input and output is population.
+function b=Dominates(x,y)
+ 
+     if isstruct(x)
+         x=x.Cost;
+     end
+    
+     if isstruct(y)
+         y=y.Cost;
+     end
+ 
+     b=all(x<=y) && any(x<y);
+ 
+end
+
+
+This code implements a function called "Dominates". The main task of this function is to check whether one point (as input x) dominates another (as input y) or not.
+
+The line-by-line description of this code is as follows:
+
+- Line 3 to 6: In this section, the inputs are checked and if the inputs are of the data structure type, they are loaded to access their Cost value.
+
+- Line 8: In this line, a condition is checked if x has all its values less than or equal to y values. If this condition is true, the first part of the condition will be true.
+
+- Line 9: In this line, a condition is checked if x is smaller than y in at least one of its values. If this condition is true, the second part of the condition will be true.
+
+- Line 11: In this line, two conditions from lines 8 and 9 are checked using all and any operators. If all the values of x are less than or equal to the values of y and at least one of the values is less than y, it means that x is the dominant of y and as a result, the value of true is returned. Otherwise, false is returned.
+
+- Line 13: the function completion code and sets the returned value equal to b.
+
+functionpop=DetermineDomination(pop)
+ 
+    nPop=numel(pop);
+    
+    for i=1:nPop
+        pop(i).IsDominated=false;
+    end
+    
+    for i=1:nPop-1
+        for j=i+1:nPop
+            
+            dominates(pop(i),pop(j))
+               pop(j).IsDominated=true;
+            end
+            
+            if Dominates(pop(j),pop(i))
+               pop(i).IsDominated=true;
+            end
+            
+        end
+    end
+ 
+end
+This code implements a function called "DetermineDomination". The main task of this function is to check the dominance between members of a population and set the IsDominated property for each member.
+
+The line-by-line description of this code is as follows:
+
+- Line 3: receives the number of population members (pop) as input calculates their number using the number function and stores it in the top variable.
+
+- Lines 5 to 8: Performs an iteration loop to set the initial state of the IsDominated property for all members of the population. At each step, the IsDominated property of all members is set to false by default.
+
+- Lines 10 to 17: Two nested iteration loops are executed for each population membership. The Dominates function is used to check the dominance between two population members.
+
+- Lines 11 and 14: In these two lines, it is checked whether membership i is dominant over membership j or not. If the condition is true, the IsDominated property of membership j is set and changed to true.
+
+- Lines 15 and 16: In these two lines, it is checked whether membership j is dominant over membership i or not. If the condition is true, the IsDominated property of membership i is set and changed to true.
+
+- Line 19: The code terminates the function and returns the population (with updated changes in the IsDominated property).
+
+functionPlotCosts(pop,rep)
+ 
+    pop_costs=[pop.Cost];
+    plot(pop_costs(1,:),pop_costs(2,:),'ko');
+    
+    hold on;
+    
+    rep_costs=[rep.Cost];
+    plot(rep_costs(1,:),rep_costs(2,:),'r*');
+    
+    xlabel('1st Objective');
+    ylabel('2nd Objective');
+    
+    %grid on;
+    
+    hold off;
+ 
+end
+
+This code also implements a function called "PlotCosts". The main task of this function is to display the cost data of population members and representatives in a two-dimensional graph.
+
+The line-by-line description of this code is as follows:
+
+- Line 3: Creates an array called "pop_costs" and transfers the costs of all population members to this array. Each population membership has a property called "Cost", where the values are passed to the array.
+
+- Lines 4 and 5: A chart with black dots is drawn using pop_costs data. The x-axis represents the cost or the first objective and the y-axis represents the cost or the second objective.
+
+- Line 7: The hold-on command allows the next charts to be added to the current chart.
+
+- Line 9: Creates an array called "rep_costs" and transfers the costs of all representatives to this array.
+
+- Lines 10 and 11: A graph with red star points is drawn using rep_costs data.
+
+- Lines 13 and 14: The characteristics of the x and y axis are set in the graph.
+
+- Line 16: Draw a new graph.
+
+- Line 19: The completion code is the function.
+
+functionGrid=CreateGrid(pop,nGrid,alpha)
+ 
+    c=[pop.Cost];
+    
+    cmin=min(c,[],2);
+    cmax=max(c,[],2);
+    
+    dc=cmax-cmin;
+    cmin=cmin-alpha*dc;
+    cmax=cmax+alpha*dc;
+    
+    nObj=size(c,1);
+    
+    empty_grid.LB=[];
+    empty_grid.UB=[];
+    Grid=repmat(empty_grid,nObj,1);
+    
+    for j=1:nObj
+        
+        cj=linspace(cmin(j),cmax(j),nGrid+1);
+        
+        Grid(j).LB=[-inf cj];
+        Grid(j).UB=[cj +inf];
+        
+    end
+ 
+end
+
+This code implements a function called "CreateGrid". The task of this function is to create a network of the objective space based on the input population and the number of specified houses in each dimension of the objective space.
+
+The line-by-line description of this code is as follows:
+
+- Line 3: obtains the array C, which contains the cost of all members of the population. Each population membership has a property called "Cost", where the values are transferred to the array C.
+
+- Lines 5 and 6: specify the minimum and maximum cost in each dimension of the target space.
+
+- Lines 8 and 9: Calculate the length of the vector in each dimension of the target space and add and subtract the number of alpha equal to the length of the vector for the minimum and maximum cost values.
+
+- Line 10: Stores the number of dimensions in the target space in the obj variable.
+
+- Lines 12 and 13: An empty grid is created, which includes the lower and upper bounds of each dimension of the target space. An empty structure (empty_grid) is created for each dimension and these structures are repeated for the number of dimensions (obj).
+
+- Lines 15 to 24: For each dimension in the grid, equal points determined according to the minimum and maximum cost are obtained. The lower range (LB) of the grid includes "-inf" and c_j points, and the upper range (UB) includes c_j and "+inf" points.
+
+- Line 26: Returns the grid matrix and stores it in the Grid variable.
+
+
+Division of grades:
+
+This code implements a function called "CreateGrid". The task of this function is to create a network of the objective space based on the input population and the number of specified houses in each dimension of the objective space.
+
+The line-by-line description of this code is as follows:
+
+- Line 3: obtains the array C, which contains the cost of all members of the population. Each population membership has a property called "Cost", where the values are transferred to the array C.
+
+- Lines 5 and 6: specify the minimum and maximum cost in each dimension of the target space.
+
+- Lines 8 and 9: Calculate the length of the vector in each dimension of the target space and add and subtract the number of alpha equal to the length of the vector for the minimum and maximum cost values.
+
+- Line 10: Stores the number of dimensions in the target space in the obj variable.
+
+- Lines 12 and 13: An empty grid is created, which includes the lower and upper bounds of each dimension of the target space. An empty structure (empty_grid) is created for each dimension and these structures are repeated for the number of dimensions (obj).
+
+- Lines 15 to 24: For each dimension in the grid, equal points determined according to the minimum and maximum cost are obtained. The lower range (LB) of the grid includes "-inf" and c_j points, and the upper range (UB) includes c_j and "+inf" points.
+
+- Line 26: Returns the grid matrix and stores it in the Grid variable.
+
+
+Division of grades:
+Now we need to determine the position of our particles. Which category is placed in each dimension?
+
+functionparticle=FindGridIndex(particle,Grid)
+ 
+    nObj=numel(particle.Cost);
+    
+    nGrid=numel(Grid(1).LB);
+    
+    particle.GridSubIndex=zeros(1,nObj);
+    
+    for j=1:nObj
+        
+        particle.GridSubIndex(j)=...
+            find(particle.Cost(j)<Grid(j).UB,1,'first');
+        
+    end
+ 
+    particle.GridIndex=particle.GridSubIndex(1);
+    for j=2:nObj
+        particle.GridIndex=particle.GridIndex-1;
+        particle.GridIndex=nGrid*particle.GridIndex;
+        particle.GridIndex=particle.GridIndex+particle.GridSubIndex(j);
+    end
+    
+end
+
+This code implements a function called "FindGridIndex". The task of this function is to find the lattice index for each particle in the target space.
+
+The line-by-line description of this code is as follows:
+
+- Line 3: Stores the number of dimensions in the target space in the obj variable. The number of dimensions is equal to the number of features of each particle (Cost).
+
+- Line 5: Stores the number of grid houses in a grid dimension in the grid variable. The number of houses is equal to the number of elements in the lower bound (LB) of the grid.
+
+- Line 7: A vector named "GridSubIndex" is created with dimensions equal to the number of dimensions (nObj). This vector is for storing the subgrid index of each particle in each dimension of the target space. Initially, all values of this vector are zero.
+
+- Lines 9 to 17: For each dimension in the target space, obtain the particle's sublattice index. This index shows in which house of the grid the particle is located. Therefore, that house whose particle cost is less than its upper bound is considered as the subnet index.
+
+- Line 19: Sets the grid index for the particle equal to the subgrid index in the first dimension (the first cost feature).
+
+- Lines 20 to 25: For every other dimension in the target space, the grid index is equal to the previous grid index multiplied by the number of grid houses and the sum of the sub-grid index in that dimension. This operation is performed from the second dimension to the last dimension of the target space.
+
+- Finally, the grid index for the particle is stored in the "GridIndex" variable.
+
+functioni=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    C=cumsum(P);
+    
+    i=find(r<=C,1,'first');
+ 
+end
+
+This code implements a function called "RouletteWheelSelection". The task of this function is to select an element using the Roulette Wheel Selection method.
+
+The line-by-line description of this code is as follows:
+
+- Line 3: Generates a random number r as a number between 0 and 1.
+
+- Line 5: Creates a vector called "C" which contains the face values one by one of the elements of the vector P. The cumulative sum of the vector is calculated in such a way that each new element is equal to the sum of the previous elements and the new element itself in the vector P.
+
+- Line 7: Using the "find" function, it returns the index of the first element in the vector C for which the condition r <= C is satisfied. That is the element that is placed on the roulette wheel and causes the selection of that element.
+
+- Finally, the selected index (the direction of the vector element P) is stored in the variable "i" and returned as the output of the function.
+
+
+We generate a threshold between 0 and 1 with the rand function.
+
+This code implements a function called "RouletteWheelSelection". The task of this function is to select an element using the Roulette Wheel Selection method.
+
+The line-by-line description of this code is as follows:
+
+- Line 3: Generates a random number r as a number between 0 and 1.
+
+- Line 5: Creates a vector called "C" which contains the face values one by one of the elements of the vector P. The cumulative sum of the vector is calculated in such a way that each new element is equal to the sum of the previous elements and the new element itself in the vector P.
+
+- Line 7: Using the "find" function, it returns the index of the first element in the vector C for which the condition r <= C is satisfied. That is the element that is placed on the roulette wheel and causes the selection of that element.
+
+- Finally, the selected index (the direction of the vector element P) is stored in the variable "i" and returned as the output of the function.
+
+
+We generate a threshold between 0 and 1 with the rand function.
+C their cumulative sum,
+
+functionleader=SelectLeader(rep,beta)
+ 
+    % Grid Index of All Repository Members
+    GI=[rep.GridIndex];
+    
+    % Occupied Cells
+    OC=unique(GI);
+    
+    % Number of Particles in Occupied Cells
+    N=zeros(size(OC));
+    for k=1:numel(OC)
+        N(k)=numel(find(GI==OC(k)));
+    end
+    
+    % Selection Probabilities
+    P=exp(-beta*N);
+    P=P/sum(P);
+    
+    % Selected Cell Index
+    sci=RouletteWheelSelection(P);
+    
+    % Selected Cell
+    sc=OC(sci);
+    
+    % Selected Cell Members
+    SCM=find(GI==sc);
+    
+    % Selected Member Index
+    smi=randi([1 numel(SCM)]);
+    
+    % Selected Member
+    sm=SCM(semi);
+    
+    % Leader
+    leader=rep(sm);
+ 
+end
+This code implements a function called "SelectLeader". The task of this function is to select the leader in an optimization algorithm. This selection is based on the number of members of each grid cell and is done using the Roulette Wheel Selection method.
+
+The line-by-line description of this code is as follows:
+
+- Line 4: Creates a vector named "GI" that contains the list of cell indices of the rep reservoir vectors.
+
+- Line 7: Creates an array called "OC" that contains the unique values of the cell indices (the locations where the reservoir vectors are located).
+
+- Line 10: Creates a vector called "N" that shows the number of elements in each cell. This number is calculated using the "normal" function and the "find" function to find the number of elements that have the desired cell index.
+
+- Line 14: calculates the values of the probability of cells being selected. Based on the number of members of each cell and the beta parameter, it calculates the negative value of beta multiplied by the number of cell elements and gives it to the exponential function. Then it normalizes the probabilities so that their sum is equal to 1.
+
+- Line 17: Using the "RouletteWheelSelection" function, store the index of the selected cell in the "sci" variable.
+
+- Line 20: stores the selected cell (cell index position) in the "sc" variable.
+
+- Line 23: Creates a list called "SCM" containing the indices of the selected cell members.
+
+- Line 26: Using the "Randi" function, it receives a random index between 1 and the number of elements of the "SCM" list and stores it in the "semi" variable.
+
+- Line 29: Stores the selected member (index selected from list "SCM") in variable "sm".
+
+- Line 32: Sets the leader equal to the selected member in the rep vector and stores it in the "leader" variable.
+
+- Finally, the leader is returned.
+
+functionrep=DeleteOneRepMemebr(rep,gamma)
+ 
+    % Grid Index of All Repository Members
+    GI=[rep.GridIndex];
+    
+    % Occupied Cells
+    OC=unique(GI);
+    
+    % Number of Particles in Occupied Cells
+    N=zeros(size(OC));
+    for k=1:numel(OC)
+        N(k)=numel(find(GI==OC(k)));
+    end
+    
+    % Selection Probabilities
+    P=exp(gamma*N);
+    P=P/sum(P);
+    
+    % Selected Cell Index
+    sci=RouletteWheelSelection(P);
+    
+    % Selected Cell
+    sc=OC(sci);
+    
+    % Selected Cell Members
+    SCM=find(GI==sc);
+    
+    % Selected Member Index
+    smi=randi([1 numel(SCM)]);
+    
+    % Selected Member
+    sm=SCM(semi);
+    
+    % Delete Selected Member
+    rep(sm)=[];
+ 
+end
+
+This code implements a function called "DeleteOneRepMemebr". The task of this function is to remove a member from the rep pool vector. The member to be removed is selected using the Roulette Wheel Selection method.
+
+The line-by-line description of this code is as follows:
+
+- Line 4: Creates a vector named "GI" that contains the list of cell indices of the rep reservoir vectors.
+
+- Line 7: Creates an array called "OC" that contains the unique values of the cell indices (the locations where the reservoir vectors are located).
+
+- Line 10: Creates a vector called "N" that shows the number of elements in each cell. This number is calculated using the "normal" function and the "find" function to find the number of elements that have the desired cell index.
+
+- Line 14: calculates the values of the probability of cells being selected. Based on the number of members of each cell and the gamma parameter, it calculates the value of gamma multiplied by the number of cell elements and gives it to the exponential function. Then it normalizes the probabilities so that their sum is equal to 1.
+
+- Line 17: Using the "RouletteWheelSelection" function, store the index of the selected cell in the "sci" variable.
+
+- Line 20: stores the selected cell (cell index position) in the "sc" variable.
+
+- Line 23: Creates a list called "SCM" containing the indices of the selected cell members.
+
+- Line 26: Using the "Randi" function, it receives a random index between 1 and the number of elements of the "SCM" list and stores it in the "semi" variable.
+
+- Line 29: Removes the selected member (the selected index from the "SCM" list).
+
+- Finally, the rep repository vector is returned without the deleted member.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+CostFunction=@(x) MOP2(x);      % Cost Function
+ 
+nVar=3;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Size of Decision Variables Matrix
+ 
+VarMin=-4;          % Lower Bound of Variables
+VarMax= 4;          % Upper Bound of Variables
+ 
+ 
+%% MOPSO Parameters
+ 
+MaxIt=200;          % Maximum Number of Iterations
+ 
+nPop=200;            % Population Size
+ 
+nRep=50;            % Repository Size
+ 
+w=0.5;                % Inertia Weight
+wdamp=0.99;         % Intertia Weight Damping Rate
+c1=1;               % Personal Learning Coefficient
+c2=2;               % Global Learning Coefficient
+ 
+nGrid=5;            % Number of Grids per Dimension
+alpha=0.1;          % Inflation Rate
+ 
+beta=2;             % Leader Selection Pressure
+gamma=2;            % Deletion Selection Pressure
+ 
+mu=0.1;             % Mutation Rate
+ 
+%% Initialization
+ 
+empty_particle.Position=[];
+empty_particle.Velocity=[];
+empty_particle.Cost=[];
+empty_particle.Best.Position=[];
+empty_particle.Best.Cost=[];
+empty_particle.IsDominated=[];
+empty_particle.GridIndex=[];
+empty_particle.GridSubIndex=[];
+ 
+pop=repmat(empty_particle,nPop,1);
+ 
+for i=1:nPop
+    
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    pop(i).Velocity=zeros(VarSize);
+    
+    pop(i).Cost=CostFunction(pop(i).Position);
+    
+    
+    % Update Personal Best
+    pop(i).Best.Position=pop(i).Position;
+    pop(i).Best.Cost=pop(i).Cost;
+    
+end
+ 
+% Determine Domination
+pop=DetermineDomination(pop);
+ 
+rep=pop(~[pop.IsDominated]);
+ 
+Grid=CreateGrid(rep,nGrid,alpha);
+ 
+for i=1:numel(rep)
+    rep(i)=FindGridIndex(rep(i),Grid);
+end
+ 
+ 
+%% MOPSO Main Loop
+ 
+for it=1:MaxIt
+    
+    for i=1:nPop
+        
+        leader=SelectLeader(rep,beta);
+        
+        pop(i).Velocity = w*pop(i).Velocity ...
+            +c1*rand(VarSize).*(pop(i).Best.Position-pop(i).Position) ...
+            +c2*rand(VarSize).*(leader.Position-pop(i).Position);
+        
+        pop(i).Position = pop(i).Position + pop(i).Velocity;
+        
+        pop(i).Cost = CostFunction(pop(i).Position);
+        
+        % Apply Mutation
+        pm=(1-(it-1)/(MaxIt-1))^(1/mu);
+        NewSol.Position=Mutate(pop(i). Position, pm, VarMin, VarMax);
+        NewSol.Cost=CostFunction(NewSol.Position);
+        dominates(NewSol,pop(i))
+            pop(i).Position=NewSol.Position;
+            pop(i).Cost=NewSol.Cost;
+            
+        elseifDominates(pop(i),NewSol)
+            % Do Nothing
+            
+        else
+            if rand<0.5
+                pop(i).Position=NewSol.Position;
+                pop(i).Cost=NewSol.Cost;
+            end
+        end
+        
+        
+        ifDominates(pop(i),pop(i).Best)
+            pop(i).Best.Position=pop(i).Position;
+            pop(i).Best.Cost=pop(i).Cost;
+            
+        elseifDominates(pop(i).Best,pop(i))
+            % Do Nothing
+            
+        else
+            if rand<0.5
+                pop(i).Best.Position=pop(i).Position;
+                pop(i).Best.Cost=pop(i).Cost;
+            end
+        end
+        
+    end
+    
+    % Add Non-Dominated Particles to REPOSITORY
+    rep=[rep; pop(~[pop.IsDominated])];
+    
+    % Determine the Domination of New Repository Members
+    rep=DetermineDomination(rep);
+    
+    % Keep only Non-Dominated Members in the Repository
+    rep=rep(~[rep.IsDominated]);
+    
+    % Update Grid
+    Grid=CreateGrid(rep,nGrid,alpha);
+ 
+    % Update Grid Indices
+    for i=1:numel(rep)
+        rep(i)=FindGridIndex(rep(i),Grid);
+    end
+    
+    % Check if the Repository is Full
+    enamel(rep)>nRep
+        
+        Extra=numel(rep)-nRep;
+        for e=1:Extra
+            rep=DeleteOneRepMemebr(rep,gamma);
+        end
+        
+    end
+    
+    % Plot Costs
+    figure(1);
+    PlotCosts(pop,rep);
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Number of Rep Members = ' num2str(numel(rep))]);
+    
+    % Damping Inertia Weight
+    w=w*wdamp;
+    
+end
+ 
+%% Resluts
+ 
+This code implements a multi-objective optimization algorithm called MOPSO (Multi-Objective Particle Swarm Optimization). The algorithm is drawn as follows:
+
+- Lines 1 to 4: clear the command line screen, clear variables, and close all graph drawing windows.
+
+- Line 7: Defines the cost function named "MOP2" which is used to evaluate the objective function.
+
+- Lines 11 to 15: determining the parameters related to the optimization problem, including the number of decision variables (near), the minimum and maximum values of the decision variables (VarMin and VarMax), and the final size of the decision variables matrix (VarSize).
+
+- Lines 19 to 30: Determining parameters related to the MOPSO algorithm, including the maximum number of iterations (MaxIt), population size (nPop), source size (nRep), self-improvement weight (w), self-improvement weight reduction rate (wdamp), personal learning coefficient ( c1), group learning coefficient (c2), number of grids per dimension (nGrid), inflation rate (alpha), leader selection pressure (beta), deletion selection pressure (gamma) and mutation rate (mu).
+
+- Lines 33 to 44: The preliminary stage of MOPSO algorithm, which includes the preliminary stage of population elements, the initial population is created randomly, and each member and its personal best state are updated.
+
+- Line 48: Determining the dominance of population elements.
+
+- Line 50: using non-dominant elements, network revision and network index are performed.
+
+- Lines 55 to 96: The main loop of the MOPSO algorithm, which includes updating the speed and position of population elements, applying jumps, performing mastering operations, and updating the resource.
+
+- Lines 99 to 128: The main step of the algorithm after the main loop includes adding non-dominated elements to the source, determining dominance for new elements, removing dominated elements from the source, updating the network and network index, and controlling the angle of the superiority kernel graph.
+
+- Finally, the results obtained from the multi-objective optimization algorithm are shown.
+
+This code implements a multi-objective optimization algorithm called MOPSO (Multi-Objective Particle Swarm Optimization). The algorithm is drawn as follows:
+
+- Lines 1 to 4: clear the command line screen, clear variables, and close all graph drawing windows.
+
+- Line 7: Defines the cost function named "MOP2" which is used to evaluate the objective function.
+
+- Lines 11 to 15: determining the parameters related to the optimization problem, including the number of decision variables (near), the minimum and maximum values of the decision variables (VarMin and VarMax), and the final size of the decision variables matrix (VarSize).
+
+- Lines 19 to 30: Determining parameters related to the MOPSO algorithm, including the maximum number of iterations (MaxIt), population size (nPop), source size (nRep), self-improvement weight (w), self-improvement weight reduction rate (wdamp), personal learning coefficient ( c1), group learning coefficient (c2), number of grids per dimension (nGrid), inflation rate (alpha), leader selection pressure (beta), deletion selection pressure (gamma) and mutation rate (mu).
+
+- Lines 33 to 44: The preliminary stage of the MOPSO algorithm, which includes the preliminary stage of population elements, the initial population is created randomly, and each member and its personal best state are updated.
+
+- Line 48: Determining the dominance of population elements.
+
+- Line 50: using non-dominant elements, network revision and network index are performed.
+
+- Lines 55 to 96: The main loop of the MOPSO algorithm, which includes updating the speed and position of population elements, applying jumps, performing mastering operations, and updating the resource.
+
+- Lines 99 to 128: The main step of the algorithm after the main loop includes adding non-dominated elements to the source, determining dominance for new elements, removing dominated elements from the source, updating the network and network index, and controlling the angle of the superiority kernel graph.
+
+- Finally, the results obtained from the multi-objective optimization algorithm are shown. We use Gaussian mutation.
+
+  In which dimension is the mutation going to happen?
+
+functionxnew=Mutate(x,pm,VarMin,VarMax)
+ 
+    nVar=numel(x);
+    j=randi([1 nVar]);
+ 
+    dx=pm*(VarMax-VarMin);
+    
+    lb=x(j)-dx;
+    if lb<VarMin
+        lb=VarMin;
+    end
+    
+    ub=x(j)+dx;
+    if ub>VarMax
+        ub=VarMax;
+    end
+    
+    xnew=x;
+    xnew(j)=unifrnd(lb,ub);
+ 
+end
+
+This code implements a function called "Mutate" which is used for mutation of a population in the optimization algorithm. Following is the explanation of each line of the code:
+
+- Line 1: Start of the "Mutate" function.
+
+- Line 3: Determining the number of decision variables (nVar) through the number of elements in the input data x.
+
+- Line 4: Random selection of an array element x as j.
+
+- Lines 6 to 9: Calculation of the value of dx, which is equal to the mutation rate (pm) multiplied by the range of values of the decision variables (VarMin and VarMax).
+
+- Lines 12 to 19: determine the new range for variable j according to dx and the allowed values of VarMin and VarMax. If the new range is outside the allowed range, we replace it with the allowed range.
+
+- Line 22: Create a new version of x array called xnew.
+
+- Line 23: Change the value of element j in new with a random value obtained from the new range.
+
+- Line 26: End the Mutate function and return xnew as output.
+
+Definition of single-objective optimization problem in general:
+The space is tidy.
+Definition of the multi-objective optimization problem in general:
+At the same time, we want to optimize the m objective function and this is not an ordered space.
+To do something, he pulled the nta objective function from this m and discussed it. Transforming the multi-objective optimization problem into a single-objective one
+Weighted sum method:
+
+Our non-dominated, or Pareto, solutions
+Our goal in the multi-objective optimization problem is to solve the yellow part
+The main problem of this method: concave parts can be found, but not convex parts.
+They defined a series of methods to improve it:
+
+We raise the absolute value to the power of two in the above figure.
+Different formulations for Goal attainment:
+CHB decomposition,
+Any car with this price and lower is acceptable
+Its basic weakness: it expresses the problem in the form of a bounded problem
+
+I create a cluster.
+function z=Objective1(x)
+ 
+    z=sum(-10*exp(-0.2*sqrt(x(1:end-1).^2+x(2:end).^2)));
+ 
+end
+
+This code implements a function called "Objective1", which is used to calculate the objective function value in optimization algorithms. Following is the explanation of each line of the code:
+
+- Line 1: Start of "Objective1" function.
+
+- Line 3: Calculate the value of the objective function using the input data x. The objective function here is a statistical function that takes an array x as input.
+
+- Line 5: Calculate the value of z with the formula defined in the objective function. This formula calculates the value of the function from the input data x.
+
+- Line 7: End the Objective1 function and return the calculated value of z as output.
+function z=Objective2(x)
+ 
+    a=0.8;
+    b=3;
+ 
+    z=sum(abs(x).^a+5*(sin(x)).^b);
+ 
+end
+
+This code also implements a function called "Objective2", which is used to calculate the value of the objective function in optimization algorithms. Below is the description of each line of code:
+
+- Line 1: Start of the "Objective2" function.
+
+- Line 3: Defining and assigning value to variable a with a value of 0.8. This variable is used in the function calculation formula.
+
+- Line 4: Define and assign value to variable b with value 3. This variable is also used in the function calculation formula.
+
+- Line 6: Calculate the value of the objective function using the defined formula. Here, first, the sum of the absolute values of the elements of the input array x to the power of a is calculated. Then the sum of 5 times the sum of sin(x) values is calculated to the power of b.
+
+- Line 8: End the Objective2 function and return the calculated z value as output.
+
+
+function z=MyCost(x)
+ 
+     z1=Objective1(x);
+    
+     z2=Objective2(x);
+    
+     z=[z1
+        z2];
+ 
+end
+This code also implements a function called "MyCost". This function is used to calculate the cost value or objective function in optimization algorithms. Below is the description of each line of code:
+
+- Line 1: Start of "MyCost" function.
+
+- Line 3: Calculate the value of the first objective by calling the "Objective1" function and assigning the value to the z1 variable.
+
+- Line 5: Calculate the value of the second objective by calling the "Objective2" function and assigning the value to the z2 variable.
+
+- Line 7-8: Creating the z vector that contains the values of z1 and z2 and is returned as the output of the function.
+
+- Line 10: End of the MyCost function.
+What we are looking for is the yellow highlight
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+nVar=3;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+VarMin=-5;      % Lower Bound of Variables
+VarMax= 5;      % Upper Bound of Variables
+ 
+%% Weighted-Sum Approach
+ 
+N=1000;
+ 
+empty_sol.Position=[];
+empty_sol.Cost=[];
+ 
+sol=repmat(empty_sol,N,1);
+ 
+w1=linspace(0,1,N);
+w2=1-w1;
+ 
+for i=1:N
+    
+    FWS=@(x) w1(i)*Objective1(x)+w2(i)*Objective2(x);
+ 
+    x0=unifrnd(VarMin,VarMax,VarSize);
+ 
+    options=optimset('MaxIter',1000, 'MaxFunEvals',1000);
+    
+    sol(i).Position=fminunc(FWS,x0);
+    
+    sol(i).Cost=MyCost(sol(i).Position);
+    
+end
+ 
+sol=GetNonDominatedSolutions(sol);
+ 
+Costs=[sol.Cost];
+ 
+figure;
+plot(Costs(1,:),Costs(2,:),'.');
+
+This code first executes "click", "clear" and "close all" commands to clear existing windows and variables and clear the console.
+
+Then the problem is defined. The number of decision variables in this problem is three (nVar=3) and the size of the decision variables matrix (VarSize) is defined as [1 nVar]. Then the minimum and maximum values of the decision variables (VarMin and VarMax) are defined.
+
+Then the "Weighted-Sum Approach" method is performed. A number N of iterations is provided, defined here as 1000. A measure (empty_sol) is created along with a matrix of measures of size N.
+
+In the for loop from 1 to N, the FWS (Weighted-Sum Function) matrix is defined, which determines the relationship of calculating the weighted value of the target through the target functions 1 and 2. The initial value of the decision variables (x0) is also randomly generated from VarMin to VarMax.
+
+The matching settings for minimizing the cost function (feminine) are specified using the optimized command. Then the value of the minimized decision variables (sol(i). Position) and the corresponding cost (sol(i). Cost) are calculated.
+
+After the for loop finishes, it is calculated and then the GetNonDominatedSolutions function is used to find non-dominated solutions.
+
+Finally, the Cost chart is drawn.
+
+This code first executes "click", "clear" and "close all" commands to clear existing windows and variables and clear the console.
+
+Then the problem is defined. The number of decision variables in this problem is three (nVar=3) and the size of the decision variables matrix (VarSize) is defined as [1 nVar]. Then the minimum and maximum values of the decision variables (VarMin and VarMax) are defined.
+
+Then the "Weighted-Sum Approach" method is performed. A number N of iterations is provided, defined here as 1000. A measure (empty_sol) is created along with a matrix of measures of size N.
+
+In the for loop from 1 to N, the FWS (Weighted-Sum Function) matrix is defined, which determines the relationship of calculating the weighted value of the target through the target functions 1 and 2. The initial value of the decision variables (x0) is also randomly generated from VarMin to VarMax.
+
+The matching settings for minimizing the cost function (feminine) are specified using the optimized command. Then the value of the minimized decision variables (sol(i). Position) and the corresponding cost (sol(i). Cost) are calculated.
+
+After the for loop finishes, it is calculated and then the GetNonDominatedSolutions function is used to find non-dominated solutions.
+
+Finally, the Cost chart is drawn.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+nVar=3;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+VarMin=-5;      % Lower Bound of Variables
+VarMax= 5;      % Upper Bound of Variables
+ 
+%% Get Pareto Front Shape
+ 
+N=100000;
+ 
+empty_sol.Position=[];
+empty_sol.Cost=[];
+ 
+sol=repmat(empty_sol,N,1);
+ 
+for i=1:N
+    sol(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    sol(i).Cost=MyCost(sol(i).Position);
+end
+ 
+Costs=[sol.Cost];
+ 
+figure;
+plot(Costs(1,:),Costs(2,:),'.');
+
+This code first executes "click", "clear" and "close all" commands to clear existing windows and variables and clear the console.
+
+Then the problem is defined. The number of decision variables in this problem is three (nVar=3) and the size of the decision variables matrix (VarSize) is defined as [1 nVar]. Then the minimum and maximum values of the decision variables (VarMin and VarMax) are defined.
+
+Then the value of N for iteration is determined, which is equal to 100000 here. A measure (empty_sol) is created along with a matrix of measures of size N.
+
+In the iterative for loop from 1 to N, a random value is generated for the decision variables (sol(i). Position) from VarMin to VarMax. Then the cost corresponding to this random value (sol(i). Cost) is calculated using the MyCost function.
+
+After the completion of the for loop, the calculated costs are placed in the Costs variable as a matrix.
+
+Finally, the Cost graph is drawn and its points are placed in the graph using the plot command.
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+nVar=3;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+VarMin=-5;      % Lower Bound of Variables
+VarMax= 5;      % Upper Bound of Variables
+ 
+%% Weighted-Sum Approach
+ 
+t1=inf;
+for k=1:20
+    x0=unifrnd(VarMin,VarMax,VarSize);
+    [~, t1k]=fminunc(@Objective1,x0);
+    if t1k<t1
+        t1=t1k;
+    end
+end
+ 
+t2=inf;
+for k=1:20
+    x0=unifrnd(VarMin,VarMax,VarSize);
+    [~, t2k]=fminunc(@Objective2,x0);
+    if t2k<t2
+        t2=t2k;
+    end
+end
+ 
+t=[t1; t2];
+ 
+N=1000;
+ 
+empty_sol.Position=[];
+empty_sol.Cost=[];
+ 
+sol=repmat(empty_sol,N,1);
+ 
+w1=linspace(0,1,N);
+w2=1-w1;
+ 
+for i=1:N
+    
+    w=[w1(i)
+       w2(i)];
+    
+    x0=unifrnd(VarMin,VarMax,VarSize);
+ 
+    sol(i).Position=fgoalattain(@MyCost,x0,t,w);
+    
+    sol(i).Cost=MyCost(sol(i).Position);
+    
+end
+ 
+sol=GetNonDominatedSolutions(sol);
+ 
+Costs=[sol.Cost];
+ 
+figure;
+plot(Costs(1,:),Costs(2,:),'.');
+
+This code solves a bi-objective optimization problem. At first, a proximity method is run for each target individually on 20 random points, and the best point for each target is stored in variables t1 and t2.
+
+Then, a hybrid method of weighting among the targets is implemented on a uniform distribution of N points. For each point, a weight value between the first goal and the second goal is selected, and for that weight, multi-objective optimization is performed using the fgoalattain function and the MyCost cost function. In other words, the best point on the Pareto curve is calculated for each weight.
+
+Finally, the non-dominant and scattered points are displayed in a two-dimensional graph.
+function z=Objective2(x)
+ 
+     a=0.8;
+     b=3;
+ 
+     z=sum(abs(x).^a+5*(sin(x)).^b);
+ 
+end
+This code defines the Objective2 function whose input is a vector x and whose output is the value z.
+
+In the Objective2 function, two parameters a and b are set equal to 0.8 and 3, respectively.
+
+The value of z is calculated using the following formula:
+z = sum(abs(x).^a + 5*(sin(x)).^b)
+
+In this formula, abs(x) represents the absolute value of the members of the x vector and sin(x) represents the sine function of the members of the x vector. Their squares are summed to the powers of a and b, respectively, and the final value of z is returned as output.
+
+
+function flag=Dominates(x,y)
+ 
+     if instruct(x) && field(x,'Cost')
+         x=x.Cost;
+     end
+    
+     if instruct(y) && field(y,'Cost')
+         y=y.Cost;
+     end
+    
+     flag=all(x<=y) && any(x<y);
+ 
+end
+
+
+
+
+This code defines a function called "Dominates" that takes two inputs x and y and returns a boolean value (flag).
+
+In the Dominates function, it first checks if the inputs x and y are a structure and if they contain the "Cost" field. If x is a structure and has a "Cost" field, the value of x will be changed to include only "Cost" values. The same applies to y.
+
+Then, using two conditional expressions "all(x<=y)" and "any(x<y)", it is checked whether, for each element in x, the corresponding element in y is greater or equal, and at least for one of the elements, The corresponding element in y is smaller or not.
+
+If both conditions are met, the flag is set to true (1); Otherwise, the flag is false (0).
+
+functionsol=GetNonDominatedSolutions(sol)
+ 
+    IsDominated=false(size(sol));
+    
+    N=numel(sol);
+    
+    for i=1:N-1
+        for j=i+1:N
+            
+            dominates(sol(i),sol(j))
+                IsDominated(j)=true;
+            end
+            
+            if Dominates(sol(j),sol(i))
+                IsDominated(i)=true;
+            end
+            
+        end
+    end
+ 
+    sol=sol(~IsDominated);
+    
+end
+
+
+This code provides an algorithm to return non-dominated solutions. It uses the Dominates function to check whether one solution dominates another solution.
+
+The execution of the code is as follows:
+
+1. First, a matrix called IsDominated is created with the same dimensions as the sol array. This matrix initially has all its values equal to false (0).
+
+2. The number N is calculated equal to the number of elements in the sol array.
+
+3. Using two nested loops, all pairs of solutions (sol) are checked for dominance. The outer loop (loop i) goes from 1 to N-1 and the inner loop (loop j) goes from i+1 to N.
+
+4. At each step, if sol(i) dominates sol(j) (using the Dominates function), we set IsDominated(j) to true (1). Also, if sol(j) dominates sol(i), we set IsDominated(i) to true (1).
+
+5. After completing the loops, we remove the solutions that are dominated by other solutions (IsDominated equals true) from the sol array.
+
+6. Finally, the sol array with non-submitted solutions is returned as output.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+nVar=3;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+VarMin=-5;      % Lower Bound of Variables
+VarMax= 5;      % Upper Bound of Variables
+ 
+%% Weighted-Sum Approach
+ 
+t1=inf;
+for k=1:50
+    x0=unifrnd(VarMin,VarMax,VarSize);
+    [~, t1k]=fminunc(@Objective1,x0);
+    if t1k<t1
+        t1=t1k;
+    end
+end
+ 
+t2=inf;
+for k=1:50
+    x0=unifrnd(VarMin,VarMax,VarSize);
+    [~, t2k]=fminunc(@Objective2,x0);
+    if t2k<t2
+        t2=t2k;
+    end
+end
+ 
+ 
+ 
+N=1000;
+ 
+empty_sol.Position=[];
+empty_sol.Cost=[];
+ 
+sol=repmat(empty_sol,N,1);
+ 
+w1=linspace(0,1,N);
+w2=1-w1;
+ 
+for i=1:N
+    
+    FWS=@(x) w1(i)*(Objective1(x)-t1)+w2(i)*(Objective2(x)-t2);
+ 
+    x0=unifrnd(VarMin,VarMax,VarSize);
+ 
+    options=optimset('MaxIter',1000, 'MaxFunEvals',1000);
+    
+    sol(i).Position=fminunc(FWS,x0);
+    
+    sol(i).Cost=MyCost(sol(i).Position);
+    
+end
+ 
+sol=GetNonDominatedSolutions(sol);
+ 
+Costs=[sol.Cost];
+ 
+figure;
+plot(Costs(1,:),Costs(2,:),'.');
+ 
+
+This code solves a multi-objective optimization problem using the Weighted-Sum Approach.
+
+Lines 1 to 3: These lines are designed to clear the working window and memory.
+
+Lines 6 to 12: In this section, the problem specifications are defined, including the number of decision variables (near), the dimensions of the decision variables matrix (VarSize), the minimum and maximum values of the variables (VarMin and VarMax), etc.
+
+Lines 15 to 27: In this part, the first step of the Weighted-Sum Approach is performed. First, we initialize the value of t1 to infinity (by setting inf). Then we use the function fminunc 50 times to generate a new random value for the decision variables and minimize the objective function Objective1. If the value obtained this time (t1k) is less than t1, we replace it with t1.
+
+Lines 30 to 42: In this section, the second step of the Weighted-Sum Approach is performed. Similarly to the previous step, we first initialize the value of t2 to infinity (by setting inf). Then we use the function fminunc 50 times to generate a new random value for the decision variables and minimize the objective function Objective2. If the value obtained this time (t2k) is less than t2, we replace it with t2.
+
+Line 45: We set the constant value of N to 1000.
+
+Line 47: An empty structure named empty_sol is defined, which contains two fields, Position and Cost.
+
+Lines 49 to 53: An array of N empty_sol structures is created.
+
+Lines 55 and 56: Using space, the values of the weighted value set are generated between 0 and 1 (w1) and 1 and 0 (w2).
+
+Lines 59 to 65: In this section, for each weighting value (w1 and w2), a negative function is defined from the linear combination of the objective function valuation and the values of t1 and t2. Then, using fminunc, new decision variables are generated that minimize this negative function.
+
+Lines 68 to 74: In this section, we return the set of non-dominated solutions obtained using the GetNonDominatedSolutions function.
+
+Lines 76 and 77: We store the coordinates of all non-submitted solutions in the Costs matrix.
+
+Line 80: We draw a graph of the coordinates of non-surrendered solutions.
+SPEA
+It is a kind of multi-objective and evolutionary genetic algorithm.
+
+DANGER: Borderline responses may be deleted.
+What is the removal method?
+The answers lie in single-objective optimizations in phenotype space. However, in multi-objective optimizations, implementations are carried out in the genotype space.
+function z=MOP2(x)
+ 
+     n=numel(x);
+    
+     z=[1-exp(-sum((x-1/sqrt(n)).^2))
+        1-exp(-sum((x+1/sqrt(n)).^2))];
+    
+end
+
+This code defines a multi-objective optimization function called MOP2.
+
+Line 1: This line defines the MOP2 function.
+
+Line 3: Counts the number of elements of the decision variables using the normal function.
+
+Lines 5 and 6: Calculate the two target values based on the formulas given in the MOP2 function. These target values are calculated using the decision variables (x) and the number of elements
+
+
+Raw fitness is 0 for nondominated members.
+
+functionb=Dominates(x,y)
+ 
+    if instruct(x) && field(x,'Cost')
+        x=x.Cost;
+    end
+ 
+    if instruct(y) && field(y,'Cost')
+        y=y.Cost;
+    end
+ 
+    b=all(x<=y) && any(x<y);
+    
+end
+
+This code defines a function called "Dominates", which is used to check the "Dominance" relationship between two points in the multi-objective space.
+
+Line 1: Define the dominant function with two inputs x and y.
+
+Line 3-4: If x is a structure and there is a Cost field in it, it sets the value of x equal to the value of the Cost field.
+
+Line 6-7: If y is a structure and there is a Cost field in it, it sets the value of y equal to the value of the Cost field.
+
+Line 9: Checking the dominance relationship between x and y. This line first checks if x is less than or equal to y for all variables. It then checks that at least one variable for x is smaller than the corresponding variable for y.
+
+Output (b) is True (1) if x exceeds y and False (0) otherwise.
+
+It is very widely used in clustering.
+We have a large matrix called sigma.
+function [y1, y2]=Crossover(x1,x2,params)
+ 
+     gamma=params.gamma;
+     VarMin=params.VarMin;
+     VarMax=params.VarMax;
+    
+     alpha=unifrnd(-gamma,1+gamma,size(x1));
+    
+     y1=alpha.*x1+(1-alpha).*x2;
+     y2=alpha.*x2+(1-alpha).*x1;
+    
+     y1=min(max(y1,VarMin),VarMax);
+     y2=min(max(y2,VarMin),VarMax);
+ 
+end
+
+This code defines a function named "Crossover" which is used to perform a "Crossover" operation (combination of genes) between two points (x1 and x2) in evolutionary algorithms. This operation uses the combination of the parents to generate two new points (y1 and y2).
+
+Line 1: Crossover function definition with three inputs x1, x2, and params.
+
+Line 3-5: extract the values of gamma, VarMin, and VarMax variables from the parameters.
+
+Line 7: Generate a random number with a uniform distribution in the interval (-gamma, +1gamma) for each element of the x1 matrix for its dimensions.
+
+Line 9-10: Create a new point y1 by combining x1 and x2 based on alpha values and crossover rules.
+
+Line 11-12: Create a new point y2 by combining x2 and x1 based on alpha values and crossover rules.
+
+Line 14-15: reduce the minimum and maximum values of the new points y1 and y2 to the maximum and minimum allowed values (VarMin and VarMax).
+
+Output result: two new points y1 and y2 are generated from the combination of parents x1 and x2 using the alpha coefficient.
+
+function y=Mutate(x,params)
+ 
+     h=params.h;
+     VarMin=params.VarMin;
+     VarMax=params.VarMax;
+ 
+     sigma=h*(VarMax-VarMin);
+    
+     y=x+sigma*randn(size(x));
+    
+     % y=x+sigma*unifrnd(-1,1,size(x));
+    
+     y=min(max(y,VarMin),VarMax);
+ 
+end
+This code defines a function named "Mutate" which is used to perform the "Mutate" operation in evolutionary algorithms. This operation is performed to change a point (x) using a random number with a normal distribution (Gaussian) with zero mean and variance h.
+
+Line 1: Define the Mutate function with two inputs x and params.
+
+Line 3-5: extract the values of h, VarMin, and VarMax variables from the parameters.
+
+Line 7: Calculate the value of variance (sigma) based on h and the domain of allowed values (VarMin and VarMax).
+
+Line 9: Create a new point y by adding a random value with a normal distribution to the point x and considering the dimensions of the x matrix.
+
+Line 12: Set the value of the new point y to the maximum and minimum allowed values (VarMin and VarMax).
+
+Output result: new point y generated from point x by applying random displacement using normal (Gaussian) distribution.
+
+function p=BinaryTournamentSelection(pop,f)
+ 
+     n=number(pop);
+    
+     I=randsample(n,2);
+    
+     i1=I(1);
+     i2=I(2);
+    
+     if f(i1)<f(i2)
+         p=pop(i1);
+     otherwise
+         p=pop(i2);
+     end
+ 
+end
+
+This code defines a function named "BinaryTournamentSelection" which is used to globally select the best individual (best member) from the population in evolutionary algorithms. This operation randomly selects two people from the population and compares them. Then the individual with the lowest objective function value (only if the minimization objective is used) is used to continue the selection operation.
+
+Line 1: Definition of BinaryTournamentSelection function with two inputs pop and f.
+
+Line 3: Sets the number of population members (pop) to n.
+
+Line 5: Randomly select two members from the population using the randsample function.
+
+Line 7-8: Select the number of the first and second members selected for comparison.
+
+Line 10-14: Select the best person based on the comparison of the objective function. If the value of the objective function for i1 is less than the value of the objective function for i2, member i1 is selected. Otherwise, member i2 is selected.
+
+Output Result: The member of the population that is selected and has the better objective function value (less in the case of minimization).
+function z=ZDT(x)
+ 
+     n=numel(x);
+ 
+     f1=x(1);
+    
+     g=1+9/(n-1)*sum(x(2:end));
+    
+     h=1-sqrt(f1/g);
+    
+     f2=g*h;
+    
+     z=[f1
+        f2];
+ 
+end
+
+This code defines a function named "BinaryTournamentSelection" which is used to globally select the best individual (best member) from the population in evolutionary algorithms. This operation randomly selects two people from the population and compares them. Then the individual with the lowest objective function value (only if the minimization objective is used) is used to continue the selection operation.
+
+Line 1: Definition of BinaryTournamentSelection function with two inputs pop and f.
+
+Line 3: Sets the number of population members (pop) to n.
+
+Line 5: Randomly select two members from the population using the randsample function.
+
+Line 7-8: Select the number of the first and second members selected for comparison.
+
+Line 10-14: Select the best person based on the comparison of the objective function. If the value of the objective function for i1 is less than the value of the objective function for i2, member i1 is selected. Otherwise, member i2 is selected.
+
+Output Result: The member of the population that is selected and has the better objective function value (less in the case of minimization).
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+CostFunction=@(x) ZDT(x);
+ 
+nVar=30;             % Number of Decision Variables
+ 
+VarSize=[nVar 1];   % Decision Variables Matrix Size
+ 
+VarMin=0;          % Decision Variables Lower Bound
+VarMax=1;           % Decision Variables Upper Bound
+ 
+ 
+%% SPEA2 Settings
+ 
+MaxIt=200;        % Maximum Number of Iterations
+ 
+nPop=100;            % Population Size
+ 
+nArchive=100;        % Archive Size
+ 
+K=round(sqrt(nPop+nArchive));  % KNN Parameter
+ 
+pCrossover=0.7;
+nCrossover=round(pCrossover*nPop/2)*2;
+ 
+pMutation=1-pCrossover;
+nMutation=nPop-nCrossover;
+ 
+crossover_params.gamma=0.1;
+crossover_params.VarMin=VarMin;
+crossover_params.VarMax=VarMax;
+ 
+mutation_params.h=0.2;
+mutation_params.VarMin=VarMin;
+mutation_params.VarMax=VarMax;
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.S=[];
+empty_individual.R=[];
+empty_individual.sigma=[];
+empty_individual.sigmaK=[];
+empty_individual.D=[];
+empty_individual.F=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+for i=1:nPop
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    pop(i).Cost=CostFunction(pop(i).Position);
+end
+ 
+archive=[];
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    Q=[pop
+       archive];
+    
+    nQ=numel(Q);
+    
+    dom=false(nQ,nQ);
+    
+    for i=1:nQ
+        Q(i).S=0;
+    end
+    
+    for i=1:nQ
+        for j=i+1:nQ
+            
+            ifDominates(Q(i),Q(j))
+                Q(i).S=Q(i).S+1;
+                dom(i,j)=true;
+                
+            elseifDominates(Q(j),Q(i))
+                Q(j).S=Q(j).S+1;
+                dom(j,i)=true;
+                
+            end
+            
+        end
+    end
+    
+    S=[Q.S];
+    for i=1:nQ
+        Q(i).R=sum(S(dom(:,i)));
+    end
+    
+    Z=[Q.Cost]';
+    SIGMA=pdist2(Z,Z,'euclidean);
+    SIGMA=sort(SIGMA);
+    for i=1:nQ
+        Q(i).sigma=SIGMA(:,i);
+        Q(i).sigmaK=Q(i).sigma(K);
+        Q(i).D=1/(Q(i).sigmaK+2);
+        Q(i).F=Q(i).R+Q(i).D;
+    end
+    
+    nND=sum([Q.R]==0);
+    ifnND<=nArchive
+        F=[Q.F];
+        [F, SO]=sort(F);
+        Q=Q(SO);
+        archive=Q(1:min(nArchive,nQ));
+        
+    else
+        SIGMA=SIGMA(:,[Q.R]==0);
+        archive=Q([Q.R]==0);
+        
+        k=2;
+        while Mel(archive)>nArchive
+            while in(SIGMA(k,:))==max(SIGMA(k,:)) && k<size(SIGMA,1)
+                k=k+1;
+            end
+            
+            [~, j]=min(SIGMA(k,:));
+            
+            archive(j)=[];
+            SIGMA(:,j)=[];
+        end
+        
+    end
+    
+    PF=archive([archive.R]==0); % Approximate Pareto Front
+    
+    % Plot Pareto Front
+    figure(1);
+    PFC=[PF.Cost];
+    plot(PFC(1,:),PFC(2,:),'x');
+    label('f_1');
+    label('f_2');
+    
+    % Display Iteration Information
+    Disp(['Iteration ' num2str(it) ': Number of PF members = ' num2str(numel(PF))]);
+    
+    if it>=MaxIt
+        break;
+    end
+    
+    % Crossover
+    popc=repmat(empty_individual,nCrossover/2,2);
+    forc=1:nCrossover/2
+        
+        p1=BinaryTournamentSelection(archive,[archive.F]);
+        p2=BinaryTournamentSelection(archive,[archive.F]);
+        
+        [popc(c,1).Position, popc(c,2).Position]=Crossover(p1.Position,p2.Position,crossover_params);
+        
+        popc(c,1).Cost=CostFunction(popc(c,1).Position);
+        popc(c,2).Cost=CostFunction(popc(c,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    % Mutation
+    popm=repmat(empty_individual,mutation,1);
+    for m=1:nMutation
+        
+        p=BinaryTournamentSelection(archive,[archive.F]);
+        
+        popm(m).Position=Mutate(p.Position,mutation_params);
+        
+        popm(m).Cost=CostFunction(popm(m).Position);
+        
+    end
+    
+    % Create New Population
+    pop=[popc
+         popm];
+    
+end
+ 
+%% Results
+ 
+Disp(' ');
+ 
+for j=1:size(PFC,1)
+    
+    disp(['Objective #' num2str(j) ':']);
+    disp(['      Min = 'num2str(min(PFC(j,:)))]);
+    disp(['      Max = 'num2str(max(PFC(j,:)))]);
+    disp(['    Range = ' num2str(max(PFC(j,:))-min(PFC(j,:)))]);
+    disp(['    St.D. = 'num2str(std(PFC(j,:)))]);
+    disp(['     Mean = 'num2str(mean(PFC(j,:)))]);
+    disp(' ');
+    
+end
+This code defines a function named "ZDT" which is used as an objective function in multi-objective optimization algorithms. This function is executed to calculate two target values, f1, and f2, based on the input vector x.
+
+Line 1: Define the ZDT function with an input x.
+
+Line 3: Sets the number of elements of the input vector x to n.
+
+Line 5: Extract the first element of vector x and put it in variable f1.
+
+Line 7: Calculate the value of g based on the other elements of the x vector using the formula in the code.
+
+Line 9: Calculate the value of h based on f1 and g using the formula specified in the code.
+
+Line 11: Calculate the value of f2 based on g and h.
+
+Line 13-14: Form an output vector z that contains the values of f1 and f2.
+
+Output result: vector containing two target values f1 and f2.
+
