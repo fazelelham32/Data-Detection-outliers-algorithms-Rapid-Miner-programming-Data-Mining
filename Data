@@ -1,0 +1,3733 @@
+# Data-Detection-of-outliers-algorithms-basic-programming-teaching-types-of-data-in-computer
+
+
+You can get most of the examples from 
+this course working on either of these boards, 
+note that deploying a model to 
+the Raspberry Pi requires writing code in Python, 
+and deploying a model to 
+the OpenMV requires writing micro Python. 
+
+The open NV-IDE with micro Python also supports 
+the Arduino Portenta which 
+should work for most of this course. 
+
+However, note that the camera on 
+the vision shield only does greyscale, 
+which will limit the capabilities of some vision models. 
+
+Once we have a trained model, 
+I'll show you how to write some micro Python code for 
+the open-end V or Python code for 
+the Raspberry Pi to use the model. 
+
+You're welcome to try using other boards for this course, 
+but I likely won't be able to help you 
+troubleshoot any issues you might run across. 
+I recommend using the discussion forum 
+in this course to ask me 
+and fellow students about the content 
+and projects found in this course. 
+If you run into technical issues with Edge Impulse, 
+I highly recommend posting something to 
+their forums at forums.edgeimpulse.com. 
+If you ask in the discussion forum for this course, 
+there's a good chance I'm just going to copy 
+your message to the Edge Impulse forum anyway. 
+You will likely get a faster answer from 
+the Edge Impulse team if you post 
+there for technical help using their tool. 
+It should be possible to write 
+C++ programs to perform inference. 
+However, I found it a lot easier just to stick 
+with Python so we can focus on the concepts. 
+That being said, if I happen to 
+find some examples or create some that are 
+in C++ that run on something like 
+the Arduino Nano 33 or the Arduino Portenta, 
+I'll make sure to include them 
+in the recommended reading sections. 
+From there, we'll dive into 
+convolutional neural networks to see how they work and 
+why do they make for better image classification models 
+than regular dense neural networks. 
+Finally, we'll look at 
+several popular object detection models that can be 
+used to locate and 
+identify more than one object in an image. 
+I'll show you how to train one such model to identify 
+objects of your choice and then 
+deploy it to an embedded system. 
+Note that at this time, 
+object detection models are still quite slow, 
+even on something like a Raspberry Pi 4. 
+At the initial release of this course, 
+the object detection model only runs 
+on single-board computers like the Pi. 
+Once there is support for them on microcontrollers, 
+I will update the course to hopefully show it 
+working on something like the OpenMV camera. 
+My goal is to give you 
+enough tools and knowledge so you can get started 
+creating your own embedded vision systems 
+with Machine Learning. Let's get started.
+While I plan to cover most of 
+the topics in this course, 
+I've invited some guests to talk about 
+their active areas of research 
+and to showcase some projects. 
+Computer vision and machine learning 
+are very popular topics right now. 
+Principles and basics of programming:
+Programming history:
+1- Programming in machine language: long strings 0 and 1
+2- Assembly language Assembly: low level
+3- High-level programming languages: high level
+High-level programming languages:
+1- Basic/VB/VB.Net/Small Basic/C/C++/Objective C/ C#
+2- Java, JavaScript
+3- PHP in the web domain:
+4- R, MATLAB, Python scientific applications:
+We convert our needs/thoughts into a source language: source code. And we translate it with machine translation software.
+The process of translating programs in two general ways: offline: compiling and the translator is called a compiler
+Online: interpret
+The interpreter program translates at that moment of execution and the speed decreases, But it's worth it
+Offline: c, c++, c#, Java
+Online: PHP, MATLAB, JavaScript,
+When C is compiled, it is directly translated into machine language, but Java and C# are first compiled into an intermediate language, and at this time, it is translated into machine language as an interpreted language.
+
+Types of commands in a computer program:
+
+• Operation call operations and input and output operations
+• Definition and Assignment Definition and Assignment
+• Return
+• Going to go to: branching and repeating
+Combined and complex commands:
+- Code block with commands
+- Decision making and branching (selection/condition): if, else switch, select
+- Repeat for (Repetition): for a specific and limited number of repetitions,
+  while: unspecified and/or unlimited number of repetitions of do-while and until
+Everything that can be done with for can also be done with while, but the opposite is not true.
+- Exception handling and try-catch management
+Error types:
+1- Grammar error: when writing the program and before translation, syntax error
+2- Error at the same time with a translation compile-time error
+3- Run-time error
+4- Logical Error (Bug)
+
+The conditions required for a programming language to be complete
+1- Order of Execution
+2- Condition, branching, and selection
+3- Repetition
+The existence of a go-to makes it extremely difficult to debug programs (in terms of logic errors).
+Information + operations = program
+Simple data types:
+- Numerical data: correct - rational - complex
+- Logical data: {0 and 1} or {true, false}
+- Text data: character, string
+
+
+Type casting, we can convert a group of data.
+
+Program Definition Sections: Complex Data Structures
+Variables variable
+function function: sub-routine
+arrays
+structure
+class
+Data+Control+Work+Vashii class event
+PHP, BASIC, and Cobol commands
+C, Pascal Function
+  C#, Java Class
+
+Teaching all types of data on the computer
+  Related to machine learning
+Fashion: The most abundant data
+In the crooked state, all three are equal.
+Statistical indices of dispersion: variance-standard deviation-quartile
+Graphic display (statistical descriptions):
+bar chart - histogram - box chart -
+In the code below
+import statistics
+and get the mode with the following command
+statistics.mode(a)
+
+Instead of the above code, it can be written like this:
+From Scipy import stats
+.mode(a)
+ModeResult(mode=array([6]), count=array([3]))
+
+With this command, in addition to the mod, Sai Pai also gives us the number of repetitions.
+Now we calculate the average.
+statistics.mean(b(
+Finally, we calculate the median.
+statistics.median(c(
+I can calculate the above items from the following package
+import numpy as np
+. mean(b)
+np.median(c)
+Genetics: Nature's handwriting
+DNA is a complex structure of chemically created blocks of information, regulating hereditary information.
+The alphabet of nature: genetics
+
+
+We are always looking for a selection rule.
+
+The definition of a parameter called selective pressure is conceptual:
+
+The change range of the variables is 0.1.
+Definition of genetic parameters
+Pc: Pi related to the crossover
+Then we enter the preparation phase: Initialization: the first property is the position and then the target function. And then we can define individual properties for him.
+The main task is to introduce the primary population.
+Optimization algorithms are first of all search algorithms.
+When we dot, it means to define the next command inside it.
+With the repeat function, we can say that a function is repeated 5 times in a row and 3 times in a column, this function can be repeated on everything.
+We use the for loop for initialization.
+Whenever the answer is generated, evaluate it immediately.
+We have a function called sort that has the following properties:
+
+Genetics: Nature's handwriting
+DNA is a complex structure of chemically created blocks of information, regulating hereditary information.
+The alphabet of nature: genetics
+
+
+We are always looking for a selection rule.
+
+The definition of a parameter called selective pressure is conceptual:
+
+The change range of the variables is 0.1.
+Definition of genetic parameters
+Pc: Pi related to the crossover
+Then we enter the preparation phase: Initialization: the first property is the position and then the target function. And then we can define individual properties for him.
+The main task is to introduce the primary population.
+Optimization algorithms are first of all search algorithms.
+When we dot, it means to define the next command inside it.
+With the repeat function, we can say that a function is repeated 5 times in a row and 3 times in a column, this function can be repeated on everything.
+We use the for loop for initialization.
+Whenever the answer is generated, evaluate it immediately.
+We have a function called sort that has the following properties:
+
+function [y1 y2]=DoublePointCrossover(x1,x2)
+ 
+    nVar=numel(x1);
+    
+    cc=randsample(nVar-1,2);
+    c1=min(cc);
+    c2=max(cc);
+    
+    y1=[x1(1:c1) x2(c1+1:c2) x1(c2+1:end)];
+    y2=[x2(1:c1) x1(c1+1:c2) x2(c2+1:end)];
+ 
+end
+
+function [y1 y2]=Crossover(x1,x2)
+ 
+    pSinglePoint=0.1;
+    pDoublePoint=0.2;
+    pUniform=1-pSinglePoint-pDoublePoint;
+    
+    METHOD=RouletteWheelSelection([pSinglePoint pDoublePoint pUniform]);
+    
+    switch METHOD
+        case 1
+            [y1 y2]=SinglePointCrossover(x1,x2);
+            
+        case 2
+            [y1 y2]=DoublePointCrossover(x1,x2);
+            
+        case 3
+            [y1 y2]=UniformCrossover(x1,x2);
+            
+    end
+ 
+ 
+end
+
+
+function z=MinOne(x)
+ 
+    global NFE;
+    if isempty(NFE)
+        NFE=0;
+    end
+    
+    NFE=NFE+1;
+ 
+    z=sum(x);
+ 
+end
+
+
+
+function y=Mutate(x,mu)
+ 
+    nVar=numel(x);
+    
+    nmu=ceil(mu*nVar);
+    
+    j=randsample(nVar,nmu);
+    
+    y=x;
+    y(j)=1-x(j);
+ 
+end
+
+
+function i=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    c=cumsum(P);
+    
+    i=find(r<=c,1,'first');
+ 
+end
+
+
+function [y1 y2]=SinglePointCrossover(x1,x2)
+ 
+    nVar=numel(x1);
+    
+    c=randi([1 nVar-1]);
+    
+    y1=[x1(1:c) x2(c+1:end)];
+    y2=[x2(1:c) x1(c+1:end)];
+ 
+end
+
+
+
+function [y1 y2]=UniformCrossover(x1,x2)
+ 
+    alpha=randi([0 1],size(x1));
+    
+    y1=alpha.*x1+(1-alpha).*x2;
+    y2=alpha.*x2+(1-alpha).*x1;
+    
+end
+
+
+function i=TournamentSelection(pop,m)
+ 
+    nPop=numel(pop);
+ 
+    S=randsample(nPop,m);
+    
+    spop=pop(S);
+    
+    scosts=[spop.Cost];
+    
+    [~, j]=min(scosts);
+    
+    i=S(j);
+ 
+end
+
+
+clc;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+global NFE;
+NFE=0;
+ 
+CostFunction=@(x) MinOne(x);     % Cost Function
+ 
+nVar=50;            % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=100;      % Maximum Number of Iterations
+ 
+nPop=20;        % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parnets)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+mu=0.02;         % Mutation Rate
+ 
+ANSWER=questdlg('Choose selection method:','Genetic Algorith',...
+    'Roulette Wheel','Tournament','Random','Roulette Wheel');
+ 
+UseRouletteWheelSelection=strcmp(ANSWER,'Roulette Wheel');
+UseTournamentSelection=strcmp(ANSWER,'Tournament');
+UseRandomSelection=strcmp(ANSWER,'Random');
+ 
+if UseRouletteWheelSelection
+    beta=8;         % Selection Pressure
+end
+ 
+if UseTournamentSelection
+    TournamentSize=3;   % Tournamnet Size
+end
+ 
+pause(0.1);
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=randi([0 1],VarSize);
+    
+    % Evaluation
+    pop(i).Cost=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs, SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Store Best Solution
+BestSol=pop(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Store Cost
+WorstCost=pop(end).Cost;
+ 
+% Array to Hold Number of Function Evaluations
+nfe=zeros(MaxIt,1);
+ 
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    % Calculate Selection Probabilities
+    P=exp(-beta*Costs/WorstCost);
+    P=P/sum(P);
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents Indices
+        if UseRouletteWheelSelection
+            i1=RouletteWheelSelection(P);
+            i2=RouletteWheelSelection(P);
+        end
+        if UseTournamentSelection
+            i1=TournamentSelection(pop,TournamentSize);
+            i2=TournamentSelection(pop,TournamentSize);
+        end
+        if UseRandomSelection
+            i1=randi([1 nPop]);
+            i2=randi([1 nPop]);
+        end
+ 
+        % Select Parents
+        p1=pop(i1);
+        p2=pop(i2);
+        
+        % Apply Crossover
+        [popc(k,1).Position popc(k,2).Position]=Crossover(p1.Position,p2.Position);
+        
+        % Evaluate Offsprings
+        popc(k,1).Cost=CostFunction(popc(k,1).Position);
+        popc(k,2).Cost=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu);
+        
+        % Evaluate Mutant
+        popm(k).Cost=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Create Merged Population
+    pop=[pop
+         popc
+         popm];
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs, SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,pop(end).Cost);
+    
+    % Truncation
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Store Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Store NFE
+    nfe(it)=NFE;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': NFE = ' num2str(nfe(it)) ', Best Cost = ' num2str(BestCost(it))]);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(nfe,BestCost,'LineWidth',2);
+xlabel('NFE');
+ylabel('Cost');
+
+function [y1 y2]=Crossover(x1,x2,gamma,VarMin,VarMax)
+ 
+    alpha=unifrnd(-gamma,1+gamma,size(x1));
+    
+    y1=alpha.*x1+(1-alpha).*x2;
+    y2=alpha.*x2+(1-alpha).*x1;
+    
+    y1=max(y1,VarMin);
+    y1=min(y1,VarMax);
+    
+    y2=max(y2,VarMin);
+    y2=min(y2,VarMax);
+ 
+end
+
+
+function i=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    c=cumsum(P);
+    
+    i=find(r<=c,1,'first');
+ 
+end
+
+
+
+function y=Mutate(x,mu,VarMin,VarMax)
+ 
+    nVar=numel(x);
+    
+    nmu=ceil(mu*nVar);
+    
+    j=randsample(nVar,nmu);
+    
+    sigma=0.1*(VarMax-VarMin);
+    
+    y=x;
+    y(j)=x(j)+sigma*randn(size(j));
+    
+    y=max(y,VarMin);
+    y=min(y,VarMax);
+ 
+end
+
+
+
+
+function i=TournamentSelection(pop,m)
+ 
+    nPop=numel(pop);
+ 
+    S=randsample(nPop,m);
+    
+    spop=pop(S);
+    
+    scosts=[spop.Cost];
+    
+    [~, j]=min(scosts);
+    
+    i=S(j);
+ 
+end
+
+
+
+function z=Sphere(x)
+ 
+    global NFE;
+    if isempty(NFE)
+        NFE=0;
+    end
+ 
+    NFE=NFE+1;
+    
+    z=sum(x.^2);
+ 
+end
+
+
+
+clc;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+global NFE;
+NFE=0;
+ 
+CostFunction=@(x) Sphere(x);     % Cost Function
+ 
+nVar=5;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+VarMin=-10;         % Lower Bound of Variables
+VarMax= 10;         % Upper Bound of Variables
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=200;      % Maximum Number of Iterations
+ 
+nPop=100;        % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parnets)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+gamma=0.05;
+ 
+mu=0.02;         % Mutation Rate
+ 
+ANSWER=questdlg('Choose selection method:','Genetic Algorith',...
+    'Roulette Wheel','Tournament','Random','Roulette Wheel');
+ 
+UseRouletteWheelSelection=strcmp(ANSWER,'Roulette Wheel');
+UseTournamentSelection=strcmp(ANSWER,'Tournament');
+UseRandomSelection=strcmp(ANSWER,'Random');
+ 
+if UseRouletteWheelSelection
+    beta=8;         % Selection Pressure
+end
+ 
+if UseTournamentSelection
+    TournamentSize=3;   % Tournamnet Size
+end
+ 
+pause(0.1);
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    % Evaluation
+    pop(i).Cost=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs, SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Store Best Solution
+BestSol=pop(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Store Cost
+WorstCost=pop(end).Cost;
+ 
+% Array to Hold Number of Function Evaluations
+nfe=zeros(MaxIt,1);
+ 
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    % Calculate Selection Probabilities
+    P=exp(-beta*Costs/WorstCost);
+    P=P/sum(P);
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents Indices
+        if UseRouletteWheelSelection
+            i1=RouletteWheelSelection(P);
+            i2=RouletteWheelSelection(P);
+        end
+        if UseTournamentSelection
+            i1=TournamentSelection(pop,TournamentSize);
+            i2=TournamentSelection(pop,TournamentSize);
+        end
+        if UseRandomSelection
+            i1=randi([1 nPop]);
+            i2=randi([1 nPop]);
+        end
+ 
+        % Select Parents
+        p1=pop(i1);
+        p2=pop(i2);
+        
+        % Apply Crossover
+        [popc(k,1).Position popc(k,2).Position]=...
+            Crossover(p1.Position,p2.Position,gamma,VarMin,VarMax);
+        
+        % Evaluate Offsprings
+        popc(k,1).Cost=CostFunction(popc(k,1).Position);
+        popc(k,2).Cost=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu,VarMin,VarMax);
+        
+        % Evaluate Mutant
+        popm(k).Cost=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Create Merged Population
+    pop=[pop
+         popc
+         popm];
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs, SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,pop(end).Cost);
+    
+    % Truncation
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Store Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Store NFE
+    nfe(it)=NFE;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': NFE = ' num2str(nfe(it)) ', Best Cost = ' num2str(BestCost(it))]);
+    
+end
+ 
+%% Results
+ 
+figure;
+semilogy(nfe,BestCost,'LineWidth',2);
+xlabel('NFE');
+ylabel('Cost');
+
+
+
+
+function model=CreateModel()
+ 
+    % Customer Data
+    d=[13 50 44 6 24 9 18 5 27 14 29 24 31 31 18 35 14 14 10 45 23 12 24 5 11 30 29 21 35 27 26 20 15 26 50 9 15 26 49 42];
+    xc=[12 12 12 15 77 3 21 0 3 5 47 95 81 5 19 96 36 58 37 43 34 25 75 65 89 22 71 36 4 84 75 24 20 66 27 84 71 37 4 77];
+    yc=[31 66 74 63 38 68 55 4 81 93 67 81 31 40 21 37 85 42 57 75 42 80 90 98 28 34 31 50 8 49 94 19 67 19 13 74 65 36 93 4];
+    N=numel(d);
+    
+    % Server Data
+    c=[11243 8647 11029 8745 10192 10921 10411 9060 10430 8635 8127 11813 9090 10691 8081 8459 10938 11797 11954 9444];
+    xs=[85 78 18 9 86 86 7 44 73 77 41 6 42 58 78 48 84 83 2 97];
+    ys=[39 3 19 63 52 49 84 16 73 40 40 33 41 55 64 79 25 20 56 19];
+    M=numel(xs);
+    
+    D=zeros(N,M);
+    for i=1:N
+        for j=1:M
+            D(i,j)=norm([xc(i)-xs(j) yc(i)-ys(j)],1);
+        end
+    end
+    
+    w1=1;
+    w2=1;
+    
+    model.N=N;
+    model.M=M;
+    model.d=d;
+    model.xc=xc;
+    model.yc=yc;
+    model.c=c;
+    model.xs=xs;
+    model.ys=ys;
+    model.D=D;
+    model.w1=w1;
+    model.w2=w2;
+ 
+end
+
+
+
+
+function f=CreateRandomSolution(model)
+ 
+    M=model.M;
+    
+    f=randi([0 1],1,M);
+ 
+end
+
+
+
+
+function [y1 y2]=DoublePointCrossover(x1,x2)
+ 
+    nVar=numel(x1);
+    
+    cc=randsample(nVar-1,2);
+    c1=min(cc);
+    c2=max(cc);
+    
+    y1=[x1(1:c1) x2(c1+1:c2) x1(c2+1:end)];
+    y2=[x2(1:c1) x1(c1+1:c2) x2(c2+1:end)];
+ 
+end
+
+
+function [y1 y2]=Crossover(x1,x2)
+ 
+    pSinglePoint=0.1;
+    pDoublePoint=0.2;
+    pUniform=1-pSinglePoint-pDoublePoint;
+    
+    METHOD=RouletteWheelSelection([pSinglePoint pDoublePoint pUniform]);
+    
+    switch METHOD
+        case 1
+            [y1 y2]=SinglePointCrossover(x1,x2);
+            
+        case 2
+            [y1 y2]=DoublePointCrossover(x1,x2);
+            
+        case 3
+            [y1 y2]=UniformCrossover(x1,x2);
+            
+    end
+ 
+ 
+end
+
+
+
+
+function y=Mutate(x,mu)
+ 
+    nVar=numel(x);
+    
+    nmu=ceil(mu*nVar);
+    
+    j=randsample(nVar,nmu);
+    
+    y=x;
+    y(j)=1-x(j);
+ 
+end
+
+
+
+
+function [z sol]=MyCost(f,model)
+ 
+    global NFE;
+    if isempty(NFE)
+        NFE=0;
+    end
+    
+    NFE=NFE+1;
+ 
+    if all(f==0)
+        z=inf;
+        sol=[];
+        return;
+    end
+ 
+    N=model.N;
+    D=model.D;
+    d=model.d;
+    c=model.c;
+ 
+    Dmin=zeros(1,N);
+    A=zeros(1,N);
+    for i=1:N
+        %[Dmin(i), A(i)]=min(D(i,f==1));
+        
+        [Dmin(i), A(i)]=min(D(i,:)./f);
+    end
+    
+    z1=sum(d.*Dmin);
+    z2=sum(f.*c);
+    
+    w1=model.w1;
+    w2=model.w2;
+    
+    z=w1*z1+w2*z2;
+    
+    sol.A=A;
+    sol.Dmin=Dmin;
+    sol.z1=z1;
+    sol.z2=z2;
+    sol.z=z;
+ 
+end
+
+
+
+
+function PlotSolution(f,model)
+ 
+    [~, sol]=MyCost(f,model);
+    A=sol.A;
+    if isempty(A)
+        return;
+    end
+ 
+    N=model.N;
+    xc=model.xc;
+    yc=model.yc;
+    xs=model.xs;
+    ys=model.ys;
+    
+    for i=1:N
+        j=A(i);
+        plot([xc(i) xs(j)],[yc(i) ys(j)],'LineWidth',2);
+        hold on;
+    end
+    
+    plot(xc,yc,'ko');
+    
+    plot(xs(f==1),ys(f==1),'rs','MarkerSize',12,'MarkerFaceColor','y');
+    plot(xs(f==0),ys(f==0),'rs','MarkerSize',10);
+    
+    hold off;
+ 
+end
+
+
+
+function i=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    c=cumsum(P);
+    
+    i=find(r<=c,1,'first');
+ 
+end
+
+
+
+
+function [y1 y2]=SinglePointCrossover(x1,x2)
+ 
+    nVar=numel(x1);
+    
+    c=randi([1 nVar-1]);
+    
+    y1=[x1(1:c) x2(c+1:end)];
+    y2=[x2(1:c) x1(c+1:end)];
+ 
+end
+
+
+function [y1 y2]=UniformCrossover(x1,x2)
+ 
+    alpha=randi([0 1],size(x1));
+    
+    y1=alpha.*x1+(1-alpha).*x2;
+    y2=alpha.*x2+(1-alpha).*x1;
+    
+end
+
+
+function i=TournamentSelection(pop,m)
+ 
+    nPop=numel(pop);
+ 
+    S=randsample(nPop,m);
+    
+    spop=pop(S);
+    
+    scosts=[spop.Cost];
+    
+    [~, j]=min(scosts);
+    
+    i=S(j);
+ 
+end
+
+
+
+clc;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+global NFE;
+NFE=0;
+ 
+model=CreateModel();
+ 
+model.w1=1;
+model.w2=10;
+ 
+CostFunction=@(f) MyCost(f,model);     % Cost Function
+ 
+nVar=model.M;       % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=100;      % Maximum Number of Iterations
+ 
+nPop=20;        % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parnets)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+mu=0.02;         % Mutation Rate
+ 
+ANSWER=questdlg('Choose selection method:','Genetic Algorith',...
+    'Roulette Wheel','Tournament','Random','Roulette Wheel');
+ 
+UseRouletteWheelSelection=strcmp(ANSWER,'Roulette Wheel');
+UseTournamentSelection=strcmp(ANSWER,'Tournament');
+UseRandomSelection=strcmp(ANSWER,'Random');
+ 
+if UseRouletteWheelSelection
+    beta=8;         % Selection Pressure
+end
+ 
+if UseTournamentSelection
+    TournamentSize=3;   % Tournamnet Size
+end
+ 
+pause(0.1);
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Sol=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=CreateRandomSolution(model);
+    
+    % Evaluation
+    [pop(i).Cost pop(i).Sol]=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs, SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Store Best Solution
+BestSol=pop(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Store Cost
+WorstCost=pop(end).Cost;
+ 
+% Array to Hold Number of Function Evaluations
+nfe=zeros(MaxIt,1);
+ 
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    % Calculate Selection Probabilities
+    if UseRouletteWheelSelection
+        P=exp(-beta*Costs/WorstCost);
+        P=P/sum(P);
+    end
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents Indices
+        if UseRouletteWheelSelection
+            i1=RouletteWheelSelection(P);
+            i2=RouletteWheelSelection(P);
+        end
+        if UseTournamentSelection
+            i1=TournamentSelection(pop,TournamentSize);
+            i2=TournamentSelection(pop,TournamentSize);
+        end
+        if UseRandomSelection
+            i1=randi([1 nPop]);
+            i2=randi([1 nPop]);
+        end
+ 
+        % Select Parents
+        p1=pop(i1);
+        p2=pop(i2);
+        
+        % Apply Crossover
+        [popc(k,1).Position popc(k,2).Position]=Crossover(p1.Position,p2.Position);
+        
+        % Evaluate Offsprings
+        [popc(k,1).Cost popc(k,1).Sol]=CostFunction(popc(k,1).Position);
+        [popc(k,2).Cost popc(k,2).Sol]=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu);
+        
+        % Evaluate Mutant
+        [popm(k).Cost popm(k).Sol]=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Create Merged Population
+    pop=[pop
+         popc
+         popm];
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs, SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,pop(end).Cost);
+    
+    % Truncation
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Store Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Store NFE
+    nfe(it)=NFE;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': NFE = ' num2str(nfe(it)) ', Best Cost = ' num2str(BestCost(it))]);
+    
+    figure(1);
+    PlotSolution(BestSol.Position,model);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(nfe,BestCost,'LineWidth',2);
+xlabel('NFE');
+ylabel('Cost');
+
+
+
+
+function CreateAndSaveModels()
+ 
+    I=[6 8 10 15 20 25 30 40];
+    J=[2 3  3  4  4  5  5  6];
+ 
+    nProblem=numel(I);
+    
+    for k=1:nProblem
+        
+        model=CreateRandomModel(I(k),J(k));
+        
+        ModelName=['model_' num2str(I(k)) 'x' num2str(J(k))];
+        
+        save(ModelName,'model');
+        
+    end
+ 
+end
+
+
+
+function model=CreateRandomModel(I,J)
+ 
+    amin=10;
+    amax=90;
+    a=randi([amin amax],1,I);
+    
+    bmean=sum(a)/J;
+    bmin=round(bmean);
+    bmax=round(1.2*bmean);
+    b=randi([bmin bmax],1,J);
+    
+    cmin=10;
+    cmax=50;
+    c=randi([cmin cmax],I,J);
+    
+    model.I=I;
+    model.J=J;
+    model.a=a;
+    model.b=b;
+    model.c=c;
+ 
+end
+
+
+
+function xhat=CreateRandomSolution(model)
+ 
+    I=model.I;
+    J=model.J;
+    
+    xhat=rand(I,J);
+ 
+end
+
+
+
+function [y1 y2]=Crossover(x1,x2,gamma,VarMin,VarMax)
+ 
+    alpha=unifrnd(-gamma,1+gamma,size(x1));
+    
+    y1=alpha.*x1+(1-alpha).*x2;
+    y2=alpha.*x2+(1-alpha).*x1;
+    
+    y1=max(y1,VarMin);
+    y1=min(y1,VarMax);
+    
+    y2=max(y2,VarMin);
+    y2=min(y2,VarMax);
+ 
+end
+
+
+
+function y=Mutate(x,mu,VarMin,VarMax)
+ 
+    nVar=numel(x);
+    
+    nmu=ceil(mu*nVar);
+    
+    j=randsample(nVar,nmu);
+    
+    sigma=0.1*(VarMax-VarMin);
+    
+    y=x;
+    y(j)=x(j)+sigma*randn(size(j));
+    
+    y=max(y,VarMin);
+    y=min(y,VarMax);
+ 
+end
+
+
+
+function [z sol]=MyCost(xhat,model)
+ 
+    global NFE;
+    if isempty(NFE)
+        NFE=0;
+    end
+    
+    NFE=NFE+1;
+ 
+    c=model.c;
+ 
+    x=ParseSolution(xhat,model);
+    
+    CX=c.*x;
+    
+    SumCX=sum(CX(:));
+    
+    CAPV=max(sum(x,1)./model.b-1,0);
+    
+    MeanCAPV=mean(CAPV(:));
+    
+    w=10;
+    
+    z=SumCX*(1+w*MeanCAPV);
+ 
+    sol.x=x;
+    sol.CX=CX;
+    sol.SumCX=SumCX;
+    sol.CAPV=CAPV;
+    sol.MeanCAPV=MeanCAPV;
+    sol.z=z;
+    sol.IsFeasible=(MeanCAPV==0);
+ 
+end
+
+
+
+function x=ParseSolution(xhat,model)
+ 
+    I=model.I;
+    J=model.J;
+    a=model.a;
+    
+    x=zeros(I,J);
+    for i=1:I
+        x(i,:)=a(i)*xhat(i,:)/sum(xhat(i,:));
+    end
+ 
+end
+
+
+function i=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    c=cumsum(P);
+    
+    i=find(r<=c,1,'first');
+ 
+end
+
+
+
+function model=SelectModel()
+ 
+    [FileName FilePath]=uigetfile({'*.mat','MAT Files (*.mat)';'*.*','All Files (*.*)'},'Select Model ...');
+    
+    if FileName==0
+        model=[];
+        return;
+    end
+    
+    FullFileName=[FilePath FileName];
+    
+    data=load(FullFileName);
+    
+    model=data.model;
+ 
+end
+
+
+
+
+function i=TournamentSelection(pop,m)
+ 
+    nPop=numel(pop);
+ 
+    S=randsample(nPop,m);
+    
+    spop=pop(S);
+    
+    scosts=[spop.Cost];
+    
+    [~, j]=min(scosts);
+    
+    i=S(j);
+ 
+end
+
+
+clc;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+global NFE;
+NFE=0;
+ 
+model=SelectModel();
+ 
+CostFunction=@(xhat) MyCost(xhat,model);     % Cost Function
+ 
+VarSize=[model.I model.J];   % Decision Variables Matrix Size
+ 
+VarMin=0;         % Lower Bound of Variables
+VarMax=1;         % Upper Bound of Variables
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=2000;      % Maximum Number of Iterations
+ 
+nPop=200;        % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parnets)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+gamma=0.05;
+ 
+mu=0.02;         % Mutation Rate
+ 
+ANSWER=questdlg('Choose selection method:','Genetic Algorith',...
+    'Roulette Wheel','Tournament','Random','Roulette Wheel');
+ 
+UseRouletteWheelSelection=strcmp(ANSWER,'Roulette Wheel');
+UseTournamentSelection=strcmp(ANSWER,'Tournament');
+UseRandomSelection=strcmp(ANSWER,'Random');
+ 
+if UseRouletteWheelSelection
+    beta=8;         % Selection Pressure
+end
+ 
+if UseTournamentSelection
+    TournamentSize=3;   % Tournamnet Size
+end
+ 
+pause(0.1);
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Sol=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=CreateRandomSolution(model);
+    
+    % Evaluation
+    [pop(i).Cost pop(i).Sol]=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs, SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Store Best Solution
+BestSol=pop(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Store Cost
+WorstCost=pop(end).Cost;
+ 
+% Array to Hold Number of Function Evaluations
+nfe=zeros(MaxIt,1);
+ 
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    % Calculate Selection Probabilities
+    if UseRouletteWheelSelection
+        P=exp(-beta*Costs/WorstCost);
+        P=P/sum(P);
+    end
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents Indices
+        if UseRouletteWheelSelection
+            i1=RouletteWheelSelection(P);
+            i2=RouletteWheelSelection(P);
+        end
+        if UseTournamentSelection
+            i1=TournamentSelection(pop,TournamentSize);
+            i2=TournamentSelection(pop,TournamentSize);
+        end
+        if UseRandomSelection
+            i1=randi([1 nPop]);
+            i2=randi([1 nPop]);
+        end
+ 
+        % Select Parents
+        p1=pop(i1);
+        p2=pop(i2);
+        
+        % Apply Crossover
+        [popc(k,1).Position popc(k,2).Position]=...
+            Crossover(p1.Position,p2.Position,gamma,VarMin,VarMax);
+        
+        % Evaluate Offsprings
+        [popc(k,1).Cost popc(k,1).Sol]=CostFunction(popc(k,1).Position);
+        [popc(k,2).Cost popc(k,2).Sol]=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu,VarMin,VarMax);
+        
+        % Evaluate Mutant
+        [popm(k).Cost popm(k).Sol]=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Create Merged Population
+    pop=[pop
+         popc
+         popm];
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs, SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,pop(end).Cost);
+    
+    % Truncation
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Store Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Store NFE
+    nfe(it)=NFE;
+    
+    % Show Iteration Information
+    if BestSol.Sol.IsFeasible
+        Flag=' *';
+    else
+        Flag='';
+    end
+    disp(['Iteration ' num2str(it) ': NFE = ' num2str(nfe(it)) ', Best Cost = ' num2str(BestCost(it)) Flag]);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(nfe,BestCost,'LineWidth',2);
+xlabel('NFE');
+ylabel('Cost');
+
+
+
+clc;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+global NFE;
+NFE=0;
+ 
+model=SelectModel();
+ 
+CostFunction=@(sol1) MyCost(sol1,model);     % Cost Function
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=2500;      % Maximum Number of Iterations
+ 
+nPop=200;        % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parnets)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+gamma=0.05;
+ 
+mu=0.02;         % Mutation Rate
+ 
+ANSWER=questdlg('Choose selection method:','Genetic Algorith',...
+    'Roulette Wheel','Tournament','Random','Roulette Wheel');
+ 
+UseRouletteWheelSelection=strcmp(ANSWER,'Roulette Wheel');
+UseTournamentSelection=strcmp(ANSWER,'Tournament');
+UseRandomSelection=strcmp(ANSWER,'Random');
+ 
+if UseRouletteWheelSelection
+    beta=8;         % Selection Pressure
+end
+ 
+if UseTournamentSelection
+    TournamentSize=3;   % Tournamnet Size
+end
+ 
+pause(0.1);
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Sol=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=CreateRandomSolution(model);
+    
+    % Evaluation
+    [pop(i).Cost pop(i).Sol]=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs, SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Store Best Solution
+BestSol=pop(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Store Cost
+WorstCost=pop(end).Cost;
+ 
+% Array to Hold Number of Function Evaluations
+nfe=zeros(MaxIt,1);
+ 
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    % Calculate Selection Probabilities
+    if UseRouletteWheelSelection
+        P=exp(-beta*Costs/WorstCost);
+        P=P/sum(P);
+    end
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents Indices
+        if UseRouletteWheelSelection
+            i1=RouletteWheelSelection(P);
+            i2=RouletteWheelSelection(P);
+        end
+        if UseTournamentSelection
+            i1=TournamentSelection(pop,TournamentSize);
+            i2=TournamentSelection(pop,TournamentSize);
+        end
+        if UseRandomSelection
+            i1=randi([1 nPop]);
+            i2=randi([1 nPop]);
+        end
+ 
+        % Select Parents
+        p1=pop(i1);
+        p2=pop(i2);
+        
+        % Apply Crossover
+        [popc(k,1).Position popc(k,2).Position]=...
+            Crossover(p1.Position,p2.Position,gamma);
+        
+        % Evaluate Offsprings
+        [popc(k,1).Cost popc(k,1).Sol]=CostFunction(popc(k,1).Position);
+        [popc(k,2).Cost popc(k,2).Sol]=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu);
+        
+        % Evaluate Mutant
+        [popm(k).Cost popm(k).Sol]=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Create Merged Population
+    pop=[pop
+         popc
+         popm];
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs, SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,pop(end).Cost);
+    
+    % Truncation
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Store Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Store NFE
+    nfe(it)=NFE;
+    
+    % Show Iteration Information
+    if BestSol.Sol.IsFeasible
+        Flag=' *';
+    else
+        Flag='';
+    end
+    disp(['Iteration ' num2str(it) ': NFE = ' num2str(nfe(it)) ', Best Cost = ' num2str(BestCost(it)) Flag]);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(nfe,BestCost,'LineWidth',2);
+xlabel('NFE');
+ylabel('Cost');
+
+
+
+clc;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+global NFE;
+NFE=0;
+ 
+model=SelectModel();
+ 
+CostFunction=@(sol1) MyCost(sol1,model);     % Cost Function
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=1500;      % Maximum Number of Iterations
+ 
+nPop=200;        % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parnets)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+gamma=0.05;
+ 
+mu=0.02;         % Mutation Rate
+ 
+ANSWER=questdlg('Choose selection method:','Genetic Algorith',...
+    'Roulette Wheel','Tournament','Random','Roulette Wheel');
+ 
+UseRouletteWheelSelection=strcmp(ANSWER,'Roulette Wheel');
+UseTournamentSelection=strcmp(ANSWER,'Tournament');
+UseRandomSelection=strcmp(ANSWER,'Random');
+ 
+if UseRouletteWheelSelection
+    beta=8;         % Selection Pressure
+end
+ 
+if UseTournamentSelection
+    TournamentSize=3;   % Tournamnet Size
+end
+ 
+pause(0.1);
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Sol=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=CreateRandomSolution(model);
+    
+    % Evaluation
+    [pop(i).Cost pop(i).Sol]=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs, SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Store Best Solution
+BestSol=pop(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Store Cost
+WorstCost=pop(end).Cost;
+ 
+% Array to Hold Number of Function Evaluations
+nfe=zeros(MaxIt,1);
+ 
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    % Calculate Selection Probabilities
+    if UseRouletteWheelSelection
+        P=exp(-beta*Costs/WorstCost);
+        P=P/sum(P);
+    end
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents Indices
+        if UseRouletteWheelSelection
+            i1=RouletteWheelSelection(P);
+            i2=RouletteWheelSelection(P);
+        end
+        if UseTournamentSelection
+            i1=TournamentSelection(pop,TournamentSize);
+            i2=TournamentSelection(pop,TournamentSize);
+        end
+        if UseRandomSelection
+            i1=randi([1 nPop]);
+            i2=randi([1 nPop]);
+        end
+ 
+        % Select Parents
+        p1=pop(i1);
+        p2=pop(i2);
+        
+        % Apply Crossover
+        [popc(k,1).Position popc(k,2).Position]=...
+            Crossover(p1.Position,p2.Position,gamma);
+        
+        % Evaluate Offsprings
+        [popc(k,1).Cost popc(k,1).Sol]=CostFunction(popc(k,1).Position);
+        [popc(k,2).Cost popc(k,2).Sol]=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu);
+        
+        % Evaluate Mutant
+        [popm(k).Cost popm(k).Sol]=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Create Merged Population
+    pop=[pop
+         popc
+         popm];
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs, SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,pop(end).Cost);
+    
+    % Truncation
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Store Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Store NFE
+    nfe(it)=NFE;
+    
+    % Show Iteration Information
+    if BestSol.Sol.IsFeasible
+        Flag=' *';
+    else
+        Flag='';
+    end
+    disp(['Iteration ' num2str(it) ': NFE = ' num2str(nfe(it)) ', Best Cost = ' num2str(BestCost(it)) Flag]);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(nfe,BestCost,'LineWidth',2);
+xlabel('NFE');
+ylabel('Cost');
+
+
+
+
+clc;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+global NFE;
+NFE=0;
+ 
+model=CreateModel();            % Create QAP Model
+ 
+model.w(19,20)=10000;
+model.w(20,19)=10000;
+ 
+model.w(11,16)=20000;
+model.w(16,11)=20000;
+ 
+model.w(1,13)=-10000;
+model.w(13,1)=-10000;
+ 
+CostFunction=@(s) MyCost(s,model);    % Cost Function
+ 
+nVar=model.m;        % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Size of Decision Variables Matrix
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=500;          % Maximum Number of Iterations
+ 
+nPop=100;            % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parents)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+ANSWER=questdlg('Select the Parent Selection Method:','GA','Random','RWS','TS','RWS');
+UseRandomSelection=strcmpi(ANSWER,'Random');
+UseRWS=strcmpi(ANSWER,'RWS');
+UseTS=strcmpi(ANSWER,'TS');
+ 
+if UseRWS
+    beta=10;                % Selection Pressure
+end
+ 
+if UseTS
+    TournamentSize=3;       % Tournament Size
+end
+ 
+pause(0.1);
+ 
+%% Initialization
+ 
+% Create Empty Structure
+empty_individual.Position=[];
+empty_individual.Cost=[];
+ 
+% Create Population Matrix (Array)
+pop=repmat(empty_individual,nPop,1);
+ 
+% Initialize Population
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=CreateRandomSolution(model);
+    
+    % Evaluation
+    pop(i).Cost=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Update Best Solution Ever Found
+BestSol=pop(1);
+ 
+% Update Worst Cost
+WorstCost=max(Costs);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Array to Hold NFEs
+nfe=zeros(MaxIt,1);
+ 
+ 
+%% GA Main Loop
+ 
+for it=1:MaxIt
+    
+    if UseRWS
+        % Calculate Selection Probabilities
+        P=exp(-beta*Costs/WorstCost);
+        P=P/sum(P);
+    end
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents
+ 
+        if UseRandomSelection
+            i1=randi([1 nPop]);
+            i2=randi([1 nPop]);
+            p1=pop(i1);
+            p2=pop(i2);
+        end
+        
+        if UseRWS
+            i1=RouletteWheelSelection(P);
+            i2=RouletteWheelSelection(P);
+            p1=pop(i1);
+            p2=pop(i2);
+        end
+        
+        if UseTS
+            p1=TournamentSelection(pop,TournamentSize);
+            p2=TournamentSelection(pop,TournamentSize);
+        end
+        
+        % Apply Crossover
+        [popc(k,1).Position popc(k,2).Position]=PermutationCrossover(p1.Position,p2.Position);
+        
+        % Evaluate Offsprings
+        popc(k,1).Cost=CostFunction(popc(k,1).Position);
+        popc(k,2).Cost=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent Index
+        i=randi([1 nPop]);
+        
+        % Select Parent
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=PermutationMutate(p.Position);
+        
+        % Evaluate Mutant
+        popm(k).Cost=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Merge Population
+    pop=[pop
+         popc
+         popm];
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Truancate Extra Memebrs
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Update Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,max(Costs));
+    
+    % Update Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Update NFE
+    nfe(it)=NFE;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': NFE = ' num2str(nfe(it)) ', Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Best Solution
+    figure(1);
+    PlotSolution(BestSol.Position,model);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(nfe,BestCost,'LineWidth',2);
+xlabel('NFE');
+ylabel('Best Cost');
+ 
+
+
+
+function [y1 y2]=BinaryCrossover(x1,x2)
+ 
+    M=randi([1 3]);
+    
+    switch M
+        case 1
+            % Single Point Crossover
+            [y1 y2]=SinglePointCrossover(x1,x2);
+            
+        case 2
+            % Double Point Crossover
+            [y1 y2]=DoublePointCrossover(x1,x2);
+            
+        case 3
+            % Uniform Crossover
+            [y1 y2]=UniformCrossover(x1,x2);
+            
+    end
+ 
+end
+
+
+
+function model=CreateModel()
+ 
+    v=[45  83  38  83  45  58  25  78  43  87 ...
+       34  27  17  34  21  64  49  57  66  45 ...
+       20  31  64  16  18  80  84  60  30  38 ...
+       64  75  55  67  85  54  53  22  64  62 ...
+       50  63  17  51  21  13  69  42  19  64];
+ 
+   w=[ 403   672   876   833   462   421   155   359   117   825 ...
+       752   541   693   357   432   449   672   736   368   739 ...
+       859   698   468   827   572   493   883   217   355   396 ...
+       788   746   543   154   452   147   217   748   316   202 ...
+       624   453   163   234   296   143   461   406   831   154];
+   
+   n=numel(v);
+   
+   W=10000;
+   
+   model.n=n;
+   model.v=v;
+   model.w=w;
+   model.W=W;
+ 
+end
+
+
+
+function x=CreateRandomSolution(model)
+ 
+    n=model.n;
+    
+    x=randi([0 1],1,n);
+ 
+end
+
+function [y1 y2]=DoublePointCrossover(x1,x2)
+ 
+    nVar=numel(x1);
+    
+    c=randsample(nVar-1,2);
+    c1=min(c);
+    c2=max(c);
+    
+    y1=[x1(1:c1) x2(c1+1:c2) x1(c2+1:end)]; 
+    y2=[x2(1:c1) x1(c1+1:c2) x2(c2+1:end)]; 
+    
+end
+
+
+
+function [z sol]=KnapsackCost(x,model)
+ 
+    global NFE;
+    if isempty(NFE)
+        NFE=0;
+    end
+    
+    NFE=NFE+1;
+ 
+    v=model.v;
+    w=model.w;
+    W=model.W;
+ 
+    GainedValue=sum(v.*x);
+    LostValue=sum(v.*(1-x));
+    GainedWeight=sum(w.*x);
+    LostWeight=sum(w.*(1-x));
+    Violation=max(GainedWeight/W-1,0);
+    
+    %alpha=10000;
+    %z=LostValue+alpha*Violation;
+    
+    beta=10;
+    z=LostValue*(1+beta*Violation);
+ 
+    sol.GainedValue=GainedValue;
+    sol.LostValue=LostValue;
+    sol.GainedWeight=GainedWeight;
+    sol.LostWeight=LostWeight;
+    sol.Violation=Violation;
+    sol.z=z;
+    sol.IsFeasible=(Violation==0);
+ 
+end
+
+
+
+function y=Mutate(x,mu)
+ 
+    nVar=numel(x);
+    
+    nMu=ceil(mu*nVar);
+    
+    j=randsample(nVar,nMu);
+    
+    y=x;
+    
+    y(j)=1-x(j);
+ 
+end
+
+
+function i=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    C=cumsum(P);
+    
+    i=find(r<=C,1,'first');
+ 
+end
+
+
+function [y1 y2]=SinglePointCrossover(x1,x2)
+ 
+    nVar=numel(x1);
+    
+    c=randi([1 nVar-1]);
+    
+    y1=[x1(1:c) x2(c+1:end)];
+    y2=[x2(1:c) x1(c+1:end)];
+    
+end
+
+
+
+function p=TournamentSelection(pop,m)
+ 
+    n=numel(pop);
+    
+    A=randsample(n,m);
+    
+    spop=pop(A);
+    
+    costs=[spop.Cost];
+    [~, i]=min(costs);
+    
+    p=spop(i);
+ 
+end
+
+function [y1 y2]=UniformCrossover(x1,x2)
+ 
+    alpha=randi([0 1],size(x1));
+    
+    y1=alpha.*x1+(1-alpha).*x2;
+    y2=alpha.*x2+(1-alpha).*x1;
+ 
+end
+
+
+
+
+clc;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+global NFE;
+NFE=0;
+ 
+model=CreateModel();        % Create Knapsack Model
+ 
+CostFunction=@(x) KnapsackCost(x,model);    % Cost Function
+ 
+nVar=model.n;        % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Size of Decision Variables Matrix
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=200;          % Maximum Number of Iterations
+ 
+nPop=50;            % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parents)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+mu=0.02;                % Mutation Rate
+ 
+ANSWER=questdlg('Select the Parent Selection Method:','GA','Random','RWS','TS','RWS');
+UseRandomSelection=strcmpi(ANSWER,'Random');
+UseRWS=strcmpi(ANSWER,'RWS');
+UseTS=strcmpi(ANSWER,'TS');
+ 
+if UseRWS
+    beta=10;                % Selection Pressure
+end
+ 
+if UseTS
+    TournamentSize=3;       % Tournament Size
+end
+ 
+pause(0.1);
+ 
+%% Initialization
+ 
+% Create Empty Structure
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Sol=[];
+ 
+% Create Population Matrix (Array)
+pop=repmat(empty_individual,nPop,1);
+ 
+% Initialize Population
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=CreateRandomSolution(model);
+    
+    % Evaluation
+    [pop(i).Cost pop(i).Sol]=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Update Best Solution Ever Found
+BestSol=pop(1);
+ 
+% Update Worst Cost
+WorstCost=max(Costs);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Array to Hold NFEs
+nfe=zeros(MaxIt,1);
+ 
+ 
+%% GA Main Loop
+ 
+for it=1:MaxIt
+    
+    if UseRWS
+        % Calculate Selection Probabilities
+        P=exp(-beta*Costs/WorstCost);
+        P=P/sum(P);
+    end
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents
+ 
+        if UseRandomSelection
+            i1=randi([1 nPop]);
+            i2=randi([1 nPop]);
+            p1=pop(i1);
+            p2=pop(i2);
+        end
+        
+        if UseRWS
+            i1=RouletteWheelSelection(P);
+            i2=RouletteWheelSelection(P);
+            p1=pop(i1);
+            p2=pop(i2);
+        end
+        
+        if UseTS
+            p1=TournamentSelection(pop,TournamentSize);
+            p2=TournamentSelection(pop,TournamentSize);
+        end
+        
+        % Apply Crossover
+        [popc(k,1).Position popc(k,2).Position]=BinaryCrossover(p1.Position,p2.Position);
+        
+        % Evaluate Offsprings
+        [popc(k,1).Cost popc(k,1).Sol]=CostFunction(popc(k,1).Position);
+        [popc(k,2).Cost popc(k,2).Sol]=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent Index
+        i=randi([1 nPop]);
+        
+        % Select Parent
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu);
+        
+        % Evaluate Mutant
+        [popm(k).Cost popm(k).Sol]=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Merge Population
+    pop=[pop
+         popc
+         popm];
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Truancate Extra Memebrs
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Update Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,max(Costs));
+    
+    % Update Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Update NFE
+    nfe(it)=NFE;
+    
+    % Show Iteration Information
+    if BestSol.Sol.IsFeasible
+        Flag=' *';
+    else
+        Flag='';
+    end
+    
+    disp(['Iteration ' num2str(it) ': NFE = ' num2str(nfe(it)) ', Best Cost = ' num2str(BestCost(it)) Flag]);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(nfe,BestCost,'LineWidth',2);
+xlabel('NFE');
+ylabel('Best Cost');
+ 
+
+
+
+function  crosspop=crossover(crosspop,pop,ncross,nvar)
+ 
+npop=length(pop);
+ 
+ 
+for n=1:2:ncross
+ 
+    
+ 
+    i1=randi([1 npop]);
+    i2=randi([1 npop]);
+    
+    
+    p1=pop(i1).pos;
+    p2=pop(i2).pos;
+    
+    r=rand(1,nvar);
+    
+    o1=(r.*p1)+(1-r).*p2;
+    o2=(r.*p2)+(1-r).*p1;
+ 
+ 
+crosspop(n).pos=o1;
+crosspop(n).cost=fitness(o1);
+ 
+crosspop(n+1).pos=o2;
+crosspop(n+1).cost=fitness(o2);
+ 
+ 
+ 
+ 
+ 
+end
+ 
+end
+
+
+
+function  pop=crowding_distance(pop,F)
+ 
+nf=length(F);
+nobj=length(pop(1).cost);
+npop=length(pop);
+ 
+ 
+C=[pop.cost]';
+ 
+emp.value=[];
+emp.index=[];
+sortf=repmat(emp,nf,nobj);
+ 
+ 
+for i=1:npop
+    
+    fi=pop(i).rank;
+    m=F{fi};
+    nm=length(m);
+    Cfi=C(m,:);
+    crdis=0;
+    
+    for o=1:nobj
+        
+        Cobj=Cfi(:,o);
+        
+        if isempty(sortf(fi,o).value)
+           [value,index]=sort(Cobj);
+           sortf(fi,o).value=value;
+           sortf(fi,o).index=m(index);
+           sortf(fi,o).maxvalue=value(end);
+           sortf(fi,o).minvalue=value(1);
+        end
+        
+        value=sortf(fi,o).value;
+        index=sortf(fi,o).index;
+        maxvalue=sortf(fi,o).maxvalue;
+        minvalue=sortf(fi,o).minvalue;
+        
+        
+        j=find(index==i);
+        
+        
+        if j==1 || j==nm
+            crdis=crdis+inf;
+        else
+            
+            valueC=value(j+1);
+            valueA=value(j-1);
+            
+            crdisB=abs(valueC-valueA)/(maxvalue-minvalue);
+            crdis=crdis+crdisB;
+ 
+        end
+        
+        
+    end
+    
+    pop(i).cdis=crdis;
+    
+    
+end
+ 
+ 
+ 
+ 
+ 
+end
+
+
+function c=dominate(a,b)
+ 
+ 
+c=all(a<=b) && any(a<b);
+ 
+end
+
+
+function  mutpop=mutation(mutpop,pop,nmut,lb,ub,nvar)
+ 
+npop=length(pop);
+ 
+for n=1:nmut
+    
+   i=randi([1 npop]);
+   p=pop(i).pos;
+   
+   j=randi([1 nvar]);
+   
+   if rand<0.5
+       
+    p(j)=p(j)-rand*0.1*(p(j)-lb(j));  
+   else
+    p(j)=p(j)+rand*0.1*(ub(j)-p(j));     
+       
+   end
+    
+    
+    
+    mutpop(n).pos=p;
+    mutpop(n).cost=fitness(p);
+    
+    
+end
+ 
+ 
+ 
+ 
+ 
+ 
+end
+
+
+
+function  Z=fitness(x)
+ 
+z1=1-exp(-sum((x-(1/sqrt(3))).^2));
+z2=1-exp(-sum((x+(1/sqrt(3))).^2));
+ 
+Z=[z1 z2]';
+ 
+end
+
+
+function  [pop,F]=non_dominated_sorting(pop)
+ 
+ 
+k=1;
+ 
+F{k}=[];
+ 
+n=length(pop);
+ 
+dm=zeros(n);% dominate matrix
+ 
+for i=1:n
+    a=pop(i).cost;
+    
+    if i==n
+        if sum(dm(:,i))==0
+            F{k}=[F{k} i];
+            pop(i).rank=k;
+        end
+        break
+    end
+    
+    for j=i+1:n
+        
+        b=pop(j).cost;
+        
+        if dominate(a,b)
+            dm(i,j)=1;
+        elseif dominate(b,a)
+            dm(j,i)=1;
+        end
+        
+    end
+    
+    if sum(dm(:,i))==0
+        F{k}=[F{k} i];
+        pop(i).rank=k;
+    end
+    
+    
+    
+end
+ 
+ 
+s=F{k};
+dm(s,:)=0;
+dm(:,s)=inf;
+ 
+ 
+ 
+while true
+    k=k+1;
+    
+    s=find(sum(dm)==0);
+    if isempty(s)
+        break
+    end
+    F{k}=s;
+    dm(s,:)=0;
+    dm(:,s)=inf;
+    
+    for j=s
+        pop(j).rank=k;
+    end
+    
+end
+ 
+end
+
+
+function   plotpareto(F,C)
+ 
+ 
+C1=C(F{1},:);
+ 
+ 
+plot(C1(:,1),C1(:,2),'r*')
+xlabel(' F 1 ');
+ylabel(' F 2 ');
+ 
+ 
+ 
+end
+
+
+function  pop=sorting(pop)
+ 
+[~,index]=sort([pop.cdis],'descend');
+pop=pop(index);
+ 
+[~,index]=sort([pop.rank]);
+pop=pop(index);
+ 
+ 
+ 
+end
+
+
+
+clc
+clear
+close all
+format shortG
+ 
+%% parametres setting
+ 
+nvar=3;        %  number of variable
+lb=[-4 -4 -4]; % lower bound
+ub=[4 4 4];     % upper bound
+ 
+npop=40;     % number of population
+ 
+ 
+pc=0.7;       % percent of crossover
+ncross=2*round(npop*pc/2);  % number of crossover offspring
+ 
+pm=0.3;        %  percent of mutation
+nmut=round(npop*pm);  % number of mutation offspring
+ 
+ 
+maxiter=50;
+ 
+ 
+%% initialization
+tic
+emp.pos=[];
+emp.cost=[];
+emp.rank=[];      
+emp.cdis=[];      % crowding distance
+ 
+ 
+pop=repmat(emp,npop,1);
+ 
+for i=1:npop
+    pop(i).pos=lb+rand(1,nvar).*(ub-lb);
+    pop(i).cost=fitness(pop(i).pos);
+end
+ 
+[pop,F]=non_dominated_sorting(pop);
+pop=crowding_distance(pop,F);
+pop=sorting(pop);
+ 
+%% main loop
+ 
+for iter=1:maxiter
+ 
+    % crossover
+    crosspop=repmat(emp,ncross,1);
+     crosspop=crossover(crosspop,pop,ncross,nvar);
+     
+     % mutation
+     mutpop=repmat(emp,nmut,1);
+     mutpop=mutation(mutpop,pop,nmut,lb,ub,nvar);
+     
+     [pop]=[pop;crosspop;mutpop];
+    
+     [pop,F]=non_dominated_sorting(pop);
+      pop=crowding_distance(pop,F);
+      pop=sorting(pop);
+      
+      pop=pop(1:npop);
+      
+      [pop,F]=non_dominated_sorting(pop);
+      pop=crowding_distance(pop,F);
+      pop=sorting(pop);
+      
+      
+      C=[pop.cost]';
+      
+      figure(1)
+      plotpareto(F,C)
+      
+      
+      
+      disp([ ' iter =   '  num2str(iter) ' N Pareto = '  num2str(length(F{1})) ]) 
+    
+    
+    
+    
+    
+end
+ 
+%% results
+ 
+pareto=pop(F{1},:);
+toc
+
+
+
+function  pop=calculated_crowding_distance(pop,F)
+ 
+C=[pop.cost]';
+ 
+nobj=length(pop(1).cost);
+ 
+NF=length(F);
+ 
+for i=1:NF
+    
+    NFM=length(F{i});
+    C0=C(F{i},:);
+    
+    D=zeros(NFM,nobj);
+    
+    for j=1:nobj
+    
+        Cj=C0(:,j);
+        
+        [value,index]=sort(Cj);
+        
+        minc=value(1);
+        maxc=value(end);
+        
+        D(index(1),j)=10;
+        D(index(end),j)=10;
+        
+        
+        for k=2:NFM-1
+            
+           D(index(k),j)=abs(value(k+1)-value(k-1))/(maxc-minc); 
+        end
+        
+    end
+    
+    for z=1:NFM
+       pop(F{i}(z)).cdis=sum(D(z,:)); 
+    end
+    
+end
+ 
+ 
+ 
+ 
+
+
+
+function  crosspop=crossover(crosspop,pop,ncross,F,nvar)
+ 
+npop=length(pop);
+ 
+ 
+for n=1:2:ncross
+ 
+    
+    % NAGAII
+    %i1=tournoment_binary(npop);
+    %i2=tournoment_binary(npop);
+    
+    % NRGA
+    i1=rouletteWheel(F,pop);
+    i2=rouletteWheel(F,pop);
+    
+    p1=pop(i1).pos;
+    p2=pop(i2).pos;
+    
+    r=rand(1,nvar);
+    
+    o1=(r.*p1)+(1-r).*p2;
+    o2=(r.*p2)+(1-r).*p1;
+ 
+ 
+crosspop(n).pos=o1;
+crosspop(n).cost=fitness(o1);
+ 
+crosspop(n+1).pos=o2;
+crosspop(n+1).cost=fitness(o2);
+ 
+ 
+ 
+ 
+ 
+end
+ 
+end
+ 
+ 
+
+function  Z=fitness(x)
+ 
+z1=1-exp(-sum((x-(1/sqrt(3))).^2));
+z2=1-exp(-sum((x+(1/sqrt(3))).^2));
+ 
+Z=[z1 z2]';
+ 
+end
+
+function  mutpop=mutation(mutpop,pop,nmut,lb,ub,nvar)
+ 
+npop=length(pop);
+ 
+for n=1:nmut
+    
+   i=randi([1 npop]);
+   p=pop(i).pos;
+   
+   j=randi([1 nvar]);
+   
+   if rand<0.5
+       
+    p(j)=p(j)-rand*0.1*(p(j)-lb(j));  
+   else
+    p(j)=p(j)+rand*0.1*(ub(j)-p(j));     
+       
+   end
+    
+    
+    
+    mutpop(n).pos=p;
+    mutpop(n).cost=fitness(p);
+    
+    
+end
+ 
+ 
+ 
+ 
+ 
+ 
+end
+ 
+
+
+function  [pop F]=non_dominated_sorting(pop)
+ 
+ 
+ 
+npop=length(pop);
+ 
+ 
+ 
+ 
+F{1}=[];
+ 
+ 
+for i=1:npop
+    
+   pop(i).dcount=0; 
+   pop(i).dset=[];
+    
+    p=pop(i).cost;
+    
+ 
+    for j=[1:i-1 i+1:npop] 
+        
+        q=pop(j).cost;
+        
+        if all(p<=q) && any(p<q)
+            pop(i).dset=[pop(i).dset j];    
+        elseif all(q<=p) && any(q<p)
+            pop(i).dcount=pop(i).dcount+1;
+        end
+    
+    end
+    
+    if pop(i).dcount==0
+        F{1}=[F{1} i];
+    end
+    
+    
+end
+ 
+ 
+ 
+ 
+k=1;
+ 
+ 
+while true
+y=[];
+ 
+for i=F{k}
+    
+   for j=pop(i).dset 
+      pop(j).dcount=pop(j).dcount-1;
+      
+      if pop(j).dcount==0
+          [y]=[y j];
+      end
+      
+   end
+    
+end
+ 
+if isempty(y)
+    break
+end
+ 
+k=k+1;
+F{k}=y;
+ 
+end
+ 
+ 
+ 
+ 
+for i=1:length(F)
+   
+    for j=F{i}
+        
+       pop(j).rank=i; 
+        
+    end
+    
+    
+end
+ 
+ 
+end
+ 
+ 
+ 
+
+
+function   plotpareto(F,C)
+ 
+ 
+C1=C(F{1},:);
+ 
+ 
+plot(C1(:,1),C1(:,2),'r*')
+xlabel(' F 1 ');
+ylabel(' F 2 ');
+ 
+ 
+ 
+end
+ 
+ 
+
+
+function j=rouletteWheel(F,pop)
+ 
+ 
+h1=(1:length(F));
+h1=1./h1;
+h1=h1./sum(h1);
+h1=cumsum(h1);
+ 
+k=find(rand<=h1,1,'first');
+ 
+h2=pop(F{k}).cdis;
+h2=h2./sum(h2);
+h2=cumsum(h2);
+ 
+n=find(rand<=h2,1,'first');
+ 
+j=F{k} (n);
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+end
+ 
+ 
+function  pop=sorting(pop)
+ 
+[~,index]=sort([pop.cdis],'descend');
+pop=pop(index);
+ 
+[~,index]=sort([pop.rank]);
+pop=pop(index);
+ 
+ 
+ 
+end
+ 
+function  j=tournoment_binary(npop)
+ 
+ 
+j1=randi([1 npop]);
+j2=randi([1 npop]);
+ 
+j=min([j1,j2]);
+ 
+ 
+end
+
+clc
+clear
+close all
+format shortG
+ 
+%% parametres setting
+ 
+nvar=3;        %  number of variable
+lb=[-4 -4 -4]; % lower bound
+ub=[4 4 4];     % upper bound
+ 
+npop=40;     % number of population
+ 
+ 
+pc=0.7;       % percent of crossover
+ncross=2*round(npop*pc/2);  % number of crossover offspring
+ 
+pm=0.3;        %  percent of mutation
+nmut=round(npop*pm);  % number of mutation offspring
+ 
+ 
+maxiter=150;
+ 
+ 
+%% initialization
+ 
+empty.pos=[];
+empty.cost=[];
+empty.dcount=[];   % dominate count
+empty.dset=[];     % dominate set
+empty.rank=[];      
+empty.cdis=[];      % crowding distance
+ 
+ 
+pop=repmat(empty,npop,1);
+ 
+for i=1:npop
+    pop(i).pos=lb+rand(1,nvar).*(ub-lb);
+    pop(i).cost=fitness(pop(i).pos);
+end
+ 
+[pop F]=non_dominated_sorting(pop);
+pop=calculated_crowding_distance(pop,F);
+pop=sorting(pop);
+ 
+%% main loop
+ 
+for iter=1:maxiter
+ 
+    % crossover
+    crosspop=repmat(empty,ncross,1);
+     crosspop=crossover(crosspop,pop,ncross,F,nvar);
+     
+     % mutation
+     mutpop=repmat(empty,nmut,1);
+     mutpop=mutation(mutpop,pop,nmut,lb,ub,nvar);
+     
+     [pop]=[pop;crosspop;mutpop];
+    
+     [pop F]=non_dominated_sorting(pop);
+      pop=calculated_crowding_distance(pop,F);
+      pop=sorting(pop);
+      
+      pop=pop(1:npop);
+      
+      [pop F]=non_dominated_sorting(pop);
+      pop=calculated_crowding_distance(pop,F);
+      pop=sorting(pop);
+      
+      
+      C=[pop.cost]';
+      
+      figure(1)
+      plotpareto(F,C)
+      
+      
+      
+      disp([ ' iter =   '  num2str(iter) ' BEST F1 = ' num2str(min(C(:,1)))  ' BEST F2  = ' num2str(min(C(:,2))) ' NF1 = '  num2str(length(F{1})) ]) 
+    
+    
+    
+    
+    
+end
+ 
+%% results
+ 
+pareto=pop(F{1},:);
+ 
+
+function model=CreateModel()
+ 
+    model.T=25;
+    model.dt=0.002;
+ 
+    model.x10=2;
+    model.x20=1;
+ 
+    model.a=1.2;
+    model.b=0.6;
+    model.c=0.8;
+    model.d=0.3;
+ 
+    out=SimulateModel(model);
+ 
+    model.t=out.t;
+    model.x1=out.x1;
+    model.x2=out.x2;
+ 
+end
+
+
+
+function [y1 y2]=ArithmeticCrossover(x1,x2,gamma,VarMin,VarMax)
+ 
+    alpha=unifrnd(-gamma,1+gamma,size(x1));
+    
+    y1=alpha.*x1+(1-alpha).*x2;
+    y2=alpha.*x2+(1-alpha).*x1;
+    
+    y1=max(y1,VarMin);
+    y1=min(y1,VarMax);
+ 
+    y2=max(y2,VarMin);
+    y2=min(y2,VarMax);
+ 
+end
+
+clc;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+global NFE;
+NFE=0;
+ 
+model=CreateModel();
+ 
+CostFunction=@(q) MyCost(q,model);    % Cost Function
+ 
+nVar=4;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Size of Decision Variables Matrix
+ 
+VarMin=0;         % Lower Bound of Variables
+VarMax=2;         % Upper Bound of Variables
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=100;          % Maximum Number of Iterations
+ 
+nPop=100;            % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parents)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+gamma=0.1;
+ 
+etha=0.1;
+ 
+mu=0.02;                % Mutation Rate
+ 
+ANSWER=questdlg('Select the Parent Selection Method:','GA','Random','RWS','TS','RWS');
+UseRandomSelection=strcmpi(ANSWER,'Random');
+UseRWS=strcmpi(ANSWER,'RWS');
+UseTS=strcmpi(ANSWER,'TS');
+ 
+if UseRWS
+    beta=10;                % Selection Pressure
+end
+ 
+if UseTS
+    TournamentSize=3;       % Tournament Size
+end
+ 
+pause(0.1);
+ 
+%% Initialization
+ 
+% Create Empty Structure
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Sol=[];
+ 
+% Create Population Matrix (Array)
+pop=repmat(empty_individual,nPop,1);
+ 
+% Initialize Population
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    % Evaluation
+    [pop(i).Cost pop(i).Sol]=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Update Best Solution Ever Found
+BestSol=pop(1);
+ 
+% Update Worst Cost
+WorstCost=max(Costs);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Array to Hold NFEs
+nfe=zeros(MaxIt,1);
+ 
+ 
+%% GA Main Loop
+ 
+for it=1:MaxIt
+    
+    if UseRWS
+        % Calculate Selection Probabilities
+        P=exp(-beta*Costs/WorstCost);
+        P=P/sum(P);
+    end
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents
+ 
+        if UseRandomSelection
+            i1=randi([1 nPop]);
+            i2=randi([1 nPop]);
+            p1=pop(i1);
+            p2=pop(i2);
+        end
+        
+        if UseRWS
+            i1=RouletteWheelSelection(P);
+            i2=RouletteWheelSelection(P);
+            p1=pop(i1);
+            p2=pop(i2);
+        end
+        
+        if UseTS
+            p1=TournamentSelection(pop,TournamentSize);
+            p2=TournamentSelection(pop,TournamentSize);
+        end
+        
+        % Apply Crossover
+        [popc(k,1).Position popc(k,2).Position]=ArithmeticCrossover(p1.Position,p2.Position,gamma,VarMin,VarMax);
+        
+        % Evaluate Offsprings
+        [popc(k,1).Cost popc(k,1).Sol]=CostFunction(popc(k,1).Position);
+        [popc(k,2).Cost popc(k,2).Sol]=CostFunction(popc(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent Index
+        i=randi([1 nPop]);
+        
+        % Select Parent
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu,etha,VarMin,VarMax);
+        
+        % Evaluate Mutant
+        [popm(k).Cost popm(k).Sol]=CostFunction(popm(k).Position);
+        
+    end
+    
+    % Merge Population
+    pop=[pop
+         popc
+         popm];
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Truancate Extra Memebrs
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Update Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,max(Costs));
+    
+    % Update Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Update NFE
+    nfe(it)=NFE;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': NFE = ' num2str(nfe(it)) ', Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solutions
+    figure(1);
+    PlotSolution(BestSol.Sol,model);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(nfe,BestCost,'LineWidth',2);
+xlabel('NFE');
+ylabel('Best Cost');
+ 
+
+
+
+
+clc;
+clear;
+close all;
+ 
+model=CreateModel();
+ 
+t=model.t;
+x1=model.x1;
+x2=model.x2;
+ 
+figure;
+subplot(1,2,1);
+plot(t,x1,'r','LineWidth',2);
+hold on;
+plot(t,x2,'b:','LineWidth',2);
+xlabel('Time');
+legend('Prey','Predator');
+ 
+subplot(1,2,2);
+plot(x1,x2,'k','LineWidth',2);
+xlabel('Prey');
+ylabel('Predator');
+ 
+
+
+clc;
+clear;
+close all;
+ 
+params.T=25;
+params.dt=0.001;
+ 
+params.x10=2;
+params.x20=1;
+ 
+params.a=1.2;
+params.b=0.6;
+params.c=0.8;
+params.d=0.3;
+ 
+out=SimulateModel(params);
+ 
+t=out.t;
+x1=out.x1;
+x2=out.x2;
+ 
+figure;
+subplot(1,2,1);
+plot(t,x1,'r','LineWidth',2);
+hold on;
+plot(t,x2,'b:','LineWidth',2);
+xlabel('Time');
+legend('Prey','Predator');
+ 
+subplot(1,2,2);
+plot(x1,x2,'k','LineWidth',2);
+xlabel('Prey');
+ylabel('Predator');
+ 
+
+function y=Mutate(x,mu,etha,VarMin,VarMax)
+ 
+    nVar=numel(x);
+    
+    nMu=ceil(mu*nVar);
+    
+    j=randsample(nVar,nMu);
+    
+    y=x;
+    
+    sigma=etha*(VarMax-VarMin);
+    
+    y(j)=x(j)+sigma*randn(size(j));
+    
+    y=max(y,VarMin);
+    y=min(y,VarMax);
+ 
+end
+
+
+function PlotSolution(sol,model)
+ 
+    t=model.t;
+ 
+    subplot(2,2,1);
+    plot(t,sol.x1,'r','LineWidth',2);
+    hold on;
+    plot(t,model.x1,'b:','LineWidth',2);
+    xlabel('Time');
+    ylabel('Prey');
+    legend('Approximation','Main Data');
+    hold off;
+ 
+    subplot(2,2,3);
+    plot(t,sol.x2,'r','LineWidth',2);
+    hold on;
+    plot(t,model.x2,'b:','LineWidth',2);
+    xlabel('Time');
+    ylabel('Predator');
+    legend('Approximation','Main Data');
+    hold off;
+ 
+    subplot(2,2,[2 4]);
+    plot(sol.x1,sol.x2,'r','LineWidth',2);
+    hold on;
+    plot(model.x1,model.x2,'b:','LineWidth',2);
+    xlabel('Prey');
+    ylabel('Predator');
+    legend('Approximation','Main Data');
+    hold off;
+ 
+end
+
+
+
+function [z sol]=MyCost(q,model)
+ 
+    global NFE;
+    if isempty(NFE)
+        NFE=0;
+    end
+ 
+    NFE=NFE+1;
+    
+    params.T=model.T;
+    params.dt=model.dt;
+    params.x10=model.x10;
+    params.x20=model.x20;
+    params.a=q(1);
+    params.b=q(2);
+    params.c=q(3);
+    params.d=q(4);
+    
+    out=SimulateModel(params);
+    
+    e1=model.x1-out.x1;
+    e2=model.x2-out.x2;
+    
+    z=mean(e1.^2)+mean(e2.^2);
+    
+    sol.params=params;
+    sol.t=out.t;
+    sol.x1=out.x1;
+    sol.x2=out.x2;
+    sol.e1=e1;
+    sol.e2=e2;
+    sol.z=z;
+    
+end
+
+
+
+function p=TournamentSelection(pop,m)
+ 
+    n=numel(pop);
+    
+    A=randsample(n,m);
+    
+    spop=pop(A);
+    
+    costs=[spop.Cost];
+    [~, i]=min(costs);
+    
+    p=spop(i);
+ 
+end
+
+
+
+function out=SimulateModel(params)
+ 
+    a=params.a;
+    b=params.b;
+    c=params.c;
+    d=params.d;
+    
+    x10=params.x10;
+    x20=params.x20;
+    
+    T=params.T;
+    dt=params.dt;
+    
+    t=0:dt:T;
+    
+    K=numel(t);
+    
+    x1=zeros(size(t));
+    x2=zeros(size(t));
+    
+    x1(1)=x10;
+    x2(1)=x20;
+    
+    for k=1:K-1
+        
+        x1(k+1)=x1(k)+(a*x1(k)-b*x1(k)*x2(k))*dt;
+        
+        x2(k+1)=x2(k)+(-c*x2(k)+d*x1(k)*x2(k))*dt;
+        
+    end
+ 
+    out.t=t;
+    out.x1=x1;
+    out.x2=x2;
+ 
+end
+
+
+function i=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    C=cumsum(P);
+    
+    i=find(r<=C,1,'first');
+ 
+end
+
+
+
+
+
