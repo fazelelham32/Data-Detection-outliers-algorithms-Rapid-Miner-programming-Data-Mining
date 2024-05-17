@@ -1,0 +1,444 @@
+function nsol=create_new_sol(x,nvar)
+ 
+ 
+ 
+j1=randi([1 nvar-1]);
+j2=randi([j1+1 nvar]);
+ 
+nj1=x(j1);
+nj2=x(j2);
+ 
+x(j1)=nj2;
+x(j2)=nj1;
+ 
+nsol=x;
+ 
+end
+ 
+function [T0 Tf]=determinated_T0_Tf(nvar,flow,dis,q)
+ 
+% n=100;
+% empty.pos=[];
+% empty.cost=inf;
+% 
+% q=repmat(empty,n,1);
+% 
+% for i=1:n
+% q(i).pos=randperm(nvar);
+% q(i).cost=fitness(q(i).pos,nvar,flow,dis);
+% end
+ 
+n=length(q);
+ 
+k=0;
+for i=1:n-1
+    for j=i+1:n
+        k=k+1;
+        ME(k)=abs(q(i).cost-q(j).cost);
+    end
+end
+ 
+minE=min(ME);
+maxE=max(ME);
+ 
+ 
+T1=-minE/log(0.999);
+T2=-minE/log(0.001);
+ 
+T3=-maxE/log(0.999);
+T4=-maxE/log(.001);
+ 
+ 
+T0=ceil(max([T1,T2,T3,T4]));
+Tf=floor(min([T1,T2,T3,T4]));
+ 
+ 
+ 
+end
+
+
+
+
+function Z=fitness(x,nvar,flow,dis)
+ 
+ 
+Z=0;
+ 
+for i=1:nvar-1
+    for j=i+1:nvar
+      Z=Z+flow(i,j)*dis(x(i),x(j)); 
+    end
+end
+ 	
+ 
+ 
+end
+ 
+ 
+
+
+
+
+clc
+clear
+close all
+format shortG
+%% parameters setting
+ 
+data=load('data.mat');
+flow=data.flow;
+dis=data.dis;
+nvar=size(flow,1);% number variable
+T0=10000; % initial temp
+Tf=1; % final temp
+maxiter=150; % max pf iteration
+ 
+%A=((T0-Tf)*(maxiter+1))/(maxiter);
+%B=T0-A;
+alpha=(Tf/T0)^(1/maxiter);
+ 
+npop=100;% number of solution
+nn=5;% number neighbors
+ 
+%% initialization
+tic
+empty.pos=[];
+empty.cost=inf;
+ 
+sol=repmat(empty,npop,1);
+ 
+for i=1:npop
+sol(i).pos=randperm(nvar);
+sol(i).cost=fitness(sol(i).pos,nvar,flow,dis);
+end
+ 
+ 
+T=T0;
+ 
+ 
+[value,index]=min([sol.cost]);
+gsol=sol(index);
+ 
+%% main loop
+ 
+best=zeros(maxiter,1);
+AVR=zeros(maxiter,1);
+ 
+ 
+for iter=1:maxiter
+ 
+    
+    matp=[];
+    
+    for i=1:npop
+        
+         bnsol=empty;
+         
+         for j=1:nn
+             nsol.pos=create_new_sol(sol(i).pos,nvar);% new solution
+             nsol.cost=fitness(nsol.pos,nvar,flow,dis);
+             
+             if nsol.cost<bnsol.cost %( best new solution)
+                 bnsol=nsol;
+             end
+    
+         end
+         
+       E=bnsol.cost-sol(i).cost; 
+       
+       if E<0 % best new solution better than is current solution
+           sol(i)=bnsol;
+       else
+           
+           P=exp(-E/T);
+ 
+           
+           if rand<P
+               sol(i)=bnsol;
+           end
+           
+       end
+         
+         
+    end
+    
+  
+    T=T-alpha;
+    
+ 
+    
+    [value,index]=min([sol.cost]);
+    
+    if value<gsol.cost
+       gsol=sol(index);
+    end
+    
+    best(iter)=gsol.cost;
+    AVR(iter)=mean([sol.cost]);
+ 
+    disp([ ' Iter = '  num2str(iter)    ' BEST = '  num2str(best(iter))]);
+   
+    if iter>80 && best(iter)==best(iter-80)
+        break
+    end
+    
+    
+end
+ 
+ 
+%% results
+disp('                                             ')
+disp([' BEST solution = ' num2str(gsol.pos)]);
+disp([' BEST fitness = '  num2str(gsol.cost)]);
+disp([ ' Time = '  num2str(toc)]);
+ 
+figure(1)
+plot(best(1:iter),'b','LineWidth',2);
+hold on
+plot(AVR(1:iter),'r','LineWidth',2);
+ 
+xlabel(' iteration ')
+ylabel(' fitness')
+legend(' BEST ', ' MEAN')
+ 
+title( ' SA for QAP')
+
+
+function p=createneighbors(sol,sn,en,nvar,a)
+ 
+sol([1 nvar])=[];
+n=length(sol);
+ 
+ 
+j1=randi([1 n-1]);
+j2=randi([j1+1 n]);
+ 
+ 
+ 
+if sum(sol)==0
+    
+  sol=createsolution(a,sn,en,nvar);  
+    
+end
+ 
+ 
+r=randi([1 3]);
+ 
+switch r
+    
+    case 1
+        nj1=sol(j1);
+        nj2=sol(j2);
+ 
+       sol(j1)=nj2;
+       sol(j2)=nj1;
+       
+    case 2
+        
+      sol(j1:j2)=sol(j2:-1:j1);
+      
+    case 3
+        
+       sol=[sol(j2+1:end)   sol(j1:j2)   sol(1:j1-1)]; 
+ 
+end
+ 
+ 
+ 
+p=[sn sol en];
+end
+ 
+ 
+
+
+
+function sol=createsolution(a,sn,en,nvar)
+b=randperm(2*(nvar-2));
+b=b(1:nvar-2);
+sol=[sn a(b) en];
+end
+ 
+
+
+function [T0 Tf]=createtemp(pop,npop)
+ 
+k=[];
+ 
+for i=1:npop-1
+    for j=i+1:npop
+        [k]=[k abs(pop(i).cost-pop(j).cost)];
+    end
+end
+ 
+ 
+lb=min(k);
+ub=max(k);
+ 
+m=[ -lb/log(0.01) -lb/log(0.99)  -ub/log(0.01)  -ub/log(0.99)];
+ 
+T0=max(m);
+Tf=min(m);
+ 
+end
+ 
+ 
+
+
+
+function f=fitness(sol,d)
+ 
+[k]=find(sol==0);
+sol(k)=[];
+ 
+n=length(sol);
+ 
+f=0;
+for i=1:n-1
+    f=f+d(sol(i),sol(i+1));
+end
+ 
+ 
+end
+ 
+
+
+clc
+clear
+close all
+format shortG
+%% parameters setting
+ 
+d=xlsread('data.xlsx',2);
+[k]=find(d==0);
+d(k)=1000*sum(d(:));
+nvar=size(d,1); % number of variable
+ 
+npop=20;% number of population
+nneighbors=10;% number of neighbors
+maxiter=500;
+T0=10000;%initial temp
+Tf=100;%final temp
+ 
+ 
+sn=input(' START node = ');%start node
+en=input(' END node = ');% end node
+ 
+%% inialization
+tic
+a=(1:nvar);
+a([sn en])=[];
+z=zeros(size(a));
+a=[a z];
+ 
+empty.pos=[];
+empty.cost=inf;
+ 
+pop=repmat(empty,npop,1);
+ 
+for i=1:npop
+    
+ pop(i).pos=createsolution(a,sn,en,nvar);
+ pop(i).cost=fitness(pop(i).pos,d);
+    
+end
+ 
+%[T0 Tf]=createtemp(pop,npop);
+alpha=(T0-Tf)/maxiter;
+ 
+%% main loop
+T=T0;% temp parameters
+gsol=empty;
+best=zeros(maxiter,1);
+bestofbest=zeros(maxiter,1);
+AVR=zeros(maxiter,1);
+bolt=zeros(maxiter,1);
+ 
+for iter=1:maxiter
+    matp=[]; 
+    for i=1:npop
+         
+        bnsol=empty;% bes new sol(best neighbor)
+        
+        
+        for j=1:nneighbors
+            
+            nsol.pos=createneighbors(pop(i).pos,sn,en,nvar,a);%new solution
+            nsol.cost=fitness(nsol.pos,d);
+            
+            if nsol.cost<bnsol.cost
+                bnsol=nsol;
+            end
+    
+        end% neighbors
+        
+        if bnsol.cost<pop(i).cost
+            pop(i)=bnsol;
+        else
+            E=bnsol.cost-pop(i).cost;
+            P=exp(-E/T);
+            [matp]=[matp P];
+            if rand<P
+                pop(i)=bnsol;
+            end
+        end
+        
+        
+        
+    end
+    
+    [value index]=min([pop.cost]);
+    
+    if value<gsol.cost
+        gsol=pop(index);
+    end
+    
+    best(iter)=value;
+    bestofbest(iter)=min(best(1:iter));
+    AVR(iter)=mean([pop.cost]);
+    bolt(iter)=mean(matp);
+    
+    disp([ 'Iter = ' num2str(iter) ' BEST of BEST = ' num2str(bestofbest(iter))])
+    T=T-alpha;
+    
+    if iter>120 && bestofbest(iter)==bestofbest(iter-50) && mod(iter,15)==0
+        pop(1)=gsol;
+       for i=2:npop
+          pop(i).pos=createsolution(a,sn,en,nvar);
+          pop(i).cost=fitness(pop(i).pos,d);
+       end 
+    end   
+    
+    
+    if iter>120 && bestofbest(iter)==bestofbest(iter-120)
+        break
+    end
+end
+%% results
+k=find(gsol.pos==0);
+gsol.pos(k)=[];
+ 
+disp('----------------------------------------------------------------')
+disp([ ' Best Solution = ' num2str(gsol.pos)]);
+disp('----------------------------------------------------------------')
+disp([ ' Best Fitness = ' num2str(gsol.cost)]);
+disp('----------------------------------------------------------------')
+disp([ ' Time = ' num2str(toc)]);
+ 
+figure(1)
+ 
+subplot(2,1,1)
+plot(best(1:iter),'r','LineWidth',2);
+hold on
+plot(bestofbest(1:iter),'b','LineWidth',2);
+legend('BEST','BEST of BEST');
+xlabel('iteration')
+ylabel('fitness')
+title('SA for SPP')
+ 
+subplot(2,1,2)
+plot(bolt(1:iter),'g','LineWidth',2);
+legend(' Bolt ' )
+ 
+ 
+ 
+
