@@ -1,0 +1,3011 @@
+# Clustering
+The problem is unsupervised learning.
+Features and desired goals in clustering:
+1- Cohesion: The groups should be the most similar.
+2-Separation: The groups should have the least similarity
+
+## Implementation of clustering using meta-heuristic algorithms:
+Intracluster distance
+
+Solving the k-means problem with meta-heuristic methods"
+ 
+Number of unknowns: k*d
+ 
+The less it is, the better our clustering is
+I have a data set with n to d dimensional vectors, we want to find k to d dimensional points in the same space as the cluster center so that this objective function is minimal. We also know the number of those k center points. So what we want is m.
+This becomes the k-means problem, which is expressed as an optimization problem and we want to solve it using meta-heuristic algorithms.
+Suppose our data are three clusters:
+ 
+I put the code in MATLAB.
+
+CLC;
+clear;
+close all;
+ 
+M = [0 0
+     3 4
+     6 1];
+ 
+k=size(M,1);
+ 
+N = 100;
+ 
+sigma = 1;
+ 
+X = [];
+for j=1:k
+    
+    mj=M(j,:);
+    
+    Xj = mvnrnd(mj, sigma*ones(size(mj)), N);
+    
+    X=[X
+       Xj];
+end
+ 
+plot(X(:,1),X(:,2),'x');
+ 
+save('my data, 'X');
+ 
+
+## This code shows an example of generating different multivariate data using multivariate normal distribution. How this code works is as follows:
+
+1. Lines 1 to 3: These ' clc', `clear', and `close all' commands are used to clear all windows and variables in the MATLAB environment.
+
+2. Line 5: A matrix named `M' is defined. This matrix has two columns and three rows, and each row of the matrix represents a point in two-dimensional space.
+
+3. Line 7: Using the size function, the size of the matrix M is checked and stored in the variable k. Here `k' is equal to the number of rows of matrix `M'.
+
+4. Line 9: A variable called `N' is defined, which has a value of 100. This variable specifies the number of samples to be generated for each point of `M'.
+
+5. Line 11: A variable called `sigma' is defined whose value is 1. This variable specifies how much difference is possible in the environment size of the samples.
+
+6. Line 13: An empty matrix named ``X'' is defined. This matrix is used to store the generated data.
+
+7. Line 14: A ``for'' loop is started to traverse each row of the ``M'' matrix. In this loop, sample values are generated based on each line of ``M''.
+
+8. Line 16: Setting the value to the variable `mj', which is equal to the current line of `M'.
+
+9. Line 18: Using the ``mvnrnd'' function, random samples are generated based on a different normal distribution for each row of ``M''. The matrix ``Xj'' contains these samples.
+
+10. Line 20: matrix `Xj' is appended to matrix `X'.
+
+11. Line 23: Using the ``plot'' function, the graph of the generated data is displayed. The first and second columns of the ``X'' matrix form the x and y axis of the graph, respectively.
+
+12. Line 25: Using the `save' function, the data generated in the ``X'' matrix is saved in a file called ``my data. mat''.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+data = load('mydata');
+X = data.X;
+k = 3;
+ 
+CostFunction=@(m) ClusteringCost(m, X);     % Cost Function
+ 
+VarSize=[k size(X,2)];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat(min(X),k,1);      % Lower Bound of Variables
+VarMax= repmat(max(X),k,1);      % Upper Bound of Variables
+ 
+%% GA Parameters
+ 
+MaxIt=200;      % Maximum Number of Iterations
+ 
+nPop=100;        % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parents)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+gamma=0.05;
+ 
+mu=0.02;         % Mutation Rate
+ 
+beta=8;         % Selection Pressure
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Out=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    % Evaluation
+    [pop(i).Cost, pop(i).Out]=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs, SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Store Best Solution
+BestSol=pop(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Store Cost
+WorstCost=pop(end).Cost;
+ 
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    P=exp(-beta*Costs/WorstCost);
+    P=P/sum(P);
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents Indices
+        i1=RouletteWheelSelection(P);
+        i2=RouletteWheelSelection(P);
+ 
+        % Select Parents
+        p1=pop(i1);
+        p2=pop(i2);
+        
+        % Apply Crossover
+        [popc(k,1).Position, popc(k,2).Position]=...
+            Crossover(p1.Position,p2.Position,gamma,VarMin,VarMax);
+        
+        % Evaluate Offsprings
+        [popc(k,1).Cost, popc(k,1).Out]=CostFunction(pops(k,1).Position);
+        [popc(k,2).Cost, popc(k,2).Out]=CostFunction(pops(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu,VarMin,VarMax);
+        
+        % Evaluate Mutant
+        [popm(k).Cost, popm(k).Out]=CostFunction(pop(k).Position);
+        
+    end
+    
+    % Create Merged Population
+    pop=[pop
+         pop
+         popm]; %#ok
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs, SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,pop(end).Cost);
+    
+    % Truncation
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Store Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+
+## This code is a genetic algorithm implementation for the clustering problem. This code works as follows:
+
+- At first, clear all previous commands (CLC, clear, close all)
+- Defining the names of the variables that are used to implement the algorithm (data, X, k, CostFunction, VarSize, nVar, VarMin, VarMax, MaxIt, nPop, etc.)
+- Initializing the variables (random numbers between the VarMin and VarMax values for the Position of each population)
+- Calculate the cost function call for each member of the population and calculate the cost of each population
+- Sorting the population based on the cost of each member in ascending order and registering the population in a sorted form
+- Store the best member of the population in the BestSol variable
+- Create the BestCost array to store the cost of the best solution
+- Calculate the cost of the worst solution in the population
+- For each round of the algorithm (repetition up to MaxIt):
+   - Calculate the probability of accumulation for each member by the sample selection function of the cycle
+   - The sum of all accumulation probabilities is equal to uniting the sum of probabilities
+   - Creating a new child population using the combination function (Position variables of two parents as input and creating two populations until completion determines the size of the same population)
+   - New cost calculation for new population members
+   - Creating a mutated population using the mutation function (Position variables of the selected parent with a new population creator)
+   - New cost calculation for evolving population members
+   - Combining the new population with the main population and the new population and calculating the equal cost
+   - Sorting the population based on the cost of each member in ascending order
+   - Update the cost of the worst solution with the cost of the worst solution from the current point
+   - Cut the population to the number of original members (nPop) based on cost
+   - Save the best solution in BestSol
+   - Cost saving is the best solution at BestCost
+   - Show repetition information and solution plot
+
+function [z, out] = ClusteringCost(m, X)
+ 
+    % Calculate Distance Matrix
+    d = pdist2(X, m);
+    
+    % Assign Clusters and Find Closest Distances
+    [dmin, ind] = min(d, [], 2);
+    
+    % Sum of Within-Cluster Distance
+    WCD = sum(dmin);
+    
+    z=WCD;
+ 
+    out.d=d;
+    out.dmin=dmin;
+    out.ind=ind;
+    out.WCD=WCD;
+    
+end
+
+This function receives two inputs m and X.
+
+1. First, it calculates the distance between all the points of the set X and all the points of the centers of the cluster m and stores it in the matrix d.
+2. Then, for each point in the set X, it finds the nearest cluster center and stores its distance in the dmin matrix.
+3. Then, it stores the sum of the distances of the longest points to the centers belonging to the clusters in the WCD variable and also stores it in z.
+4. Finally, it stores the calculated values in a data structure called out and returns this structure along with z as the output of the function.
+
+function PlotSolution(X, sol)
+ 
+    % Cluster Centers
+    m = sol.Position;
+    k = size(m,1);
+    
+    % Cluster Indices
+    ind = sol.Out.ind;
+    
+    Colors = hsv(k);
+    
+    for j=1:k
+        Xj = X(ind==j,:);
+        plot(Xj(:,1),Xj(:,2),'x','LineWidth',2,'Color',Colors(j,:));
+        hold on;
+    end
+    
+    plot(m(:,1),m(:,2), 'ok', 'LineWidth',2, 'MarkerSize',12);
+    
+    hold off;
+    
+end
+
+
+This is a MATLAB function that plots the solution to a clustering problem.
+
+The function inputs are:
+- ``X'': data matrix, where each row represents a data point and each column represents a feature.
+- `sol': the structure of the solution, which includes the following fields:
+      - "Position": a matrix representing the cluster centers, where each row represents a center and each column represents an attribute.
+      - "Out. and": vector of indices indicating which data point belongs to which cluster.
+
+The function first extracts the cluster centers (`m') and the number of clusters (`k') from the solution structure.
+
+Then, it generates a set of distinct colors ("Colors") using the "hsv" colormap, each color corresponding to a different cluster.
+
+Then, it loops over each cluster and plots the data points (`Xj') that belong to that cluster crosswise (```````) using the color associated with that cluster.
+
+After plotting all the data points, it plots the cluster centers ('m') as black circles ('ok').
+
+Finally, it exits the graph function.
+
+Note that the "hold on" and "hold off" commands are used to keep the current plots and allow data points and cluster centers to overlap.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+data = load('mydata');
+X = data.X;
+k = 3;
+ 
+CostFunction=@(m) ClusteringCost(m, X);     % Cost Function
+ 
+VarSize=[k size(X,2)];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat(min(X),k,1);      % Lower Bound of Variables
+VarMax= repmat(max(X),k,1);      % Upper Bound of Variables
+ 
+%% PSO Parameters
+ 
+MaxIt=200;      % Maximum Number of Iterations
+ 
+nPop=50;        % Population Size (Swarm Size)
+ 
+% w=1;            % Inertia Weight
+% wdamp=0.99;     % Inertia Weight Damping Ratio
+% c1=2;           % Personal Learning Coefficient
+% c2=2;           % Global Learning Coefficient
+ 
+% Constriction Coefficients
+phi1=2.05;
+phi2=2.05;
+phi=phi1+phi2;
+chi=2/(phi-2+sqrt(phi^2-4*phi));
+w=chi;          % Inertia Weight
+wdamp=1;        % Inertia Weight Damping Ratio
+c1=chi*phi1;    % Personal Learning Coefficient
+c2=chi*phi2;    % Global Learning Coefficient
+ 
+% Velocity Limits
+VelMax=0.1*(VarMax-VarMin);
+VelMin=-VelMax;
+ 
+%% Initialization
+ 
+empty_particle.Position=[];
+empty_particle.Cost=[];
+empty_particle.Out=[];
+empty_particle.Velocity=[];
+empty_particle.Best.Position=[];
+empty_particle.Best.Cost=[];
+empty_particle.Best.Out=[];
+ 
+particle=repmat(empty_particle,nPop,1);
+ 
+BestSol.Cost=inf;
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    particle(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    % Initialize Velocity
+    particle(i).Velocity=zeros(VarSize);
+    
+    % Evaluation
+    [particle(i).Cost, particle(i).Out]=CostFunction(particle(i).Position);
+    
+    % Update Personal Best
+    particle(i).Best.Position=particle(i).Position;
+    particle(i).Best.Cost=particle(i).Cost;
+    particle(i).Best.Out=particle(i).Out;
+    
+    % Update Global Best
+    ifparticle(i).Best.Cost<BestSol.Cost
+        
+        BestSol=particle(i).Best;
+        
+    end
+    
+end
+ 
+BestCost=zeros(MaxIt,1);
+ 
+ 
+%% PSO Main Loop
+ 
+for it=1:MaxIt
+    
+    for i=1:nPop
+        
+        % Update Velocity
+        particle(i).Velocity = w*particle(i).Velocity ...
+            +c1*rand(VarSize).*(particle(i).Best.Position-particle(i).Position) ...
+            +c2*rand(VarSize).*(BestSol.Position-particle(i).Position);
+        
+        % Apply Velocity Limits
+        particle(i).Velocity = max(particle(i).Velocity,VelMin);
+        particle(i).Velocity = min(particle(i).Velocity,VelMax);
+        
+        % Update Position
+        particle(i).Position = particle(i).Position + particle(i).Velocity;
+        
+        % Velocity Mirror Effect
+        IsOutside=(particle(i).Position<VarMin | particle(i).Position>VarMax);
+        particle(i).Velocity(IsOutside)=-particle(i).Velocity(IsOutside);
+        
+        % Apply Position Limits
+        particle(i).Position = max(particle(i).Position,VarMin);
+        particle(i).Position = min(particle(i).Position,VarMax);
+        
+        % Evaluation
+        [particle(i).Cost, particle(i).Out] = CostFunction(particle(i).Position);
+        
+        % Update Personal Best
+        ifparticle(i).Cost<particle(i).Best.Cost
+            
+            particle(i).Best.Position=particle(i).Position;
+            particle(i).Best.Cost=particle(i).Cost;
+            particle(i).Best.Out=particle(i).Out;
+            
+            % Update Global Best
+            ifparticle(i).Best.Cost<BestSol.Cost
+                
+                BestSol=particle(i).Best;
+                
+            end
+            
+        end
+        
+    end
+    
+    BestCost(it)=BestSol.Cost;
+    
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+    
+    w=w*wdamp;
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+This code has a Particle Swarm Optimization implementation to solve the clustering problem. More details about each code section are as follows:
+
+1. Lines 1-3:
+    - Line 1: It is a command that clears all previous windows and memories.
+    - Line 3: It is a command that closes all windows.
+
+2. Lines 7-15:
+    - Line 7: It is a command that opens the input data from the data file and gives it to the X variable.
+    - Line 8: Determine the number of clusters (k).
+    - Line 10: Definition of the cost function (Cost Function) to evaluate the clustering quality.
+    - Line 13: Defining the size of the decision variables matrix (Decision Variables Matrix).
+    - Line 15: Determine the total number of decision variables.
+
+3. Lines 17-18:
+    - Line 17: Defining the minimum values of the decision variables.
+    - Line 18: Defining the maximum values of the decision variables.
+
+4. Lines 21-34:
+    - Line 21: Determination of PSO parameters (performance intensity).
+    - Line 28: Define the speed limit.
+    - Line 32: initialization to pseudo-random particles in the ranges of decision variables.
+    - Line 35: Setting the best state for all particles.
+    - Line 39: Calculate the cost of the global best case.
+
+5. Lines 46-72:
+    - This part is also a main loop for executing the PSO algorithm.
+    - Lines 48-53: update the velocity and position of the particles according to the PSO equations.
+    - Line 56: Break the speeds too big and too small from the given amount.
+    - Lines 59-64: update the speed and position of the particles.
+    - Lines 67-72: Update personal and global best state and store best cost over time.
+
+6. Lines 75-82:
+    - Drawing the graph of the change of the best cost over time.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+data = load('mydata');
+X = data.X;
+k = 3;
+ 
+CostFunction=@(m) ClusteringCost(m, X);     % Cost Function
+ 
+VarSize=[k size(X,2)];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat(min(X),k,1);      % Lower Bound of Variables
+VarMax= repmat(max(X),k,1);      % Upper Bound of Variables
+ 
+%% DE Parameters
+ 
+MaxIt=200;      % Maximum Number of Iterations
+ 
+nPop=50;        % Population Size
+ 
+beta_min=0.2;   % Lower Bound of Scaling Factor
+beta_max=0.8;   % Upper Bound of Scaling Factor
+ 
+pCR=0.2;        % Crossover Probability
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Out=[];
+ 
+BestSol.Cost=inf;
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+ 
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    [pop(i).Cost, pop(i).Out]=CostFunction(pop(i).Position);
+    
+    ifpop(i).Cost<BestSol.Cost
+        BestSol=pop(i);
+    end
+    
+end
+ 
+BestCost=zeros(MaxIt,1);
+ 
+%% DE Main Loop
+ 
+for it=1:MaxIt
+    
+    for i=1:nPop
+        
+        x=pop(i).Position;
+        
+        A=randperm(nPop);
+        
+        A(A==i)=[];
+        
+        a=A(1);
+        b=A(2);
+        c=A(3);
+        
+        % Mutation
+        %beta=unifrnd(beta_min,beta_max);
+        beta=unifrnd(beta_min,beta_max,VarSize);
+        y=pop(a).Position+beta.*(pop(b).Position-pop(c).Position);
+        y=max(y,VarMin);
+        y=min(y,VarMax);
+        
+        % Crossover
+        z=zeros(size(x));
+        j0=randi([1 numel(x)]);
+        for j=1:numel(x)
+            if j==j0 || rand<=pCR
+                z(j)=y(j);
+            else
+                z(j)=x(j);
+            end
+        end
+        
+        NewSol.Position=z;
+        [NewSol.Cost, NewSol.Out]=CostFunction(NewSol.Position);
+        
+        ifNewSol.Cost<pop(i).Cost
+            pop(i)=NewSol;
+            
+            ifpop(i).Cost<BestSol.Cost
+               BestSol=pop(i);
+            end
+        end
+        
+    end
+    
+    % Update Best Cost
+    BestCost(it)=BestSol.Cost;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+ 
+end
+ 
+%% Show Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+
+This code first clears the command screen and graph windows. It then defines the problem and loads the data from a file. Then, using the cost function and other functions, it determines the parameters of the evolutionary DE algorithm. It then creates the first population and calculates the cost of each population. Then, in each main iteration of the algorithm, for each person in the population, it finds new formulas for mutation and promotion, and then if the new cost is lower than the current cost of the individual, it replaces the new sample in the population. Finally, it shows the best cost per iteration and the graph of cost change over time.
+
+functioni=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    c=cumsum(P);
+    
+    i=find(r<=c,1,'first');
+ 
+end
+
+This code is a function that implements the cycle selection method, or it can also be called the cycle sampling method from a probability distribution of labels. The input of this function is a probability vector P representing different labels.
+
+First, it randomly selects a number r between 0 and 1. It then calculates the new vector c using an accumulation of probabilities in vector P. In this vector, the new elements are the sum of each element with all previous elements.
+
+Finally, the first element whose digit r is less than or equal to the corresponding value in vector c is returned as the result. In other words, this function selects one of the labels based on the probability of each label.
+
+ha: Harmony Search
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+data = load('mydata');
+X = data.X;
+k = 3;
+ 
+CostFunction=@(m) ClusteringCost(m, X);     % Cost Function
+ 
+VarSize=[k size(X,2)];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat(min(X),k,1);      % Lower Bound of Variables
+VarMax= repmat(max(X),k,1);      % Upper Bound of Variables
+ 
+%% Harmony Search Parameters
+ 
+MaxIt=1000;     % Maximum Number of Iterations
+ 
+HMS=20;         % Harmony Memory Size
+ 
+nNew=100;        % Number of New Harmonies
+ 
+HMCR=0.2;       % Harmony Memory Consideration Rate
+ 
+PAR=0.1;        % Pitch Adjustment Rate
+ 
+FW=0.5*(VarMax-VarMin);    % Fret Width (Bandwidth)
+ 
+FW_damp=0.995;              % Fret Width Damp Ratio
+ 
+%% Initialization
+ 
+% Empty Harmony Structure
+empty_harmony.Position=[];
+empty_harmony.Cost=[];
+empty_harmony.Out=[];
+ 
+% Initialize Harmony Memory
+HM=repmat(empty_harmony,HMS,1);
+ 
+% Create Initial Harmonies
+for i=1:HMS
+    HM(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    [HM(i).Cost, HM(i).Out]=CostFunction(HM(i).Position);
+end
+ 
+% Sort Harmony Memory
+[~, SortOrder]=sort([HM.Cost]);
+HM=HM(SortOrder);
+ 
+% Update Best Solution Ever Found
+BestSol=HM(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Array to Hold Mean Cost Values
+MeanCost=zeros(MaxIt,1);
+ 
+%% Harmony Search Main Loop
+ 
+for it=1:MaxIt
+    
+    % Initialize Array for New Harmonies
+    NEW=repmat(empty_harmony,new,1);
+    
+    % Create New Harmonies
+    for k=1:nNew
+        
+        % Create New Harmony Position
+        NEW(k).Position=unifrnd(VarMin,VarMax,VarSize);
+        for j=1:nVar
+            if rand<=HMCR
+                % Use Harmony Memory
+                i=randi([1 HMS]);
+                NEW(k).Position(j)=HM(i).Position(j);
+            end
+            
+            % Pitch Adjustment
+            if rand<=PAR
+                %DELTA=FW*unifrnd(-1,+1);    % Uniform
+                DELTA=FW(j)*randn();        % Gaussian (Normal) 
+                NEW(k).Position(j)=NEW(k).Position(j)+DELTA;
+            end
+        
+        end
+        
+        % Apply Variable Limits
+        NEW(k).Position=max(NEW(k).Position,VarMin);
+        NEW(k).Position=min(NEW(k).Position,VarMax);
+ 
+        % Evaluation
+        [NEW(k).Cost, NEW(k).Out]=CostFunction(NEW(k).Position);
+        
+    end
+    
+    % Merge Harmony Memory and New Harmonies
+    HM=[HM
+        NEW];
+    
+    % Sort Harmony Memory
+    [~, SortOrder]=sort([HM.Cost]);
+    HM=HM(SortOrder);
+    
+    % Truncate Extra Harmonies
+    HM=HM(1:HMS);
+    
+    % Update Best Solution Ever Found
+    BestSol=HM(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Store Mean Cost
+    MeanCost(it)=mean([HM.Cost]);
+ 
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+    
+    % Damp Fret Width
+    FW=FW*FW_damp;
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+
+This code is a harmony search algorithm to solve a clustering problem. The different parts of the code are:
+- Deleting variables and windows in the main window (CLC, clear, close all)
+- Defining the main problem to be estimated with the data and determining the cost function that is used to calculate the estimated cost.
+- Definition of parameters of harmony search algorithm such as harmony memory, number of new problems, memory consideration rate, screw adjustment rate, width, etc.
+- Initializing the variables and windows needed to run the algorithm.
+- Performing the main loop of Harmony Search by creating new memories, cost evaluation, matching, and reducing overhead.
+- Show the results as a graph.
+Artificial Clone Algorithm: ABC
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+data = load('mydata');
+X = data.X;
+k = 3;
+ 
+CostFunction=@(m) ClusteringCost(m, X);     % Cost Function
+ 
+VarSize=[k size(X,2)];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat(min(X),k,1);      % Lower Bound of Variables
+VarMax= repmat(max(X),k,1);      % Upper Bound of Variables
+ 
+%% ABC Settings
+ 
+MaxIt=100;              % Maximum Number of Iterations
+ 
+nPop=100;               % Population Size (Colony Size)
+ 
+nOnlooker=nPop;         % Number of Onlooker Bees
+ 
+L=round(0.5*nVar*nPop);% Abandonment Limit Parameter
+ 
+a=1;                    % Acceleration Coefficient Upper Bound
+ 
+%% Initialization
+ 
+% Empty Bee Structure
+empty_bee.Position=[];
+empty_bee.Cost=[];
+empty_bee.Out=[];
+ 
+% Initialize Population Array
+pop=repmat(empty_bee,nPop,1);
+ 
+% Initialize Best Solution Ever Found
+BestSol.Cost=inf;
+ 
+% Create Initial Population
+for i=1:nPop
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    [pop(i).Cost, pop(i).Out]=CostFunction(pop(i).Position);
+    
+    if pop(i).Cost<=BestSol.Cost
+        BestSol=pop(i);
+    end
+end
+ 
+% Abandonment Counter
+C=zeros(nPop,1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+%% ABC Main Loop
+ 
+for it=1:MaxIt
+    
+    % Recruited Bees
+    for i=1:nPop
+        
+        % Choose k randomly, not equal to i
+        K=[1:i-1 i+1:nPop];
+        k=K(randi([1 numel(K)]));
+        
+        % Define Acceleration Coeff.
+        phi=unifrnd(-a,+a,VarSize);
+        
+        % New Bee Position
+        newbee.Position=pop(i).Position+phi.*(pop(i).Position-pop(k).Position);
+        newbee.Position=max(newbie.Position, VarMin);
+        newbee.Position=min(newbie.Position, VarMax);
+        
+        % Evaluation
+        [newbee.Cost, newbee.Out]=CostFunction(newbie.Position);
+        
+        % Comparision
+        newbie.Cost<=pop(i).Cost
+            pop(i)=newbee;
+        else
+            C(i)=C(i)+1;
+        end
+        
+    end
+    
+    % Calculate Fitness Values and Selection Probabilities
+    F=zeros(nPop,1);
+    for i=1:nPop
+        ifpop(i).Cost>=0
+            F(i)=1/(1+pop(i).Cost);
+        else
+            F(i)=1+abs(pop(i).Cost);
+        end
+    end
+    P=F/sum(F);
+    
+    % Onlooker Bees
+    for m=1:nOnlooker
+        
+        % Select Source Site
+        i=RouletteWheelSelection(P);
+        
+        % Choose k randomly, not equal to i
+        K=[1:i-1 i+1:nPop];
+        k=K(randi([1 numel(K)]));
+        
+        % Define Acceleration Coeff.
+        phi=unifrnd(-a,+a,VarSize);
+        
+        % New Bee Position
+        newbee.Position=pop(i).Position+phi.*(pop(i).Position-pop(k).Position);
+        newbee.Position=max(newbie.Position, VarMin);
+        newbee.Position=min(newbie.Position, VarMax);
+        
+        % Evaluation
+        [newbee.Cost, newbee.Out]=CostFunction(newbie.Position);
+        
+        % Comparision
+        newbie.Cost<=pop(i).Cost
+            pop(i)=newbee;
+        else
+            C(i)=C(i)+1;
+        end
+        
+    end
+    
+    % Scout Bees
+    for i=1:nPop
+        if C(i)>=L
+            pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+            [pop(i).Cost, pop(i).Out]=CostFunction(pop(i).Position);
+            C(i)=0;
+        end
+    end
+    
+    % Update Best Solution Ever Found
+    for i=1:nPop
+        ifpop(i).Cost<=BestSol.Cost
+            BestSol=pop(i);
+        end
+    end
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Display Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+ 
+end
+    
+%% Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+ 
+
+
+
+This code implements an optimization algorithm called ABC (or Artificial Bee Colony respectively). ABC is an advanced algorithm that is based on the behavior of honey bees and their classification. This algorithm is used in various fields such as numerical optimization and machine efficiency, strategic optimization, and learning methods. In this code, we follow the correspondence to a given problem (specified by the CostFunction function). Other functions such as the RouletteWheelSelection function and PlotSolution functions are also used to implement ABC.
+
+functiony=Mutate(x,mu,VarMin,VarMax)
+ 
+    nVar=numel(x);
+    
+    nmu=ceil(mu*nVar);
+    
+    j=randsample(nVar,nmu);
+    
+    sigma=0.1*(VarMax-VarMin);
+    
+    y=x;
+    y(j)=x(j)+sigma(j)*randn(size(j));
+    
+    y=max(y,VarMin);
+    y=min(y,VarMax);
+ 
+end
+
+This function is a mutation function for optimization algorithms. In each instance of this function, we have an input vector called x and the values of mu, VarMin, and VarMax parameters. The operation of this function is as follows:
+
+1. First, we calculate the number of elements of the input vector, abbreviated as nVar.
+2. We calculate the number of elements we want to change by multiplying mu by nVar and rounding up (in the second line).
+3. The randsample algorithm returns the number j randomly and without replacement from the numbers 1 to nVar (in the third line).
+4. Then we calculate a sigma value that is equal to 0.1 times the range of VarMax-VarMin values.
+5. We create a new vector y with the same volume and values as the input vector x (in the fourth line).
+6. At position j, we change the values of the vector y with a Gaussian random number with zero mean and standard deviation sigma[j] (in the fifth line).
+7. Then we put the y vector in the range of VarMin and VarMax (in the sixth and seventh lines), we keep the longitudinal domain of the y vector in this range.
+8. Finally, we return the vector y as the output of the function.
+
+Briefly, this function transforms a vector x in nmu random position into a Gaussian random with standard deviation sigma and keeps the longitudinal domain of the vector y within the limits of VarMin and VarMax.
+
+
+functioni=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    c=cumsum(P);
+    
+    i=find(r<=c,1,'first');
+ 
+end
+
+
+This code operates for selecting a member from an array using the cycle or roulette wheel method.
+
+The input of this operation is an array called P that specifies the probabilities of selecting elements. The name of the input array P is probably taken from the expression probability.
+
+The output of this operation is an integer called i, which is randomly generated between 1 and the length of the array P. The index of this integer specifies that the member corresponding to this index is selected from the array P.
+
+The selection process for this member is as follows:
+1. First, a random number r between 0 and 1 is generated.
+2. A vector named c is created, which is a vector of initial probability numbers in the order of the smallest community, for example, if the probability numbers are in order
+     P = [0.2, 0.3, 0.1, 0.4]
+be, c is equal to
+     c = [0.2, 0.5, 0.6, 1]
+3. A member in the array P is selected whose index in vector c is equal to an index whose corresponding value in vector c is greater than or equal to the chosen random number r and also has the next index.
+
+The find function, using the parameters given to it, finds the first index in the c vector whose corresponding value in the c vector is greater than or equal to the random number r.
+
+
+Chromosome is considered linear.
+
+Criterion or credit index:
+Validity index:
+
+
+DB index:
+Distance within clusters divided by distance between clusters = DB
+
+
+The radius of the cluster's peripheral hypersphere
+Euclidean distance:
+The cluster that has the most separation:
+ 
+Clusters increase and decrease and can be compared.
+The next index we use is: the CS index
+Two people in the same cluster are very alien and we want to fix this.
+Folder Metaheuristic Automatic Clustering
+
+
+function [z, out] = ClusteringCost(s, X, Method)
+ 
+    if ~exist('Method', 'var')
+        Method = 'DB';
+    end
+ 
+    m = s(:,1:end-1);
+    
+    a = s(:,end);
+    ifsum(a>=0.5)<2
+        [~, SortOrder] = sort(a,'descend');
+        a(SortOrder(1:2)) = 1;
+    end
+    
+    m = m(a>=0.5,:);
+    
+    switch Method
+        case 'DB'
+            [z, out] = DBIndex(m, X);
+            out.m = m;
+            
+        case 'CS'
+            [z, out] = CSIndex(m, X);
+            
+    end
+    
+    out.a = double(a>=0.5);
+    
+end
+
+
+This code defines a function called ClusteringCost that takes two input arguments s and X and an optional Method argument.
+
+Initially, it is defined so that if the Method argument is not defined, the default value is 'DB'.
+
+Then, in the next step, the arrays m and a are taken from the selected array s. Different columns of array s are used as matrix m and the last column of array s is used as array a.
+
+Then, in the next step, a condition is checked if the number of elements greater than or equal to 0.5 in array a is less than 2 or not. If the condition is true, it converts the two largest elements of array a to 1.
+
+In the next step, the elements corresponding to the elements that have a value greater than or equal to 0.5 in array a are selected from array m and placed in matrix m.
+
+Then, based on the value of the Method argument, using a switch statement, it executes one of two modes 'DB' or 'CS' to process the data in matrix m and array X.
+
+In 'DB' mode, the DBIndex function is called with inputs m and X, and two outputs z and out are obtained. Also, the matrix m is added as an output parameter.
+
+In 'CS' mode, the CSIndex function is called with inputs m and X, and two outputs z and out are obtained.
+
+Finally, the array a is obtained as another output with the values 0 and 1 using a comparison operator.
+
+The two outputs z and out are returned as the outputs of the ClusteringCost function.
+
+function [DB, out] = DBIndex(m, X)
+ 
+    k = size(m,1);
+ 
+    % Calculate Distance Matrix
+    d = pdist2(X, m);
+    
+    % Assign Clusters and Find Closest Distances
+    [dmin, ind] = min(d, [], 2);
+    
+    q=2;
+    S=zeros(k,1);
+    for i=1:k
+        Ipsum(ind==i)>0
+            S(i) = (mean(dmin(ind==i).^q))^(1/q);
+        else
+            S(i) = 10*norm(max(X)-min(X));
+        end
+    end
+    
+    t=2;
+    D=pdist2(m,m,'minkowski',t);
+ 
+    r = zeros(k);
+    for i=1:k
+        for j=i+1:k
+            r(i,j) = (S(i)+S(j))/D(i,j);
+            r(j,i) = r(i,j);
+        end
+    end
+    
+    R=max(r);
+    
+    DB = mean(R);
+    
+    out.d=d;
+    out.dmin=dmin;
+    out.ind=ind;
+    out.DB=DB;
+    out.S=S;
+    out.D=D;
+    out.r=r;
+    out.R=R;
+    
+end
+
+This code is a function called DBIndex that takes two parameters m and X and returns two values DB and out.
+
+The steps of this function are as follows:
+1. Sets the value of k equal to the size of the rows of the matrix m.
+2. Calculate the distance matrix d, which includes the distance between any two points in the X matrix and the m matrix.
+3. Allocates the data to clusters and calculates the distances of the nearest tree from each point.
+4. The function calculates q and S; q is equal to 2, and if a particular cluster has no members, the value of S is equal to 10 multiplied by the distance between the largest and smallest points.
+5. The function calculates t and D and calculates the Laplacian section d for each pair of clusters.
+6. Calculates (gets the maximum d Laplacian from each row of the r matrix).
+7. Calculates the value of DB and returns out, which contains the matrices and vectors obtained in the previous steps.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+Method = 'DB';  % DB or CS
+ 
+data = load('mydata');
+X = data.X;
+k = 10;
+ 
+CostFunction=@(s) ClusteringCost(s, X, Method);     % Cost Function
+ 
+VarSize=[k size(X,2)+1];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat([min(X) 0],k,1);      % Lower Bound of Variables
+VarMax= repmat([max(X) 1],k,1);      % Upper Bound of Variables
+ 
+%% GA Parameters
+ 
+MaxIt=200;      % Maximum Number of Iterations
+ 
+nPop=100;        % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parents)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+gamma=0.05;
+ 
+mu=0.02;         % Mutation Rate
+ 
+beta=8;         % Selection Pressure
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Out=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    % Evaluation
+    [pop(i).Cost, pop(i).Out]=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs, SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Store Best Solution
+BestSol=pop(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Store Cost
+WorstCost=pop(end).Cost;
+ 
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    P=exp(-beta*Costs/WorstCost);
+    P=P/sum(P);
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents Indices
+        i1=RouletteWheelSelection(P);
+        i2=RouletteWheelSelection(P);
+ 
+        % Select Parents
+        p1=pop(i1);
+        p2=pop(i2);
+        
+        % Apply Crossover
+        [popc(k,1).Position, popc(k,2).Position]=...
+            Crossover(p1.Position,p2.Position,gamma,VarMin,VarMax);
+        
+        % Evaluate Offsprings
+        [popc(k,1).Cost, popc(k,1).Out]=CostFunction(pops(k,1).Position);
+        [popc(k,2).Cost, popc(k,2).Out]=CostFunction(pops(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu,VarMin,VarMax);
+        
+        % Evaluate Mutant
+        [popm(k).Cost, popm(k).Out]=CostFunction(pop(k).Position);
+        
+    end
+    
+    % Create Merged Population
+    pop=[pop
+         pop
+         popm]; %#ok
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs, SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,pop(end).Cost);
+    
+    % Truncation
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Store Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+
+This program implements a genetic optimization algorithm to solve the clustering problem. The program first defines the problem and specifies a number of parameters. Then, using the genetic algorithm, the initial population is generated from the random population, and for each person in the population, the cost and output are calculated. For each new generation, Farad is extracted according to the fitting probabilities, and the operation of generating children is applied using combination and mutation operators. The offspring and newly produced individuals are then combined into a single population, and individuals worse than a quarter of the population's lifespan are eliminated. Finally, the best solution
+
+This program implements a genetic optimization algorithm to solve the clustering problem. In the initial lines, required packages and libraries are called. Then the clustering problem is defined. The parameters related to the optimization algorithm and the range of values of the variables are also determined. Then the processing of the algorithm, the prioritization of the population, and the combination of superior individuals and the generation of children from them. Then mutation and replacement operations are performed. At the end, the final result is obtained and the graph of the target quantity is shown according to the number of repetitions.
+
+functiony=Mutate(x,mu,VarMin,VarMax)
+ 
+    nVar=numel(x);
+    
+    nmu=ceil(mu*nVar);
+    
+    j=randsample(nVar,nmu);
+    
+    sigma=0.1*(VarMax-VarMin);
+    
+    y=x;
+    y(j)=x(j)+sigma(j)*randn(size(j));
+    
+    y=max(y,VarMin);
+    y=min(y,VarMax);
+ 
+end
+
+
+In this program, the Mutate function is defined, which receives a vector x and creates a new vector based on the probability of moving mu variables.
+
+- First, we obtain the number of variables nVar using the numeral function for each element of the vector x.
+
+- Then we calculate the number of variables to be moved by multiplying mu by nVar and potentially creating an array j containing the number of variables to be moved. These numbers are selected using the randsample function.
+
+- Then we define the sigma matrix whose dimensions are equal to x and the value of each element is calculated from the formula 0.1*(VarMax-VarMin).
+
+- We define a new vector y with dimensions equal to x, which is first equal to x and then obtained in j places using the formula x(j)+sigma(j)*rand (size(j)).
+
+- We limit the y vector using min and max in the range VarMin to VarMax.
+
+- Finally, we return the vector y as the output of the function.
+
+
+function [y1, y2]=Crossover(x1,x2,gamma,VarMin,VarMax)
+ 
+    alpha=unifrnd(-gamma,1+gamma,size(x1));
+    
+    y1=alpha.*x1+(1-alpha).*x2;
+    y2=alpha.*x2+(1-alpha).*x1;
+    
+    y1=max(y1,VarMin);
+    y1=min(y1,VarMax);
+    
+    y2=max(y2,VarMin);
+    y2=min(y2,VarMax);
+ 
+end
+
+
+This code defines a helper function called "Crossover", which is used to perform crossover operations in optimization algorithms. This function receives two inputs x1 and x2, both of which are one-dimensional stack vectors. It also receives several other inputs, including gamma, VarMin, and VarMax.
+
+From the beginning, a random value of variable alpha of size equal to x1 is generated. Then the two vectors y1 and y2 are calculated according to the linear combination of x1 and x2. Here, the alpha number is taken as the weight of x1 and (1-alpha) as the weight of x2.
+
+Then, y1 and y2 are checked to meet the minimum and maximum acceptable values (VarMin and VarMax). This is done using the functions corresponding to "max" and "min".
+
+Finally, two vectors y1 and y2 are returned as the output of the function.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+Method = 'DB';  % DB or CS
+ 
+data = load('mydata');
+X = data.X;
+k = 10;
+ 
+CostFunction=@(s) ClusteringCost(s, X, Method);     % Cost Function
+ 
+VarSize=[k size(X,2)+1];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat([min(X) 0],k,1);      % Lower Bound of Variables
+VarMax= repmat([max(X) 1],k,1);      % Upper Bound of Variables
+ 
+%% DE Parameters
+ 
+MaxIt=200;      % Maximum Number of Iterations
+ 
+nPop=50;        % Population Size
+ 
+beta_min=0.2;   % Lower Bound of Scaling Factor
+beta_max=0.8;   % Upper Bound of Scaling Factor
+ 
+pCR=0.2;        % Crossover Probability
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+empty_individual.Out=[];
+ 
+BestSol.Cost=inf;
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+ 
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    [pop(i).Cost, pop(i).Out]=CostFunction(pop(i).Position);
+    
+    ifpop(i).Cost<BestSol.Cost
+        BestSol=pop(i);
+    end
+    
+end
+ 
+BestCost=zeros(MaxIt,1);
+ 
+%% DE Main Loop
+ 
+for it=1:MaxIt
+    
+    for i=1:nPop
+        
+        x=pop(i).Position;
+        
+        A=randperm(nPop);
+        
+        A(A==i)=[];
+        
+        a=A(1);
+        b=A(2);
+        c=A(3);
+        
+        % Mutation
+        %beta=unifrnd(beta_min,beta_max);
+        beta=unifrnd(beta_min,beta_max,VarSize);
+        y=pop(a).Position+beta.*(pop(b).Position-pop(c).Position);
+        y=max(y,VarMin);
+        y=min(y,VarMax);
+        
+        % Crossover
+        z=zeros(size(x));
+        j0=randi([1 numel(x)]);
+        for j=1:numel(x)
+            if j==j0 || rand<=pCR
+                z(j)=y(j);
+            else
+                z(j)=x(j);
+            end
+        end
+        
+        NewSol.Position=z;
+        [NewSol.Cost, NewSol.Out]=CostFunction(NewSol.Position);
+        
+        ifNewSol.Cost<pop(i).Cost
+            pop(i)=NewSol;
+            
+            ifpop(i).Cost<BestSol.Cost
+               BestSol=pop(i);
+            end
+        end
+        
+    end
+    
+    % Update Best Cost
+    BestCost(it)=BestSol.Cost;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+ 
+end
+ 
+%% Show Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+
+This code uses an optimization algorithm called Differential Evolution (DE) to solve a clustering problem. This algorithm uses an evolutionary approach for optimization.
+
+In this code, first, the variables and parameters necessary for DE are defined. Then a population with the number of nPop is created randomly and for each member in the population, the value of Cost and Out is calculated. The best member in the crowd is chosen as the BestSol.
+
+Then, in the main DE loop, for each member in the population (i), a random point (a) is selected from among the remaining members. Then two other random points (b and c) are selected from the rest of the members. Using these random points, Mutation and Crossover operations are performed on the point (x) to obtain the new point (z). If the Cost of the new point is lower than the Cost of the previous point, the new point is replaced as the new point.
+
+At the end of each round of the main loop, the best cost in this round is added to the BestCost, and the BestCost graph is drawn.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+Method = 'DB';  % DB or CS
+ 
+data = load('mydata');
+X = data.X;
+k = 10;
+ 
+CostFunction=@(s) ClusteringCost(s, X, Method);     % Cost Function
+ 
+VarSize=[k size(X,2)+1];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat([min(X) 0],k,1);      % Lower Bound of Variables
+VarMax= repmat([max(X) 1],k,1);      % Upper Bound of Variables
+ 
+%% Harmony Search Parameters
+ 
+MaxIt=1000;     % Maximum Number of Iterations
+ 
+HMS=20;         % Harmony Memory Size
+ 
+nNew=100;        % Number of New Harmonies
+ 
+HMCR=0.2;       % Harmony Memory Consideration Rate
+ 
+PAR=0.1;        % Pitch Adjustment Rate
+ 
+FW=0.5*(VarMax-VarMin);    % Fret Width (Bandwidth)
+ 
+FW_damp=0.995;              % Fret Width Damp Ratio
+ 
+%% Initialization
+ 
+% Empty Harmony Structure
+empty_harmony.Position=[];
+empty_harmony.Cost=[];
+empty_harmony.Out=[];
+ 
+% Initialize Harmony Memory
+HM=repmat(empty_harmony,HMS,1);
+ 
+% Create Initial Harmonies
+for i=1:HMS
+    HM(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    [HM(i).Cost, HM(i).Out]=CostFunction(HM(i).Position);
+end
+ 
+% Sort Harmony Memory
+[~, SortOrder]=sort([HM.Cost]);
+HM=HM(SortOrder);
+ 
+% Update Best Solution Ever Found
+BestSol=HM(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Array to Hold Mean Cost Values
+MeanCost=zeros(MaxIt,1);
+ 
+%% Harmony Search Main Loop
+ 
+for it=1:MaxIt
+    
+    % Initialize Array for New Harmonies
+    NEW=repmat(empty_harmony,new,1);
+    
+    % Create New Harmonies
+    for k=1:nNew
+        
+        % Create New Harmony Position
+        NEW(k).Position=unifrnd(VarMin,VarMax,VarSize);
+        for j=1:nVar
+            if rand<=HMCR
+                % Use Harmony Memory
+                i=randi([1 HMS]);
+                NEW(k).Position(j)=HM(i).Position(j);
+            end
+            
+            % Pitch Adjustment
+            if rand<=PAR
+                %DELTA=FW*unifrnd(-1,+1);    % Uniform
+                DELTA=FW(j)*randn();        % Gaussian (Normal) 
+                NEW(k).Position(j)=NEW(k).Position(j)+DELTA;
+            end
+        
+        end
+        
+        % Apply Variable Limits
+        NEW(k).Position=max(NEW(k).Position,VarMin);
+        NEW(k).Position=min(NEW(k).Position,VarMax);
+ 
+        % Evaluation
+        [NEW(k).Cost, NEW(k).Out]=CostFunction(NEW(k).Position);
+        
+    end
+    
+    % Merge Harmony Memory and New Harmonies
+    HM=[HM
+        NEW];
+    
+    % Sort Harmony Memory
+    [~, SortOrder]=sort([HM.Cost]);
+    HM=HM(SortOrder);
+    
+    % Truncate Extra Harmonies
+    HM=HM(1:HMS);
+    
+    % Update Best Solution Ever Found
+    BestSol=HM(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Store Mean Cost
+    MeanCost(it)=mean([HM.Cost]);
+ 
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+    
+    % Damp Fret Width
+    FW=FW*FW_damp;
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+
+
+This program implements an optimization algorithm called Harmony Search. This algorithm aims to use the combination of better values of the harmonic combination and new harmonics to find the optimal state. In this program, data is loaded from a file and then in a main loop of the algorithm, new harmonies are created and evaluated, and then stored in the harmony memory space as well as the best one. The program also graphically displays the changes of Hermione along with the best state reached at each stage. Finally, the program displays the best cost changes during execution.
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+Method = 'CS';  % DB or CS
+ 
+data = load('mydata');
+X = data.X;
+k = 10;
+ 
+CostFunction=@(s) ClusteringCost(s, X, Method);     % Cost Function
+ 
+VarSize=[k size(X,2)+1];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat([min(X) 0],k,1);      % Lower Bound of Variables
+VarMax= repmat([max(X) 1],k,1);      % Upper Bound of Variables
+ 
+%% ABC Settings
+ 
+MaxIt=100;              % Maximum Number of Iterations
+ 
+nPop=100;               % Population Size (Colony Size)
+ 
+nOnlooker=nPop;         % Number of Onlooker Bees
+ 
+L=round(0.5*nVar*nPop);% Abandonment Limit Parameter
+ 
+a=1;                    % Acceleration Coefficient Upper Bound
+ 
+%% Initialization
+ 
+% Empty Bee Structure
+empty_bee.Position=[];
+empty_bee.Cost=[];
+empty_bee.Out=[];
+ 
+% Initialize Population Array
+pop=repmat(empty_bee,nPop,1);
+ 
+% Initialize Best Solution Ever Found
+BestSol.Cost=inf;
+ 
+% Create Initial Population
+for i=1:nPop
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    [pop(i).Cost, pop(i).Out]=CostFunction(pop(i).Position);
+    
+    ifpop(i).Cost<=BestSol.Cost
+        BestSol=pop(i);
+    end
+end
+ 
+% Abandonment Counter
+C=zeros(nPop,1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+%% ABC Main Loop
+ 
+for it=1:MaxIt
+    
+    % Recruited Bees
+    for i=1:nPop
+        
+        % Choose k randomly, not equal to i
+        K=[1:i-1 i+1:nPop];
+        k=K(randi([1 numel(K)]));
+        
+        % Define Acceleration Coeff.
+        phi=unifrnd(-a,+a,VarSize);
+        
+        % New Bee Position
+        newbee.Position=pop(i).Position+phi.*(pop(i).Position-pop(k).Position);
+        newbee.Position=max(newbie.Position, VarMin);
+        newbee.Position=min(newbie.Position, VarMax);
+        
+        % Evaluation
+        [newbee.Cost, newbee.Out]=CostFunction(newbie.Position);
+        
+        % Comparision
+        newbie.Cost<=pop(i).Cost
+            pop(i)=newbee;
+        else
+            C(i)=C(i)+1;
+        end
+        
+    end
+    
+    % Calculate Fitness Values and Selection Probabilities
+    F=zeros(nPop,1);
+    for i=1:nPop
+        ifpop(i).Cost>=0
+            F(i)=1/(1+pop(i).Cost);
+        else
+            F(i)=1+abs(pop(i).Cost);
+        end
+    end
+    P=F/sum(F);
+    
+    % Onlooker Bees
+    for m=1:nOnlooker
+        
+        % Select Source Site
+        i=RouletteWheelSelection(P);
+        
+        % Choose k randomly, not equal to i
+        K=[1:i-1 i+1:nPop];
+        k=K(randi([1 numel(K)]));
+        
+        % Define Acceleration Coeff.
+        phi=unifrnd(-a,+a,VarSize);
+        
+        % New Bee Position
+        newbee.Position=pop(i).Position+phi.*(pop(i).Position-pop(k).Position);
+        newbee.Position=max(newbie.Position, VarMin);
+        newbee.Position=min(newbie.Position, VarMax);
+        
+        % Evaluation
+        [newbee.Cost, newbee.Out]=CostFunction(newbie.Position);
+        
+        % Comparision
+        newbie.Cost<=pop(i).Cost
+            pop(i)=newbee;
+        else
+            C(i)=C(i)+1;
+        end
+        
+    end
+    
+    % Scout Bees
+    for i=1:nPop
+        if C(i)>=L
+            pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+            [pop(i).Cost, pop(i).Out]=CostFunction(pop(i).Position);
+            C(i)=0;
+        end
+    end
+    
+    % Update Best Solution Ever Found
+    for i=1:nPop
+        ifpop(i).Cost<=BestSol.Cost
+            BestSol=pop(i);
+        end
+    end
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Display Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+ 
+end
+    
+%% Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+ 
+
+
+This program implements the ABC algorithm (Tele algorithm) to solve the clustering problem. The ABC algorithm is based on the survival algorithm of the honey bee and tries to find the best clustering by optimizing the location of the clustering samples.
+
+The line-by-line description of this program is as follows:
+
+CLC
+This command resets the Windows command and clears all variables.
+
+clear
+This command clears all variables.
+
+close all;
+This command closes all form windows.
+
+Method = 'CS'; % DB or CS
+This line defines the "Method" variable, which specifies whether to use the shortest distance between clusters (DB) algorithm or the trap algorithm (CS).
+
+data = load('mydata');
+X = data.X;
+This line loads data from a file called "my data" and stores it in the variable "X".
+
+k = 10;
+This line specifies the number of clusters. Here the number of clusters is set to 10.
+
+CostFunction=@(s) ClusteringCost(s, X, Method);
+This line defines a cost function that calculates the cost based on the input clustering criterion "s". This function uses the "ClusteringCost" function and its inputs include the input matrix "X" and the clustering method (DB or CS).
+
+VarSize=[k size(X,2)+1]; % Decision Variables Matrix Size
+This line determines the dimensions of the matrix of decision variables. The number of columns is equal to the columns of the input matrix, and the number of rows is equal to the number of clusters plus one.
+
+nVar=prod(VarSize); % Number of Decision Variables
+This line calculates the number of decision variables as the product of the dimensions of the decision variables matrix (VarSize).
+
+VarMin= repeat([min(X) 0],k,1); % Lower Bound of Variables
+VarMax= repeat([max(X) 1],k,1); % Upper Bound of Variables
+These two lines determine the ranges of the decision variables. For each cluster, the minimum value of the decision variable is equal to the minimum value of the input matrix (X) and zero, and the maximum value of the decision variable is equal to the maximum value of the input matrix and one.
+a=1; % Acceleration Coefficient Upper Bound
+The maximum number of the acceleration coefficient is determined in the algorithm.
+
+% Empty Bee Structure
+empty_bee.Position=[];
+empty_bee.Cost=[];
+empty_bee.Out=[];
+An empty structure is defined to store the properties of the bees.
+
+% Initialize Population Array
+pop=repmat(empty_bee,nPop,1);
+An empty array is defined to store the attributes of the initial population.
+
+% Initialize Best Solution Ever Found
+BestSol.Cost=inf;
+Update the best solution found so far.
+
+% Create Initial Population
+for i=1:nPop
+     pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+     [pop(i).Cost, pop(i).Out]=CostFunction(pop(i).Position);
+    
+     if pop(i).Cost<=BestSol.Cost
+         BestSol=pop(i);
+     end
+end
+Creating the initial population calculates the input and output cost for the bees and updates the best solution found so far.
+
+% Abandonment Counter
+C=zeros(nPop,1);
+The number of times a bee is considered a loser becomes zero.
+
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+An array is defined to store the best cost improvements found in each iteration.
+
+%% ABC Main Loop
+The main loop of the ABC algorithm continues until the specified number of iterations is completed.
+
+% Recruited Bees
+for i=1:nPop
+...
+     ...
+end
+The first stage of improvement
+
+
+MaxIt=100; % Maximum Number of Iterations
+The number of iterations is determined in the algorithm.
+
+nPop=100; % Population Size (Colony Size)
+The number of bees (population) is determined.
+
+nOnlooker=nPop; % Number of Onlooker Bees
+The number of interested bees (observers) is determined, which is very similar to the working bees (Population).
+
+L=round(0.5*nVar*nPop); % Abandonment Limit Parameter
+This parameter determines how many times a bee is considered a loser to improve the input by another binary.
+
+function PlotSolution(X, sol)
+ 
+    % Cluster Centers
+    m = sol.Out.m;
+    k = size(m,1);
+    
+    % Cluster Indices
+    ind = sol.Out.ind;
+    
+    Colors = hsv(k);
+    
+    for j=1:k
+        Xj = X(ind==j,:);
+        plot(Xj(:,1),Xj(:,2),'x','LineWidth',2,'Color',Colors(j,:));
+        hold on;
+    end
+    
+    plot(m(:,1),m(:,2), 'ok', 'LineWidth',2, 'MarkerSize',12);
+    
+    hold off;
+    
+end
+
+This code defines a function called PlotSolution(X, sol).
+
+In line 3, the variable m is equal to the matrix of clustering centers sol.Out.m and k is equal to the number of rows of the matrix m.
+
+In line 6, the ind variable is equal to sol. Out. and.
+
+In line 8, the Colors variable is equal to the colors matrix hsv(k).
+
+In the for loop in lines 10 to 16, for each j from 1 to k, it takes the matrix Xj equal to the rows of the matrix X that have the value j in the ind matrix. Then it draws these lines using the plot function with title 'x', thickness 2, and color j from the Colors matrix.
+
+In line 18, it plots the matrix m using the plot function named 'ok', with a thickness of 2 and a size of 12.
+
+In line 20, it uses the hold-off function to turn off the hold mode.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+Method = 'DB';  % DB or CS
+ 
+data = load('mydata');
+X = data.X;
+k = 10;
+ 
+CostFunction=@(s) ClusteringCost(s, X, Method);     % Cost Function
+ 
+VarSize=[k size(X,2)+1];  % Decision Variables Matrix Size
+ 
+nVar=prod(VarSize);     % Number of Decision Variables
+ 
+VarMin= repmat([min(X) 0],k,1);      % Lower Bound of Variables
+VarMax= repmat([max(X) 1],k,1);      % Upper Bound of Variables
+ 
+%% PSO Parameters
+ 
+MaxIt=200;      % Maximum Number of Iterations
+ 
+nPop=50;        % Population Size (Swarm Size)
+ 
+% w=1;            % Inertia Weight
+% wdamp=0.99;     % Inertia Weight Damping Ratio
+% c1=2;           % Personal Learning Coefficient
+% c2=2;           % Global Learning Coefficient
+ 
+% Constriction Coefficients
+phi1=2.05;
+phi2=2.05;
+phi=phi1+phi2;
+chi=2/(phi-2+sqrt(phi^2-4*phi));
+w=chi;          % Inertia Weight
+wdamp=1;        % Inertia Weight Damping Ratio
+c1=chi*phi1;    % Personal Learning Coefficient
+c2=chi*phi2;    % Global Learning Coefficient
+ 
+% Velocity Limits
+VelMax=0.1*(VarMax-VarMin);
+VelMin=-VelMax;
+ 
+%% Initialization
+ 
+empty_particle.Position=[];
+empty_particle.Cost=[];
+empty_particle.Out=[];
+empty_particle.Velocity=[];
+empty_particle.Best.Position=[];
+empty_particle.Best.Cost=[];
+empty_particle.Best.Out=[];
+ 
+particle=repmat(empty_particle,nPop,1);
+ 
+BestSol.Cost=inf;
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    particle(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    % Initialize Velocity
+    particle(i).Velocity=zeros(VarSize);
+    
+    % Evaluation
+    [particle(i).Cost, particle(i).Out]=CostFunction(particle(i).Position);
+    
+    % Update Personal Best
+    particle(i).Best.Position=particle(i).Position;
+    particle(i).Best.Cost=particle(i).Cost;
+    particle(i).Best.Out=particle(i).Out;
+    
+    % Update Global Best
+    ifparticle(i).Best.Cost<BestSol.Cost
+        
+        BestSol=particle(i).Best;
+        
+    end
+    
+end
+ 
+BestCost=zeros(MaxIt,1);
+ 
+ 
+%% PSO Main Loop
+ 
+for it=1:MaxIt
+    
+    for i=1:nPop
+        
+        % Update Velocity
+        particle(i).Velocity = w*particle(i).Velocity ...
+            +c1*rand(VarSize).*(particle(i).Best.Position-particle(i).Position) ...
+            +c2*rand(VarSize).*(BestSol.Position-particle(i).Position);
+        
+        % Apply Velocity Limits
+        particle(i).Velocity = max(particle(i).Velocity,VelMin);
+        particle(i).Velocity = min(particle(i).Velocity,VelMax);
+        
+        % Update Position
+        particle(i).Position = particle(i).Position + particle(i).Velocity;
+        
+        % Velocity Mirror Effect
+        IsOutside=(particle(i).Position<VarMin | particle(i).Position>VarMax);
+        particle(i).Velocity(IsOutside)=-particle(i).Velocity(IsOutside);
+        
+        % Apply Position Limits
+        particle(i).Position = max(particle(i).Position,VarMin);
+        particle(i).Position = min(particle(i).Position,VarMax);
+        
+        % Evaluation
+        [particle(i).Cost, particle(i).Out] = CostFunction(particle(i).Position);
+        
+        % Update Personal Best
+        ifparticle(i).Cost<particle(i).Best.Cost
+            
+            particle(i).Best.Position=particle(i).Position;
+            particle(i).Best.Cost=particle(i).Cost;
+            particle(i).Best.Out=particle(i).Out;
+            
+            % Update Global Best
+            ifparticle(i).Best.Cost<BestSol.Cost
+                
+                BestSol=particle(i).Best;
+                
+            end
+            
+        end
+        
+    end
+    
+    BestCost(it)=BestSol.Cost;
+    
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Plot Solution
+    figure(1);
+    PlotSolution(X, BestSol);
+    pause(0.01);
+    
+    w=w*wdamp;
+    
+end
+ 
+%% Results
+ 
+figure;
+plot(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+
+### This program is an optimization algorithm called Particle Swarm Optimization. In this algorithm, we try to find the best (optimal) solution in a multidimensional space by using a population of particles and by using the laws of movement and improvement of particles.
+
+This program first defines the parameters and the cost function and then adjusts the parameters of the PSO algorithm. Then it performs the different steps of the algorithm:
+
+1. The first stage (Initialization):
+    - Initialization of the parameters and characteristics of the searched particles.
+    - Evaluation of each particle using the cost function.
+    - Update the best solution (BestSol) Global so far.
+
+2. The main loop of the algorithm (PSO Main Loop):
+    - Update the velocity of each particle using PSO algorithm rules.
+    - Apply speed limit.
+    - Update particle position using updated velocity.
+    - Applying the mirror effect on the speed and position of particles.
+    - applying particle position restrictions.
+    - Evaluation of each particle using the cost function.
+    - Update the personal best solution (BestSol) of each particle.
+    - Update the best global solution (BestSol) if necessary.
+    - Saving the cost of the best solution in each period.
+    - Display the best global solution.
+
+3. Conclusion phase (Results):
+    - Display a graph of the cost of the best solution in each period.
+
+functioni=RouletteWheelSelection(P)
+ 
+    r=rand;
+    
+    c=cumsum(P);
+    
+    i=find(r<=c,1,'first');
+ 
+end
+
+This program performs a batch selection based on cyclic function sampling. The input of the program is a numerical vector P that represents the probabilities of different categories. The program first generates a random number between 0 and 1 (r) and then calculates the cumulative probabilities (c), each element of which is equal to the sum of the probabilities of the previous categories. The program then checks which value of c is less than or equal to r and returns its index (i) indicating the category to be selected.
+
+function [CS, out] = CSIndex(m, X)
+ 
+    k = size(m,1);
+    n = size(X,1);
+    
+    % Calculate Distance Matrix
+    d = pdist2(X, m);
+    
+    % Assign Clusters and Find Closest Distances
+    [dmin, ind] = min(d, [], 2);
+    
+    dmax = zeros(n,1);
+    xx = pdist2(X,X);
+    for p=1:n
+        dmax(p) = max(dxx(p,ind==ind(p)));
+    end
+    
+    dbar = zeros(k,1);
+    for i=1:k
+        ifsum(ind==i)>0
+            dbar(i) = mean(dmax(ind==i));
+            m(i,:) = mean(X(ind==i,:));
+        else
+            dbar(i) = 10*norm(max(X)-min(X));
+        end
+    end
+    
+    D=pdist2(m,m);
+    for i=1:k
+        D(i,i)=inf;
+    end
+    Dmin=min(D);
+    
+    CS = mean(bar)/mean(Dmin);
+    
+    out.d=d;
+    out.dmin=dmin;
+    out.ind=ind;
+    out.CS=CS;
+    out.dmax=dmax;
+    out.dbar=dbar;
+    out.D=D;
+    out.Dmin=Dmin;
+    out.m=m;
+    
+end
+
+
+
+This code is used to calculate the CS (Cluster Separation) index for a data set and a reference set. This code includes the following steps:
+
+1. Calculation of the distance matrix between the points of the data set and the points of the reference set.
+2. Cluster assignment and finding the shortest distance between the points of each cluster and the reference.
+3. Calculate the maximum distance between the points of each cluster and the reference.
+4. Calculate the average distance above for each cluster and update the reference points
+5. Calculation of the distance matrix between the reference points.
+6. Calculation of CS index.
+7. Saving calculated information in output variables.
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+CostFunction=@(x) Sphere(x);        % Cost Function
+ 
+nVar=5;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+VarMin=-10;         % Decision Variables Lower Bound
+VarMax= 10;         % Decision Variables Upper Bound
+ 
+%% ABC Settings
+ 
+MaxIt=500;              % Maximum Number of Iterations
+ 
+nPop=200;               % Population Size (Colony Size)
+ 
+nOnlooker=nPop;         % Number of Onlooker Bees
+ 
+L=round(0.5*nVar*nPop);% Abandonment Limit Parameter
+ 
+a=1;                    % Acceleration Coefficient Upper Bound
+ 
+%% Initialization
+ 
+% Empty Bee Structure
+empty_bee.Position=[];
+empty_bee.Cost=[];
+ 
+% Initialize Population Array
+pop=repmat(empty_bee,nPop,1);
+ 
+% Initialize Best Solution Ever Found
+BestSol.Cost=inf;
+ 
+% Create Initial Population
+for i=1:nPop
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    pop(i).Cost=CostFunction(pop(i).Position);
+    
+    ifpop(i).Cost<=BestSol.Cost
+        BestSol=pop(i);
+    end
+end
+ 
+% Abandonment Counter
+C=zeros(nPop,1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+%% ABC Main Loop
+ 
+for it=1:MaxIt
+    
+    % Recruited Bees
+    for i=1:nPop
+        
+        % Choose k randomly, not equal to i
+        K=[1:i-1 i+1:nPop];
+        k=K(randi([1 numel(K)]));
+        
+        % Define Acceleration Coeff.
+        phi=unifrnd(-a,+a,VarSize);
+        
+        % New Bee Position
+        newbee.Position=pop(i).Position+phi.*(pop(i).Position-pop(k).Position);
+        newbee.Position=max(newbie.Position, VarMin);
+        newbee.Position=min(newbie.Position, VarMax);
+        
+        % Evaluation
+        newbee.Cost=CostFunction(newbie.Position);
+        
+        % Comparision
+        newbie.Cost<=pop(i).Cost
+            pop(i)=newbee;
+        else
+            C(i)=C(i)+1;
+        end
+        
+    end
+    
+    % Calculate Fitness Values and Selection Probabilities
+    F=zeros(nPop,1);
+    for i=1:nPop
+        ifpop(i).Cost>=0
+            F(i)=1/(1+pop(i).Cost);
+        else
+            F(i)=1+abs(pop(i).Cost);
+        end
+    end
+    P=F/sum(F);
+    
+    % Onlooker Bees
+    for m=1:nOnlooker
+        
+        % Select Source Site
+        i=RouletteWheelSelection(P);
+        
+        % Choose k randomly, not equal to i
+        K=[1:i-1 i+1:nPop];
+        k=K(randi([1 numel(K)]));
+        
+        % Define Acceleration Coeff.
+        phi=unifrnd(-a,+a,VarSize);
+        
+        % New Bee Position
+        newbee.Position=pop(i).Position+phi.*(pop(i).Position-pop(k).Position);
+        newbee.Position=max(newbie.Position, VarMin);
+        newbee.Position=min(newbie.Position, VarMax);
+        
+        % Evaluation
+        newbee.Cost=CostFunction(newbie.Position);
+        
+        % Comparision
+        newbie.Cost<=pop(i).Cost
+            pop(i)=newbee;
+        else
+            C(i)=C(i)+1;
+        end
+        
+    end
+    
+    % Scout Bees
+    for i=1:nPop
+        if C(i)>=L
+            pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+            pop(i).Cost=CostFunction(pop(i).Position);
+            C(i)=0;
+        end
+    end
+    
+    % Update Best Solution Ever Found
+    for i=1:nPop
+        ifpop(i).Cost<=BestSol.Cost
+            BestSol=pop(i);
+        end
+    end
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Display Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+end
+    
+%% Results
+ 
+figure;
+%plot(BestCost,'LineWidth',2);
+semiology(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+
+This code performs the optimization using the bees' food consumption (ABC) algorithm. ABC is used to find the minimum value of the cost function. This algorithm succeeds in optimizing the cost function by simulating the behavior of bees and reflecting it in optimizing the life path of bees.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+CostFunction=@(x) Sphere(x);    % Cost Function
+ 
+nVar=20;            % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+VarMin=-5;          % Lower Bound of Decision Variables
+VarMax= 5;          % Upper Bound of Decision Variables
+ 
+%% DE Parameters
+ 
+MaxIt=1000;      % Maximum Number of Iterations
+ 
+nPop=50;        % Population Size
+ 
+beta_min=0.2;   % Lower Bound of Scaling Factor
+beta_max=0.8;   % Upper Bound of Scaling Factor
+ 
+pCR=0.2;        % Crossover Probability
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+ 
+BestSol.Cost=inf;
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+ 
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    pop(i).Cost=CostFunction(pop(i).Position);
+    
+    ifpop(i).Cost<BestSol.Cost
+        BestSol=pop(i);
+    end
+    
+end
+ 
+BestCost=zeros(MaxIt,1);
+ 
+%% DE Main Loop
+ 
+for it=1:MaxIt
+    
+    for i=1:nPop
+        
+        x=pop(i).Position;
+        
+        A=randperm(nPop);
+        
+        A(A==i)=[];
+        
+        a=A(1);
+        b=A(2);
+        c=A(3);
+        
+        % Mutation
+        %beta=unifrnd(beta_min,beta_max);
+        beta=unifrnd(beta_min,beta_max,VarSize);
+        y=pop(a).Position+beta.*(pop(b).Position-pop(c).Position);
+        y=max(y,VarMin);
+        y=min(y,VarMax);
+        
+        % Crossover
+        z=zeros(size(x));
+        j0=randi([1 numel(x)]);
+        for j=1:numel(x)
+            if j==j0 || rand<=pCR
+                z(j)=y(j);
+            else
+                z(j)=x(j);
+            end
+        end
+        
+        NewSol.Position=z;
+        NewSol.Cost=CostFunction(NewSol.Position);
+        
+        ifNewSol.Cost<pop(i).Cost
+            pop(i)=NewSol;
+            
+            ifpop(i).Cost<BestSol.Cost
+               BestSol=pop(i);
+            end
+        end
+        
+    end
+    
+    % Update Best Cost
+    BestCost(it)=BestSol.Cost;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+end
+ 
+%% Show Results
+ 
+figure;
+%plot(BestCost);
+semiology(BestCost);
+ 
+
+This code is written to approximate the optimization problem using the Differential Evolution algorithm. In this code, the problem and functions of cost calculation and limitations are defined first. Then the parameters of the algorithm are determined.
+
+- clc: clears previous outputs.
+- clear: clears the variables defined in the previous definitions.
+- close all: close the active windows.
+
+Then the cost function and the number of random variables of the problem, the type of variables, and its limitations are defined.
+
+Other values such as the maximum number of variations, the number of population members, and the range of random numbers are calculated.
+
+Then the max individual is defined and an initial population with infinite cost and no position is defined.
+
+Then the initial population is generated and their cost is calculated and if a better cost is found, it is established as the best position so far.
+
+An array is also defined to store the costs of the best entity in each iteration.
+
+Then the main loop of the algorithm is written:
+
+- One loop is run for each member of the population.
+- A random point is generated within the range of specified variables and a part of the population is taken.
+- Calculation of the new position by calculating the distance between two points of two members of the set of variables, normalizing the value, considering an interval scaling factor, and applying limited numbers to the new member.
+- Calculate the cost of the new member and if it is better than the current cost, replace the new member in the previous position.
+- Save the cost of the best position in each iteration.
+- Display replay information.
+
+This information is then displayed in a graph.
+
+The algorithm generates the best position so far in each position improvement cycle and displays the cost of the best position in each iteration in a graph.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+CostFunction=@(x) Sphere(x);     % Cost Function
+ 
+nVar=5;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+VarMin=-10;         % Lower Bound of Variables
+VarMax= 10;         % Upper Bound of Variables
+ 
+ 
+%% GA Parameters
+ 
+MaxIt=200;      % Maximum Number of Iterations
+ 
+nPop=100;        % Population Size
+ 
+pc=0.8;                 % Crossover Percentage
+nc=2*round(pc*nPop/2);  % Number of Offsprings (Parents)
+ 
+pm=0.3;                 % Mutation Percentage
+nm=round(pm*nPop);      % Number of Mutants
+ 
+gamma=0.05;
+ 
+mu=0.02;         % Mutation Rate
+ 
+beta=8;         % Selection Pressure
+ 
+%% Initialization
+ 
+empty_individual.Position=[];
+empty_individual.Cost=[];
+ 
+pop=repmat(empty_individual,nPop,1);
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    pop(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    % Evaluation
+    pop(i).Cost=CostFunction(pop(i).Position);
+    
+end
+ 
+% Sort Population
+Costs=[pop.Cost];
+[Costs, SortOrder]=sort(Costs);
+pop=pop(SortOrder);
+ 
+% Store Best Solution
+BestSol=pop(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Store Cost
+WorstCost=pop(end).Cost;
+ 
+ 
+%% Main Loop
+ 
+for it=1:MaxIt
+    
+    P=exp(-beta*Costs/WorstCost);
+    P=P/sum(P);
+    
+    % Crossover
+    popc=repmat(empty_individual,nc/2,2);
+    for k=1:nc/2
+        
+        % Select Parents Indices
+        i1=RouletteWheelSelection(P);
+        i2=RouletteWheelSelection(P);
+ 
+        % Select Parents
+        p1=pop(i1);
+        p2=pop(i2);
+        
+        % Apply Crossover
+        [popc(k,1).Position, popc(k,2).Position]=...
+            Crossover(p1.Position,p2.Position,gamma,VarMin,VarMax);
+        
+        % Evaluate Offsprings
+        popc(k,1).Cost=CostFunction(pops(k,1).Position);
+        popc(k,2).Cost=CostFunction(pops(k,2).Position);
+        
+    end
+    popc=popc(:);
+    
+    
+    % Mutation
+    popm=repmat(empty_individual,nm,1);
+    for k=1:nm
+        
+        % Select Parent
+        i=randi([1 nPop]);
+        p=pop(i);
+        
+        % Apply Mutation
+        popm(k).Position=Mutate(p.Position,mu,VarMin,VarMax);
+        
+        % Evaluate Mutant
+        popm(k).Cost=CostFunction(pop(k).Position);
+        
+    end
+    
+    % Create Merged Population
+    pop=[pop
+         pop
+         popm]; %#ok
+     
+    % Sort Population
+    Costs=[pop.Cost];
+    [Costs, SortOrder]=sort(Costs);
+    pop=pop(SortOrder);
+    
+    % Update Worst Cost
+    WorstCost=max(WorstCost,pop(end).Cost);
+    
+    % Truncation
+    pop=pop(1:nPop);
+    Costs=Costs(1:nPop);
+    
+    % Store Best Solution Ever Found
+    BestSol=pop(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+end
+ 
+%% Results
+ 
+figure;
+semiology(BestCost,'LineWidth',2);
+ylabel('Cost');
+
+In this program, several variables are first defined, including the cost function, the number of variables, the upper and lower ranges of the variable values, etc., then the parameters of the genetic algorithm are defined, such as the number of generations, the different probability of genetic operations, and the amount of flow between them. ..
+The program starts by randomly generating the initial population, so that each individual in the population has a random assignment of possible values for the variables, and then calculates the cost of each individual using the cost function. Then the person who has the best cost becomes the best temporary solution. Next, the steps of the genetic algorithm include the collection of fathers to produce offspring, which uses a roulette box-rolling operation, then the modernization operation on the offspring, and then the merging of the original population and the offspring and the transformed population. Then the population is sorted and the worst cost is obtained.
+Finally, it shows the best solution and cost achieved in each generation.
+
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+CostFunction=@(x) Sphere(x);        % Cost Function
+ 
+nVar=5;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Decision Variables Matrix Size
+ 
+VarMin=-10;         % Decision Variables Lower Bound
+VarMax= 10;         % Decision Variables Upper Bound
+ 
+%% Harmony Search Parameters
+ 
+MaxIt=10000;     % Maximum Number of Iterations
+ 
+HMS=20;         % Harmony Memory Size
+ 
+nNew=20;        % Number of New Harmonies
+ 
+HMCR=0.5;       % Harmony Memory Consideration Rate
+ 
+PAR=0.1;        % Pitch Adjustment Rate
+ 
+FW=0.02*(VarMax-VarMin);    % Fret Width (Bandwidth)
+ 
+FW_damp=0.995;              % Fret Width Damp Ratio
+ 
+%% Initialization
+ 
+% Empty Harmony Structure
+empty_harmony.Position=[];
+empty_harmony.Cost=[];
+ 
+% Initialize Harmony Memory
+HM=repmat(empty_harmony,HMS,1);
+ 
+% Create Initial Harmonies
+for i=1:HMS
+    HM(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    HM(i).Cost=CostFunction(HM(i).Position);
+end
+ 
+% Sort Harmony Memory
+[~, SortOrder]=sort([HM.Cost]);
+HM=HM(SortOrder);
+ 
+% Update Best Solution Ever Found
+BestSol=HM(1);
+ 
+% Array to Hold Best Cost Values
+BestCost=zeros(MaxIt,1);
+ 
+% Array to Hold Mean Cost Values
+MeanCost=zeros(MaxIt,1);
+ 
+%% Harmony Search Main Loop
+ 
+for it=1:MaxIt
+    
+    % Initialize Array for New Harmonies
+    NEW=repmat(empty_harmony,new,1);
+    
+    % Create New Harmonies
+    for k=1:nNew
+        
+        % Create New Harmony Position
+        NEW(k).Position=unifrnd(VarMin,VarMax,VarSize);
+        for j=1:nVar
+            if rand<=HMCR
+                % Use Harmony Memory
+                i=randi([1 HMS]);
+                NEW(k).Position(j)=HM(i).Position(j);
+            end
+            
+            % Pitch Adjustment
+            if rand<=PAR
+                %DELTA=FW*unifrnd(-1,+1);    % Uniform
+                DELTA=FW*randn();        % Gaussian (Normal) 
+                NEW(k).Position(j)=NEW(k).Position(j)+DELTA;
+            end
+        
+        end
+        
+        % Apply Variable Limits
+        NEW(k).Position=max(NEW(k).Position,VarMin);
+        NEW(k).Position=min(NEW(k).Position,VarMax);
+ 
+        % Evaluation
+        NEW(k).Cost=CostFunction(NEW(k).Position);
+        
+    end
+    
+    % Merge Harmony Memory and New Harmonies
+    HM=[HM
+        NEW];
+    
+    % Sort Harmony Memory
+    [~, SortOrder]=sort([HM.Cost]);
+    HM=HM(SortOrder);
+    
+    % Truncate Extra Harmonies
+    HM=HM(1:HMS);
+    
+    % Update Best Solution Ever Found
+    BestSol=HM(1);
+    
+    % Store Best Cost Ever Found
+    BestCost(it)=BestSol.Cost;
+    
+    % Store Mean Cost
+    MeanCost(it)=mean([HM.Cost]);
+ 
+    % Show Iteration Information
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    % Damp Fret Width
+    FW=FW*FW_damp;
+    
+end
+ 
+%% Results
+ 
+figure;
+semiology(BestCost,'r', 'LineWidth',2);
+hold on;
+semiology(MeanCost,'b:', 'LineWidth',2);
+hold off;
+xlabel('Iteration');
+legend('Best Cost',' Mean Cost');
+
+
+
+This code implements a Harmony Search algorithm to improve the cost function. This algorithm tries to find the best possible solution for the cost function by using a harmony memory and generating new harmonies.
+
+The code first defines the required variables and functions and then specifies the parameters of the Harmony Search algorithm. Next, it initializes the harmony memory and then creates new harmonies using this memory. Then, the memory sorts the harmony along with the new harmonies, keeping some of the best harmonies for use in the next step.
+
+Then, the best solution found so far is stored along with the average cost of all harmonics in each period, and information about the algorithm's performance is displayed to the user. At the end, a graph of the best cost and the average cost is drawn during the execution periods.
+CLC;
+clear;
+close all;
+ 
+%% Problem Definition
+ 
+CostFunction=@(x) Sphere(x);        % Cost Function
+ 
+nVar=5;             % Number of Decision Variables
+ 
+VarSize=[1 nVar];   % Size of Decision Variables Matrix
+ 
+VarMin=-10;         % Lower Bound of Variables
+VarMax= 10;         % Upper Bound of Variables
+ 
+ 
+%% PSO Parameters
+ 
+MaxIt=4000;      % Maximum Number of Iterations
+ 
+nPop=20;        % Population Size (Swarm Size)
+ 
+% w=1;            % Inertia Weight
+% wdamp=0.99;     % Inertia Weight Damping Ratio
+% c1=2;           % Personal Learning Coefficient
+% c2=2;           % Global Learning Coefficient
+ 
+% Constriction Coefficients
+phi1=2.05;
+phi2=2.05;
+phi=phi1+phi2;
+chi=2/(phi-2+sqrt(phi^2-4*phi));
+w=chi;          % Inertia Weight
+wdamp=1;        % Inertia Weight Damping Ratio
+c1=chi*phi1;    % Personal Learning Coefficient
+c2=chi*phi2;    % Global Learning Coefficient
+ 
+% Velocity Limits
+VelMax=0.1*(VarMax-VarMin);
+VelMin=-VelMax;
+ 
+%% Initialization
+ 
+empty_particle.Position=[];
+empty_particle.Cost=[];
+empty_particle.Velocity=[];
+empty_particle.Best.Position=[];
+empty_particle.Best.Cost=[];
+ 
+particle=repmat(empty_particle,nPop,1);
+ 
+GlobalBest.Cost=inf;
+ 
+for i=1:nPop
+    
+    % Initialize Position
+    particle(i).Position=unifrnd(VarMin,VarMax,VarSize);
+    
+    % Initialize Velocity
+    particle(i).Velocity=zeros(VarSize);
+    
+    % Evaluation
+    particle(i).Cost=CostFunction(particle(i).Position);
+    
+    % Update Personal Best
+    particle(i).Best.Position=particle(i).Position;
+    particle(i).Best.Cost=particle(i).Cost;
+    
+    % Update Global Best
+    ifparticle(i).Best.Cost<GlobalBest.Cost
+        
+        GlobalBest=particle(i).Best;
+        
+    end
+    
+end
+ 
+BestCost=zeros(MaxIt,1);
+ 
+ 
+%% PSO Main Loop
+ 
+for it=1:MaxIt
+    
+    for i=1:nPop
+        
+        % Update Velocity
+        particle(i).Velocity = w*particle(i).Velocity ...
+            +c1*rand(VarSize).*(particle(i).Best.Position-particle(i).Position) ...
+            +c2*rand(VarSize).*(GlobalBest.Position-particle(i).Position);
+        
+        % Apply Velocity Limits
+        particle(i).Velocity = max(particle(i).Velocity,VelMin);
+        particle(i).Velocity = min(particle(i).Velocity,VelMax);
+        
+        % Update Position
+        particle(i).Position = particle(i).Position + particle(i).Velocity;
+        
+        % Velocity Mirror Effect
+        IsOutside=(particle(i).Position<VarMin | particle(i).Position>VarMax);
+        particle(i).Velocity(IsOutside)=-particle(i).Velocity(IsOutside);
+        
+        % Apply Position Limits
+        particle(i).Position = max(particle(i).Position,VarMin);
+        particle(i).Position = min(particle(i).Position,VarMax);
+        
+        % Evaluation
+        particle(i).Cost = CostFunction(particle(i).Position);
+        
+        % Update Personal Best
+        ifparticle(i).Cost<particle(i).Best.Cost
+            
+            particle(i).Best.Position=particle(i).Position;
+            particle(i).Best.Cost=particle(i).Cost;
+            
+            % Update Global Best
+            ifparticle(i).Best.Cost<GlobalBest.Cost
+                
+                GlobalBest=particle(i).Best;
+                
+            end
+            
+        end
+        
+    end
+    
+    BestCost(it)=GlobalBest.Cost;
+    
+    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);
+    
+    w=w*wdamp;
+    
+end
+ 
+%% Results
+ 
+figure;
+semiology(BestCost,'LineWidth',2);
+xlabel('Iteration');
+ylabel('Best Cost');
+
+
+### The code above is a simple implementation of the Particle Swarm Optimization algorithm. Below is the description of each part of the code:
+
+1. "clc;": This command is responsible for clearing the output displayed in the notebook command window/MATLAB development environment.
+
+2. "clear;": This command is responsible for clearing all variables in MATLAB.
+
+3. "close all;": This command is responsible for closing all preview windows and screens in MATLAB.
+
+4. "CostFunction=@(x) Sphere(x);": In this line, the cost function, which is a complex function, is defined. Here, the cost function is defined as "Sphere", whose input is a vector x, and the output value is the sum of the squares of the input terms.
+
+5. "nVar=5;": Number of decision variables to be optimized.
+
+6. "VarSize=[1 nVar];": is the size of the matrix of decision variables, which is a vector (1-dimensional of length nVar).
+
+7. "VarMin=-10;": lower limit of decision variables.
+
+8. "VarMax= 10;": Upper limit of decision variables.
+
+9. "MaxIt=4000;": The maximum number of iterations of the algorithm.
+
+10. "nPop=20;": It is the size of the population set (hash) or block or horse.
+
+11. "phi1=2.05; phi2=2.05; phi=phi1+phi2; chi=2/(phi-2+sqrt(phi^2-4*phi)); w=chi; wdamp=1; c1=chi* phi1; c2=chi*phi2;": In this section, the required coefficients for the PSO algorithm are defined. These coefficients include static weight (w), personal learning coefficient (c1), and collective learning coefficient (c2).
+
+12. "VelMax=0.1*(VarMax-VarMin); VelMin=-VelMax;": Range of particle velocity in each direction.
+
+13. "empty_particle.Position=[]; empty_particle.Cost=[]; empty_particle.Velocity=[]; empty_particle.Best.Position=[]; empty_particle.Best.Cost=[];": This part is responsible for defining a particle Empty and a bit of the best.
+
+14. "particle=repmat(empty_particle,nPop,1);": matrix of particles that is equivalent to the population (hash) in the PSO algorithm.
+
+15. "GlobalBest.Cost=inf;": The global best cost is set to infinity at the beginning of the algorithm.
+
+16. "BestCost=zeros(MaxIt,1);": vector to store the best cost in each iteration of the algorithm.
+
+17. The "Initialization" section randomly creates the initial values of the population particles (hash) and initializes the population to start the algorithm.
+
+18. The "PSO Main Loop" section implements the main function of the PSO algorithm. In each iteration, the velocity value of each particle is updated using the cost and position function, and the individual best and collective best cost values are updated.
+
+19. "BestCost(it)=GlobalBest.Cost;": The cost improvement of the best is stored in the BestCost vector at each iteration.
+
+20. "disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCost(it))]);": an expression that displays the number of iterations and the best cost in each iteration.
+
+21. "w=w*wdamp;": Reduces static weight by reducing shock.
+
+22. The "Results" section plots the best cost by several algorithm iterations.
+
+
+
+
+
+
