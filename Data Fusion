@@ -1,0 +1,1923 @@
+# Data Fusion
+
+The use of data fusion in the fields of robotics-location-meteorological systems
+We should be able to capture and aggregate several parameters. We can use more information sources and experts.
+The method of parallel processing of data and how to combine data:
+Introduction of data integration strategy and application: It is done in three levels.
+Practical applications: integration of sound and vibration data
+Central idea in data integration strategy: we can get the best picture from data integration.
+We must have a strategy to collect and use data from different sensors at the same time. To increase our reliability
+The main purpose of data integration is to check a predictive model that takes data from several independent witnesses and sensors and returns a decision to you.
+The more the number of sensors, the less the number of errors because a sensor may be damaged or not calibrated or affected by noise, in this case, the decision maker will make a mistake. Therefore, the integration of several sensors increases the stability of our system, so it greatly reduces the impossible data and greatly reduces the effect of noise.
+We also get help from various evidences in data integration, which means that there are more decision-makers and estimators.
+Exponentially, we can see that the slope is decreasing
+ 
+Horizontal axis: number of sensors and vertical axis: error.
+Increasing the number of sensors greatly reduces the amount of error and also reduces costs and gives an accurate and good estimation
+This should be considered for each system.
+The purpose of the data integration strategy: I want to show the reliability of the estimate I have.
+Data integration through diversifying:
+1-Evidence (decision makers) 2-Information sources
+It moves towards its main goal.
+Data sources
+Take information from the subject and record it. Temperature-sound-vibrations-infrared images-elite and experienced people
+Information sources have no role in the analysis of information and only measure information and provide it to the witness.
+Sensors: distance meters
+Sensors: Accelerometers
+Sensors: Microphone
+Sound vibration measurement sensors
+ 
+Evidence: estimators-classifiers-decision makers
+Evidence is the center of analysis of data taken from information sources.
+Every witness must have: natural or artificial intelligence - decision-making power - data change process modeling - data classification power - estimator and estimator
+Types of evidence:
+• Expert and experienced people
+• Evidence-based experience
+• Logic-based evidence
+Evidence with artificial intelligence (ability to be trained)
+The advantage of natural intelligence is that it does not need much training, but neural networks must be trained many times.
+Data preprocessing:
+If there is wrong information and wrong decision-making, here we need to have a processing step that is between the resource step and the necessary evidence step. that false information should be removed. Hidden and useful information can be extracted and made available as evidence. Inject the information into the data in a controlled manner.
+
+### Information preprocessing methods:
+
+• Fast Fourier transform: converts time domain signals to frequency domain - extracts information of a system
+• Short-time Fourier transform
+• Fourier continuous and discrete wavelet transform
+• Denoising wavelet transform: denoising signals
+• Various filters
+• Education of decision-makers
+• Deodorization of the environment: it is a simple and important task.
+• Compilation of experience-based rules and database
+Decoupling of signals
+Deodorization of the environment
+Experience-based rules
+The necessity of using data integration: Sometimes a sensor cannot provide all the required information. We need three vibration sensors in three horizontal-vertical-axial directions. Use a sound sensor that receives sound from all directions.
+Using different sensors in the robot
+Inadequacy of sensors: because it may be damaged and the closer the sensor is to the subject, it gives us more accurate information, so sometimes we need to use several sensors at different distances from the subject.
+Evidence estimation error: analysis methods are not always accurate - in some cases, decision-makers make mistakes - in some cases, the estimation accuracy is low and accompanied by high uncertainty - in these cases, different evidence should be used and the results of its estimation combined the
+
+Applications of data integration:
+Military applications - robotics
+Guidance and targeting
+Automatic guidance of equipment
+Integration of satellite images
+Land use planning
+Troubleshooting and status monitoring
+ 
+Data integration has three levels:
+Signal level (raw data level): A raw signal is given directly to the witness without any action. We do –
+Limitations: the data must be the same so that we can add them together - numerical data processing cannot be done - noise dominates it (that is, you did not pre-process
+applications:
+Amplification of the main signal against the secondary signal
+Consolidation of numerical data
+Incorporation of non-profit data
+Combining similar data
+Combining all kinds of photos and images
+Feature level: expressing the features of the system, the effect of noise and noise is very reduced, the central idea: instead of summing them, first extract their information and then combine these extracted features, now we have a group of features and train the system and Then we analyze and make a decision -
+Advantages: We can combine different outputs, that is, the features of the sound and image sensor can be combined. The level of decision and feature are very powerful and close to each other.
+Disadvantages: increasing the input space leads to loss and does not have the power to combine the data of sensors with a numerical nature.
+Decision level (consolidation of categories): At this level, we come and combine decisions, and at this level, we have independent estimates. We have the most accuracy and the least error. We have the largest volume of calculations. If we combine the data too much, the accuracy will not be more than 80 or 85%. Too much can have a negative effect and confusion. Here, the subsystems have separate analyses and estimations-processing-classification-extraction has its features and combination of classifications and decision making.
+Pros: The most powerful - covers the flaws of the previous levels - and this level uses a few determinations
+How to integrate the classifications: it should be in a way that increases the accuracy - does not increase the information of the sensors - and uses the results of all the classifications, a lot of research has been done and many theories have been approved.
+Combination at the data level (combination of signals):
+We can add or multiply these together. The data must be in the form of a wave-like sound.
+They strengthen the original signal against noises. First, we get the signal and then they are combined with different methods, such as combining photos, and then they enter the analysis and finally make a decision.
+Weighted average method: simple and understandable, high speed. It is used for industrial systems where speed is more important than accuracy.
+Equations: Each source has a weight
+Determining the weight of evidence: the main weakness: how to choose the weight of evidence? Use his experience and qualifications and add up their weights.
+establishing an important condition: n: the number of information sources (sensors)
+
+Kalman filter: It is one of the best predictive algorithms. It takes system data step by step and estimates based on it.
+x: System mode
+z: the function that outputs to the system
+U: To apply control at the entrance
+In the condition that we consider f to be linear:
+We can even predict the next state of the system.
+ 
+H is the matrix of fixed coefficients
+It gives us the state of the system with a linear function.
+Data fusion at the feature level: feature extraction-feature fusion-combined selection of superior features
+Providing features instead of raw signal: By extracting signal properties
+When we rate a part, we want to know the condition and durability of the parts, that is, we measure its quality.
+Instead of the signal, it gives us the properties of the signal.
+It is better to have a denoising stage before data mining:
+The red signal is de-rippled by the wavelet. Before extracting the features, we must make sure that there is no noise or very little effect
+A good and creative feature extraction can greatly reduce the data space, achieve better results with less computation, and increase accuracy. How can 3 points be a good representative for 16000 points? If we do not have a good feature extraction, we will find that it cannot do any kind of separation for us. Feature extraction is good but not always, it should be good and creative.
+respectively mean, maximum, root mean square, standard deviation
+Rms: gives the effective level of the signal. show the signal level.
+Std: If the average tends to zero, then rms = std.
+
+Variance, elongation, skewness (if it is around 3, normal conditions), shape factor
+Var: show the dispersion of the data.¬¬¬
+Kurtosis: It has the concept of signal level. A straight line has zero kurtosis. To check a signal, if Kurtosis is around 3, it means that the conditions are normal, if it is higher, it means that the system is faulty
+Impact factor, crest factor, third central moment, fourth central moment
+The average is often not a suitable feature to explain the characteristics of a signal.
+If the Crest factor is higher than 6, the system is defective.
+
+IDE development distance evaluation method
+How this method brings out the best features of a system. The best feature should have the following two conditions so that I can monitor my system well:
+- Its values for a class (decision) should be as close to each other as possible.
+- The values of their sets for two different classes (decisions) should be as far away from each other as possible.
+As a result: the higher the score of a characteristic in the IDE method, it means that the values of that characteristic are farther apart for signals of two different classes and closer to each other for signals of one class, and that signal is more suitable.
+How we determine the features: We set a threshold limit and the features whose score is higher than the threshold limit are selected as superior features.
+The threshold limit of 0.8: is excellent and the threshold limit of 0.5: average
+This method does not change the characteristics but gives points and you must have good support.
+IDE: Gives points.
+Indicators of the IDE method:
+c: number of classes m: number of samples in each class j: number of extracted features
+The average distance between the values of a feature extracted from different samples of a class:
+Distance features in a class
+Maximum changes of dc,j:
+ 
+The smaller this index, the more accurate a feature is to identify that signal.
+The average distance between the values of a feature in each class:
+The average values of a feature for all samples of a class are as follows:
+The distance between the average values of an attribute in classes through the formula:
+The higher this index is for a characteristic, the more the values of that characteristic are for different classes, and it will be more suitable for distinguishing between those classes.
+Maximum changes in the BJ index
+ 
+The greater the distance between the values of a feature within a class, the lower its score.
+The greater the distance between the values of a feature between different classes, the higher its score.
+So the score of each feature is proportional to:
+ 
+Bonus index for each feature:
+The lower the variance, the better the quality, so it should get more points.
+Score of each feature in raw form:
+ 
+Finally, by using the following formula, the score of each feature is normalized so that the best features can be selected by applying the desired threshold.
+ 
+Practical topics by solving real problems in MATLAB: The following information is in the folder load('Matlab. mat'), load('Feature_level_fusion.mat') and load('feat_for_selection.mat').
+Solving the problem of extracting and combining the features, we took a gearbox in three modes from each of which we have 120 vibration signals and fft for each. We have 360 samples.
+I put its time signal in variable b.
+1 second is the length of each vibration signal and our third property is rms
+First, we start writing the features in MATLAB, some of these features are not defined in MATLAB and we have to define their codes. After running the code, time features are extracted for us.
+We put the samples in the rows and put the features in the columns. Now we want to find the best features among these 15.
+Before that, we go and extract 15 new features from fits.
+The timing of our signals is as follows:
+The Fourier transform of the same time signals as shown in the figure above is in the figure below:
+ 
+
+Now we want to extract the features from these fits and see what the features are:
+For this, I change the name of Feature_time to Feature_freq.
+We select and test all of them. We do this placement with the ctrl+h tool.
+And I convert B to FFT.
+Now I run the code.
+Now the frequency features are also extracted.
+I define a matrix like q put team and frequency features together and call it all features. We select up to 120 features and put them in a class write the q matrix like this and execute it.
+ 
+And we want to put 121 onwards in the next class
+ 
+We did this to be able to use the IDE method.
+Now we are going to write this code and first, we define our parameters, which for us are 15.
+MC, the number of repetitions in each class, which is 120 for Ka.
+C The number of classes here is 3.
+Now we know the matrix q that we defined, which must be worked on.
+Step1: We define the calculation of the average distance from samples of the same class
+Step2: Variance calculations for d_w
+For a feature, calculate its values in a class and then average it.
+Step3: Calculating the attribute values of all samples under the same class
+And finally, we show it.
+We display the alphabet. That is, the score of different features from 1 to 15:
+Most of these features have a relatively good rating with their subject and no feature may be good. The way to identify it is to select a few features and use them in the neural network. By opening alphaBAR, we can identify the score of each feature. Now the number We change the features to 30 and run again.
+We run it twice, once for 15 and the next time for 30: we see that the frequency score has improved in 30 features.
+Data integration says to choose the best of each together: that is, we were able to select and combine features from both fields.
+
+In the second example, for ready data q which has three classes and 120 samples in each class 25 features are extracted from each. To draw Holland Sour, we make it first and then we draw it, we make it with the following command:
+ 
+According to your accuracy, you can do the best sour hold and the best combination.
+For further processing, we can perform the best features and data integration at the feature level.
+
+for i=1:360;
+    Feature_time{i,1}=mean(B{i,1});
+    Feature_time{i,2}=max(B{i,1});
+    Feature_time{i,3}=rms(B{i,1}); % rms=sqrt((X.^2)/size(X))
+    Feature_time{i,4}=std(B{i,1});  % std=sqrt(((X-mean(X)).^2)/size(X))
+    Feature_time{i,5}=var(B{i,1});
+    Feature_time{i,6}=skewness(B{i,1});
+    Feature_time{i,7}=kurtosis(B{i,1});
+    Feature_time{i,8}=rms(B{i,1})/mean(abs(B{i,1}));
+    Feature_time{i,9}=max(B{i,1})/mean(abs(B{i,1}));
+    Feature_time{i,10}=max(B{i,1})/rms(B{i,1});
+    Feature_time{i,11}=moment(B{i,1},3); %moment(X,k)
+    Feature_time{i,12}=moment(B{i,1},4);
+    Feature_time{i,13}=moment(B{i,1},5);
+    Feature_time{i,14}=moment(B{i,1},6);
+    Feature_time{i,15}=moment(B{i,1},4)/var(B{i,1})^2;
+end;
+
+### The code above is a loop that iterates over values of i from 1 to 360. In each iteration, it performs several operations on the data in cell array B.
+
+1. Average B{i,1} is calculated and stored in Feature_time{i,1}.
+2. The maximum value of B{i,1} is calculated and stored in Feature_time{i,2}.
+3. The root mean square (RMS) value of B{i,1} is calculated using the formula sqrt((X.^2)/size(X)) and stored in Feature_time{i,3}.
+4. The standard deviation of B{i,1} is calculated using the formula sqrt(((X-mean(X)).^2)/size(X)) and stored in Feature_time{i,4}.
+5. The variance of B{i,1} is calculated and stored in Feature_time{i,5}.
+6. Skewness B{i,1} is calculated and stored in Feature_time{i,6}.
+7. Elongation B{i,1} is calculated and stored in Feature_time{i,7}.
+8. The RMS value of B{i,1} divided by the average absolute value of B{i,1} is calculated and stored in Feature_time{i,8}.
+9. The maximum value of B{i,1} divided by the average absolute value of B{i,1} is calculated and stored in Feature_time{i,9}.
+10. The maximum value of B{i,1} divided by the RMS value of B{i,1} is calculated and stored in Feature_time{i,10}.
+11. The 3rd order moment B{i,1} is calculated using the moment function and stored in Feature_time{i,11}.
+12. The 4th order moment B{i,1} is calculated using the moment function and stored in Feature_time{i,12}.
+13. The 5th order moment B{i,1} is calculated using the moment function and stored in Feature_time{i,13}.
+14. The 6th order moment B{i,1} is calculated using the moment function and stored in Feature_time{i,14}.
+15. The 4th order moment B{i,1} divided by the square of variance B{i,1} is calculated and stored in Feature_time{i,15}.
+
+This process is repeated for each value of i from 1 to 360 and the results are stored in the appropriate cells of the Feature_time cell array.
+for i=1:360;
+    Feature_freq{i,1}=mean(f_f_t{i,1});
+    Feature_freq{i,2}=max(f_f_t{i,1});
+    Feature_freq{i,3}=rms(f_f_t{i,1}); % rms=sqrt((X.^2)/size(X))
+    Feature_freq{i,4}=std(f_f_t{i,1});  % std=sqrt(((X-mean(X)).^2)/size(X))
+    Feature_freq{i,5}=var(f_f_t{i,1});
+    Feature_freq{i,6}=skewness(f_f_t{i,1});
+    Feature_freq{i,7}=kurtosis(f_f_t{i,1});
+    Feature_freq{i,8}=rms(f_f_t{i,1})/mean(abs(f_f_t{i,1}));
+    Feature_freq{i,9}=max(f_f_t{i,1})/mean(abs(f_f_t{i,1}));
+    Feature_freq{i,10}=max(f_f_t{i,1})/rms(f_f_t{i,1});
+    Feature_freq{i,11}=moment(f_f_t{i,1},3); %moment(X,k)
+    Feature_freq{i,12}=moment(f_f_t{i,1},4);
+    Feature_freq{i,13}=moment(f_f_t{i,1},5);
+    Feature_freq{i,14}=moment(f_f_t{i,1},6);
+    Feature_freq{i,15}=moment(f_f_t{i,1},4)/var(f_f_t{i,1})^2;
+end;
+
+This code does the following line by line:
+
+1. Initialize i to 1.
+2. Calculate the average of the ith f_f_t element and assign it to Feature_freq{i,1}.
+3. Calculate the maximum value of the ith f_f_t element and assign it to Feature_freq{i,2}.
+4. Calculate the root mean square (RMS) of the ith f_f_t element and assign it to Feature_freq{i,3}.
+5. Calculate the standard deviation (std) of the ith f_f_t element and assign it to Feature_freq{i,4}.
+6. Calculate the variance of the ith f_f_t element and assign it to Feature_freq{i,5}.
+7. Calculate the skewness of the ith f_f_t element and assign it to Feature_freq{i,6}.
+8. Calculate the elongation of the ith f_f_t element and assign it to Feature_freq{i,7}.
+9. Calculate the RMS ratio to the absolute average of the ith f_f_t element and assign it to Feature_freq{i,8}.
+10. Calculate the ratio of the maximum value to the absolute mean of element i f_f_t and assign it to Feature_freq{i,9}.
+11. Calculate the ratio of the maximum value to the RMS value of the ith f_f_t element and assign it to Feature_freq{i,10}.
+12. Calculate the third moment of the ith f_f_t element and assign it to Feature_freq{i,11}.
+13. Calculate the fourth moment of element i f_f_t and assign it to Feature_freq{i,12}.
+14. Calculate the fifth moment of the element im f_f_t and assign it to Feature_freq{i,13}.
+15. Calculate the sixth moment of element i f_f_t and assign it to Feature_freq{i,14}.
+16. Calculate the ratio of the fourth moment to the square of the variance of element I f_f_t and assign it to Feature_freq{i,15}.
+17. Increase i by 1.
+18. Repeat steps 2-17 for i=2, 3, 4, ..., 360.
+
+%Step 1: calculating the average distance of the same class samples
+N_feature=25;     %Number of features
+Mc=120;           % Number of samples
+C=3               % Number of classes
+for c=1:C;
+    for j=1:N_feature;
+        HELPa=0;
+        for m=1:Mc;
+            for l=1:Mc;
+                if m==l
+                    continue;
+                end;
+                difference=abs(q{1,c}(m,j)-q{1,c}(l,j));
+                HELPa=difference+HELPa;
+            end;
+        end;
+        d(c,j)=HELPa/(Mc*(Mc-1));
+    end;
+end;
+d_w=sum(d)/C;
+%Step 2: calculating Variance for d_w
+v_w=abs(max(d)./min(d));
+ 
+%Step 3: calculating values of features of all samples under same
+%class
+for c=1:C;
+  for j=1:N_feature;
+        HELPa=0;  
+        for m=1:Mc;
+            SUMATION=q{1,c}(m,j);
+            HELPa=SUMATION+HELPa;
+        end;
+            u(c,j)=HELPa/Mc;
+  end;
+end;
+for j=1:N_feature;
+    diffrence=0;
+    HELPa=0;
+    for c=1:C;
+        for e=1:C;
+            if c==e;
+                continue;
+            end;
+            diffrence=abs(u(c,j)-u(e,j));
+            HELPa=diffrence+HELPa;
+        end;
+    end;
+    d_b(j)=HELPa/(C*(C-1));
+end;
+for j=1:N_feature;
+        HELPa=0; 
+        diffrence=0;
+        for c=1:C;
+        for e=1:C;
+            if c==e
+                continue;
+            end;
+            diffrence(c,j)=abs(u(c,j)-u(e,j));
+        end;
+        end;
+end;
+v_b=abs(max(diffrence)/min(diffrence));
+ 
+landa=1./(v_w/max(v_w)+v_b/max(v_b));
+ 
+alpha=landa.*(d_b/d_w);
+ 
+alphaBAR1=alpha/max(alpha);
+ 
+plot(alphaBAR1)
+hold all
+
+This code does the following line by line:
+
+1. Initialize i to 1.
+2. Calculate the average of the ith f_f_t element and assign it to Feature_freq{i,1}.
+3. Calculate the maximum value of the ith f_f_t element and assign it to Feature_freq{i,2}.
+4. Calculate the root mean square (RMS) of the ith f_f_t element and assign it to Feature_freq{i,3}.
+5. Calculate the standard deviation (std) of the ith f_f_t element and assign it to Feature_freq{i,4}.
+6. Calculate the variance of the ith f_f_t element and assign it to Feature_freq{i,5}.
+7. Calculate the skewness of the ith f_f_t element and assign it to Feature_freq{i,6}.
+8. Calculate the elongation of the ith f_f_t element and assign it to Feature_freq{i,7}.
+9. Calculate the RMS ratio to the absolute average of the ith f_f_t element and assign it to Feature_freq{i,8}.
+10. Calculate the ratio of the maximum value to the absolute mean of element i f_f_t and assign it to Feature_freq{i,9}.
+11. Calculate the ratio of the maximum value to the RMS value of the ith f_f_t element and assign it to Feature_freq{i,10}.
+12. Calculate the third moment of the ith f_f_t element and assign it to Feature_freq{i,11}.
+13. Calculate the fourth moment of element i f_f_t and assign it to Feature_freq{i,12}.
+14. Calculate the fifth moment of the element im f_f_t and assign it to Feature_freq{i,13}.
+15. Calculate the sixth moment of element i f_f_t and assign it to Feature_freq{i,14}.
+16. Calculate the ratio of the fourth moment to the square of the variance of element I f_f_t and assign it to Feature_freq{i,15}.
+17. Increase i by 1.
+18. Repeat steps 2-17 for i=2, 3, 4, ..., 360.
+
+         The code calculates different statistical values for a set of samples belonging to different classes.
+
+1. The first part calculates the average distance between samples of a class for each feature. Iterates each class and each feature and calculates the difference between each pair of samples in the class. Then it calculates the average difference and stores it in the "d" matrix.
+2. The next part calculates the variance of the average distances between samples of the same class. It takes the maximum and minimum values from the "d" matrix and calculates the ratio.
+3. The third part calculates the average value of each feature for all samples of each class. Iterates each class and each attribute and calculates the average attribute value for all instances within the class. It stores the average values in the "u" matrix.
+4. The next section calculates the distance between classes for each feature. Iterates over each feature and calculates the difference between the feature's mean values for all pairs of classes, excluding the class itself. Then it calculates the average difference and stores it in the vector "d_b".
+5. The following section calculates the variance of the distance between classes. Calculates the maximum and minimum values from the differences calculated in the previous section and calculate the ratio.
+6. The code then calculates a weight parameter "landa" using the variances calculated in step 2 and step 5.
+7. The code then calculates another weight parameter "alpha" using the inter-class distances and intra-class distances calculated in step 4 and step 1 respectively.
+8. The code then normalizes the "alpha" values by dividing them by the maximum value to get "alphaBAR1".
+9. Finally, the code plots the normalized values of "alphaBAR1".
+ 
+ 
+  And finally, this is the final code with the following execution:
+
+The theory of data integration at the decision level:
+Dempster-Shafer theory of evidence
+Combining decisions
+ 
+ 
+A very common tool is the Dempster-Shafer theory of evidence.
+It can integrate all kinds of data. The most powerful method is data integration. If we increase the input space, they have several pre-processing steps and the data can be decided on.
+In this theory, it says to increase everything and I can combine these.
+Overfit: maintaining the pattern, if the smallest error occurs in the inputs, it gets confused if it has not learned the pattern (overtraining in different methods of decision makers)
+
+Dempster-Shafer Omdic, let's define a possible interval of nine numbers. Expanded this for incomplete analysis. It was stated for systems that have insufficient - noisy - opaque information.
+What are the basic concepts of this theory?
+Theory of evidence: the assumption is a series of evidence that gives an estimate of a subject, which can be good, qualitative, and later become "quantitative".
+And the elites of expression: very good or bad should give him these 4 numbers as well.
+
+Either we should talk about evidence selection or let's combine the results of these two. It quantifies the belief values first and then combines them.
+This theory deals with possible limits.
+Evidence theory should be able to resolve the contradictions in itself and lead us to the desired result.
+And finally, it gives us a numeric factor.
+This theory can be integrated at different levels. Now, this evidence may make different decisions, and in this case, we will have problems in combining them.
+Mode A) Comprehensive integration
+d) Shared mode
+B) inclusive mode
+c) All 5 witnesses had opposite opinions
+Test panel: For food items: the percentage of adding the raw material gives the elite a number from 1 to 10.
+Most of the cases are C and D.
+But in most cases, situation D occurs: they do not always confirm each other, but they always have something in common.
+that state D is investigated in the Dempster-Shafer theory.
+Suppose we have an article in the field of mechanical systems: we took the vibrations of a gear and placed 5 sensors and said to extract states based on each of these sensors, based on each witness that is a sensor.
+
+Where there is more conflict between the evidence: there is no commonality between their decisions - more than 50% have voted against each other.
+Basic functions in evidence theory:
+Three important functions in the Dempster-Shaferke theory form the axis of equations and calculations:
+- Basic probability mass function (m)
+- Confidence function (Bel)
+- Density function (Pl)
+Our decision-makers can be sensors and the data they produce. 6 sensors become 6 witnesses, and it is important to be able to combine these to reach a correct result.
+The basic function of probability mass is the most important:
+It should be a relationship that gives me the opinion of the witness. The probability of the occurrence of the null state must be zero (the witness does not declare ignorance), and the total of all the evidence must be one.
+ 
+Trust and acceptability functions: one is the lower limit (trust function) and the other is the upper limit (acceptability function) of the occurrence of the subject
+The trust function is necessary but not sufficient. We denote the probability of an event like A by p(A).
+ 
+
+ 
+Laws of composition in Damspher-Shafer theory:
+Multiplication matrix for combining the results of evidence: This table is the product of the matrix of two witnesses.
+If there is a conflict between the evidence, this conflict should be modeled first and then resolved.
+
+Yager's theory says
+
+  The evidence has differences or errors, so let's weaken the theory with a coefficient.
+That is, it counts and multiplies the uncertainty of these two witnesses and takes it from a complete contradiction to a little sharing
+In an environment where there is a lot of noise
+From the results, it is clear that Yager's method was able to achieve a good balance in the results according to the weight of the evidence:
+The cancer estimate has been reduced from the extremely wrong value of 100% to its predicted value of 1%.
+The chance of occurrence of health conditions and migraine has increased to a favorable extent.
+Since the weight of the first evidence is greater, the consolidated assessment of the state of migraine is strongly higher because the first witness voted for migraine and we trusted Maniz as the first witness.
+Ignore the IF factor: the intermediate error it gave us
+Using Dempster Shaffer's improved method is much more general and useful. It can also be used in the case where there is no conflict between the evidence.
+But sometimes, in the non-contrast mode, it gives weaker results than the normal Dempster-Shafer method.
+
+%% Image Fusion
+% The principle of image fusion using wavelets is to merge the wavelet
+% decompositions of the two original images using fusion methods applied to
+% approximations coefficients and details coefficients. The two images must
+% be of the same size and are supposed to be associated with indexed images
+% on a common colormap (see extend to resize images).
+%
+% Two examples are examined: the first one merges two different images
+% leading to a new image and the second restores an image from two fuzzy
+% versions of an original image.
+ 
+% Copyright 2006-2010 The MathWorks, Inc.
+ 
+%% Fusion of Two Different Images
+% Load two original images: a mask and a bust. 
+load mask; X1 = X;
+load bust; X2 = X;
+%%
+% Merge the two images from wavelet decompositions at level 1 using db2 by
+% taking two different fusion methods: fusion by taking the mean for both
+% approximations and details: 
+XFUSmean = wfusimg(X1, X2, 'db2',1, 'mean', 'mean');
+%%
+% and fusion by taking the maximum for approximations and the minimum for
+% the details.
+XFUSmaxmin = wfusimg(X1, X2,'db2',1, 'max', 'min');
+%%
+% Plot original and synthesized images. 
+colormap(map);
+subplot(221), image(X1), axis square, title('Mask')
+subplot(222), image(X2), axis square, title('Bust')
+subplot(223), image(XFUSmean), axis square, 
+title('Synthesized image, mean mean)
+subplot(224), image(XFUSmaxmin), axis square, 
+title('Synthesized image, max-min)
+ 
+%% Restoration by Fusion from Fuzzy Images
+% Load two fuzzy versions of an original image. 
+load cathe_1; X1 = X;
+load cathe_2; X2 = X;
+%%
+% Merge the two images from wavelet decompositions at level 5 using sym4 by
+% taking the maximum absolute value of the coefficients for both
+% approximations and details. 
+XFUS = wfusimg(s1,s2, 'sym4',5, 'max', 'max');
+%%
+% Plot original and synthesized images. 
+figure('Color','white'),colormap(map);
+subplot(221), image(s1), axis square, 
+title('Catherine 1')
+subplot(222), image(s2), axis square, 
+title('Catherine 2')
+subplot(223), image(XFUS), axis square, 
+title('Synthesized image')
+ 
+ 
+displayEndOfDemoMessage(mfilename)
+
+### This code does the following line by line:
+
+1. Loading "mask" and "chest" images.
+2. Fusion of two images using wavelet decomposition at level 1 and "average" fusion method for both approximation and detail.
+3. Fusion of two images using wavelet decomposition at level 1 and fusion method "max" for approximations and "min" for details.
+4. Drawing original images and synthesized images using the "Image" function.
+5. Loading fuzzy versions of an original image.
+6. Fusion of two images using wavelet decomposition at level 5 and "max" fusion method for both approximation and detail.
+7. Draw the original images and the synthesized image using the "Image" function.
+8. Display the demo end message.
+
+%a=input('Please enter the accuracy of first classifier: ');
+%b=input('Please enter the accuracy of second classifier: ');
+clear
+a=[13 45 12 14 16;
+15 12 55 10 8; 10 15 70 3 2; 10 5 12 65 8; 5 15 6 14 60]
+b=[45 13 12 14 16;
+15 55 12 10 8; 10 15 35 38 2; 10 5 12 65 8; 5 15 26 14 40]
+a=a/100; b=b/100;
+c=  5        % c=Number of classes
+ 
+one=ones(c,c)-eye(c,c);
+for i=1:c;
+f=b(i,:)'*a(i,:);
+k(i,1)=1-sum(sum(f.*one));
+end;
+ 
+ 
+ 
+ 
+ 
+for i=1:c;
+    for j=1:c;
+ f=b(i,:)'*a(i,:); 
+ac(i,j)=f(j,j);
+end;
+end;
+ 
+for i=1:c;
+    for j=1:c;
+accuracy(i,j)=ac(i,j)/k(i,1);
+    end;
+end;
+accuracy
+
+
+
+The code performs the following line by line:
+
+1. Prompts the user to enter the accuracy of the first classifier.
+2. It prompts the user to enter the accuracy of the second classifier.
+3. Clears any existing variable from the workspace.
+4. Initializes matrix "a" with values.
+5. Initializes matrix "b" with initial values.
+6. Divide the matrix "a" by 100.
+7. Divide the matrix "b" by 100.
+8. Initializes matrix "one" as a square matrix of size c (number of classes) with all elements 1 except the diagonal elements which are 0.
+9. Starts a loop from 1 to c.
+10. In the loop, it calculates the "f" matrix by multiplying the i-th row of the "b" matrix by the i-th row of the "a" matrix.
+11. Calculate k(i,1) as 1 minus the product of the elements "f" and "one".
+12. Ends the loop.
+13. A nested loop starts from 1 to c for i and from 1 to c for j.
+14. In the nested loop, it calculates the "f" matrix by multiplying the i-th row of the "b" matrix by the i-th row of the "a" matrix.
+15. Sets ac(i,j) as the jth diagonal element of "f".
+16. Ends the nested loop.
+17. A nested loop starts from 1 to c for i and from 1 to c for j.
+18. In the nested loop, it calculates the accuracy (i,j) as ac(i,j) divided by k(i,1).
+19. Ends the nested loop.
+20. Displays the "accuracy" matrix.
+
+%a=input('Please enter the accuracy of first classifieer: ');
+%wa=input('Please enter the weight of first classifieer: ');
+%b=input('Please enter the accuracy of second classifieer: ');
+%wb=input('Please enter the weight of second classifieer: ');
+ 
+clear
+a=[13 45 12 14 16;
+15 12 55 10 8; 10 15 70 3 2; 10 5 12 65 8; 5 15 6 14 60]
+b=[45 13 12 14 16;
+15 55 12 10 8; 10 15 35 38 2; 10 5 12 65 8; 5 15 26 14 40]
+ 
+a=E1'/50;b=E2'/50;
+wa=85; wb=100;
+a=a/100;b=b/100;wa=wa/100;wb=wb/100;
+a=a*wa;b=b*wb;
+c=  6       % c=Number of classes
+ 
+one=ones(c,c)-eye(c,c);
+for i=1:c;
+f=b(i,:)'*a(i,:);
+k(i,1)=1-sum(sum(f.*one));
+end;
+ 
+ 
+ 
+d=ones(c,1)-(wa.*ones(c,1));
+a=[a d];
+e=ones(c,1)-(wb.*ones(c,1));
+b=[b e];
+ 
+for i=1:c;
+    for j=1:c+1;
+ f=b(i,:)'*a(i,:); 
+ac(i,j)=f(j,j)+f(j,c+1)+f(c+1,j);
+end;
+end;
+ 
+for i=1:c;
+    for j=1:c;
+accuracy(i,j)=ac(i,j)/k(i,1);
+    end;
+end;
+
+
+### The code performs the following line by line:
+
+1. Ask the user to enter the accuracy of the first classifier and assign it to the variable "a".
+2. It asks the user to enter the weight of the first classifier and assign it to the variable "wa".
+3. It prompts the user to enter the accuracy of the second classifier and assign it to the variable "b".
+4. It prompts the user to enter the weight of the second classifier and assign it to the variable "wb".
+5. Clears any previously defined variables.
+6. Defines the matrix "a" with values.
+7. Defines the matrix "b" with values.
+8. Divide every element of matrix "a" by 50.
+9. Divide every element of matrix "b" by 50.
+10. Divide the variable wa by 100.
+11. Divide the variable "wb" by 100.
+12. Multiplies the matrix "a" by the weight "wa".
+13. Multiplies the matrix "b" by the weight "wb".
+14. It sets the variable "c" to 6.
+15. Creates a 6x6 "one" matrix where all elements are 1's except the diagonal elements which are 0's.
+16. Starts a for loop that iterates from 1 to the value "c".
+17. Calculate a matrix "f" by multiplying the ith row of matrix "b" by the ith row of the matrix "a".
+18. Calculate the sum of the elements "f" and "one".
+19. Subtracts the sum from 1 and assigns it to element I of vector "k".
+20. Initialize the matrix "d" with elements of 1, then subtract the weight "wa" from each element.
+21. Adds the vector "d" as a column to the matrix "a".
+22. Initialize the matrix "e" with elements of 1, then subtract the weight "wb" from each element.
+23. Adds the vector "e" as a column to the matrix "b".
+24. Starts nested loops to iterate through each element of matrices "a" and "b".
+25. Calculate a matrix "f" by multiplying the ith row of matrix "b" by the ith row of the matrix "a".
+26. The sum of the diagonal elements assigns the last column and the last row "f" to row I and column j of matrix "ac".
+27. Starts nested loops to iterate through each element of the "ac" matrices.
+28. Calculates accuracy by dividing each element of matrix "ac" by the corresponding element of vector "k".
+29. Assign the calculated accuracy to row i and column j of the "accuracy" matrix.
+
+%a=input('Please enter the accuracy of first classifieer: ');
+%wa=input('Please enter the weight of first classifieer: ');
+%b=input('Please enter the accuracy of second classifieer: ');
+%wb=input('Please enter the weight of second classifieer: ');
+ 
+clear
+a=[13 45 12 14 16;
+15 12 55 10 8; 10 15 70 3 2; 10 5 12 65 8; 5 15 6 14 60]
+b=[45 13 12 14 16;
+15 55 12 10 8; 10 15 35 38 2; 10 5 12 65 8; 5 15 26 14 40]
+ 
+a=E1'/50;b=E2'/50;
+wa=85; wb=100;
+a=a/100;b=b/100;wa=wa/100;wb=wb/100;
+a=a*wa;b=b*wb;
+c=  6       % c=Number of classes
+ 
+one=ones(c,c)-eye(c,c);
+for i=1:c;
+f=b(i,:)'*a(i,:);
+k(i,1)=1-sum(sum(f.*one));
+end;
+ 
+ 
+ 
+d=ones(c,1)-(wa.*ones(c,1));
+a=[a d];
+e=ones(c,1)-(wb.*ones(c,1));
+b=[b e];
+ 
+for i=1:c;
+    for j=1:c+1;
+ f=b(i,:)'*a(i,:); 
+ac(i,j)=f(j,j)+f(j,c+1)+f(c+1,j);
+end;
+end;
+ 
+for i=1:c;
+    for j=1:c;
+accuracy(i,j)=ac(i,j)/k(i,1);
+    end;
+end;
+
+
+1. The code asks the user to enter the accuracy and weight of the first classifier and stores the values in %a and %wa variables, respectively.
+2. The code prompts the user to enter the accuracy and weight of the second classifier and stores the values in the %b and % web variables, respectively.
+3. The code clears any previously saved variables.
+4. Code a matrix a with values [13 45 12 14 16; 15 12 55 10 8; 10 15 70 3 2; 10 5 12 65 8; 5 15 6 14 60].
+5. Code a matrix b with values [45 13 12 14 16; 15 55 12 10 8; 10 15 35 38 2; 10 5 12 65 8; 5 15 26 14 40].
+6. The code divides each element of matrix a by 50 and assigns it to matrix a.
+7. The code divides each element of matrix b by 50 and assigns it to matrix b.
+8. The code divides the value of a by 100 and returns it to the variable way.
+9. The code divides the value of wb by 100 and returns it to the variable wb.
+10. The code multiplies each element of matrix a by the value of wa and returns it to matrix a.
+11. The code multiplies each element of matrix b by the value of wb and assigns it to matrix b.
+12. The code assigns the value 6 to the variable c.
+13. The code defines a matrix with dimensions c x c. Sets each element to 1, except diagonal elements, which are set to 0.
+14. The code enters a for loop with variable i that iterates from 1 to c.
+       A. The code calculates f, which is the product of the ith row of matrix b and the ith column of matrix a.
+       B calculates the code k(i,1) as 1 minus the product of element f and matrix 1. This value is stored in the ith row and 1st column of the k matrix.
+15. The code defines a matrix d with dimensions c x 1 and subtracts wa from each element.
+16. The code adds matrix d as a column to matrix a.
+17. The code defines a matrix e with dimensions c x 1 and subtracts wb from each element.
+18. The code adds matrix e as a column to matrix b.
+19. The code enters a nested for loop with variables i and j iterating from 1 to c.
+       A. The code calculates f, which is the product of the ith row of matrix b and the ith column of matrix a.
+       B code calculates ac(i,j) as the sum of the diagonal element, element (j,c+1), and element (c+1,j) of matrix f. This value is stored in the ith row and jth column of the ac matrix.
+20. The code enters a nested for loop with variables i and j iterating from 1 to c.
+       A. The code calculates the precision of (i,j) as the elemental division of ac(i,j) by k(i,1). This value is stored in the ith row and jth column of the precision matrix.
+
+%a=input('Please enter the accuracy of first classifier: ');
+%b=input('Please enter the accuracy of second classifier: ');
+clear
+a=[13 45 12 14 16;
+15 12 55 10 8; 10 15 70 3 2; 10 5 12 65 8; 5 15 6 14 60]
+b=[45 13 12 14 16;
+15 55 12 10 8; 10 15 35 38 2; 10 5 12 65 8; 5 15 26 14 40]
+a=a/100; b=b/100;
+c=  5        % c=Number of classes
+ 
+one=ones(c,c)-eye(c,c);
+for i=1:c;
+f=b(i,:)'*a(i,:);
+k(i,1)=1-sum(sum(f.*one));
+end;
+ 
+ 
+ 
+ 
+ 
+for i=1:c;
+    for j=1:c;
+ f=b(i,:)'*a(i,:); 
+ac(i,j)=f(j,j);
+end;
+end;
+ 
+for i=1:c;
+    for j=1:c;
+accuracy(i,j)=ac(i,j)/k(i,1);
+    end;
+end;
+accuracy
+
+. The code starts by asking the user to enter the accuracy of the first classifier and storing it in the variable 'a.
+2. The code then asks the user to enter the accuracy of the second classifier and stores it in the variable 'b'.
+3. The 'clear' command is used to clear the existing variables from the workspace.
+4. Two matrices, 'a' and 'b', are defined with specific numerical values.
+5. The values in matrices 'a' and 'b' are divided by 100, effectively converting them from percentages to decimal values.
+6. The variable 'c' is assigned the value 5, which represents the number of classes.
+7. A matrix of ones, "one", of dimensions "c" x "c" is created and the diagonal elements are set to zero using "eye".
+8. A 'for' loop is used to iterate through each row of 'b' and perform matrix multiplication with the corresponding row of a. The resulting matrix of 'f' is multiplied by 'one' element and the sum of all elements is subtracted from 1. The result is stored in 'k'.
+9. Another 'for' loop is used to iterate through each row and column of 'b' and perform matrix multiplication with the corresponding row of a. The diagonal elements of the obtained matrix "f" are stored in the matrix "ac".
+10. Another "for" loop is used to divide each element of the "ac" matrix by the corresponding element of the "k" matrix. The result is stored in the 'accuracy' matrix.
+11. The 'accuracy' matrix is displayed as the output of the code.
+
+
+%% Image Fusion
+% The principle of image fusion using wavelets is to merge the wavelet
+% decompositions of the two original images using fusion methods applied to
+% approximations coefficients and details coefficients. The two images must
+% be of the same size and are supposed to be associated with indexed images
+% on a common colormap (see extend to resize images).
+%
+% Two examples are examined: the first one merges two different images
+% leading to a new image and the second restores an image from two fuzzy
+% versions of an original image.
+ 
+% Copyright 2006-2010 The MathWorks, Inc.
+ 
+%% Fusion of Two Different Images
+% Load two original images: a mask and a bust. 
+load mask; X1 = X;
+load bust; X2 = X;
+%%
+% Merge the two images from wavelet decompositions at level 1 using db2 by
+% taking two different fusion methods: fusion by taking the mean for both
+% approximations and details: 
+XFUSmean = wfusimg(X1, X2, 'db2',1, 'mean', 'mean');
+%%
+% and fusion by taking the maximum for approximations and the minimum for
+% the details.
+XFUSmaxmin = wfusimg(X1, X2,'db2',1, 'max', 'min');
+%%
+% Plot original and synthesized images. 
+colormap(map);
+subplot(221), image(X1), axis square, title('Mask')
+subplot(222), image(X2), axis square, title('Bust')
+subplot(223), image(XFUSmean), axis square, 
+title('Synthesized image, mean mean)
+subplot(224), image(XFUSmaxmin), axis square, 
+title('Synthesized image, max-min)
+ 
+%% Restoration by Fusion from Fuzzy Images
+% Load two fuzzy versions of an original image. 
+load cathe_1; X1 = X;
+load cathe_2; X2 = X;
+%%
+% Merge the two images from wavelet decompositions at level 5 using sym4 by
+% taking the maximum absolute value of the coefficients for both
+% approximations and details. 
+XFUS = wfusimg(s1,s2, 'sym4',5, 'max', 'max');
+%%
+% Plot original and synthesized images. 
+figure('Color','white'),colormap(map);
+subplot(221), image(s1), axis square, 
+title('Catherine 1')
+subplot(222), image(s2), axis square, 
+title('Catherine 2')
+subplot(223), image(XFUS), axis square, 
+title('Synthesized image')
+ 
+ 
+displayEndOfDemoMessage(mfilename)
+
+This code shows two examples of image fusion using wavelet decomposition.
+
+In the first example, the two main images (a mask and a torso) are loaded and saved as X1 and X2. The images are then fused using the "fusing" function, which takes the wavelet decomposition of the two images and applies fusion methods to the approximation coefficients and detail coefficients. Two fusion methods are used: average for both approximations and details, maximum for approximations, and minimum for details. The synthesized images are saved as XFUSmean and XFUSmaxmin, respectively.
+
+In the second example, two fuzzy versions of the same original image are loaded and saved as X1 and X2. Images are fused using the 'fusing' function with wavelet decomposition at level 5 and the fusion method to obtain the maximum absolute value of the coefficients for both approximation and detail. The synthesized image is saved as XFUS.
+
+Finally, the original images and the synthesized images are plotted using the 'subplot' and 'image' functions.
+: Data Fusion
+The use of data fusion in the fields of robotics-location-meteorological systems
+We should be able to capture and aggregate several parameters. We can use more information sources and experts.
+The method of parallel processing of data and how to combine data:
+Introduction of data integration strategy and application: It is done in three levels.
+Practical applications: integration of sound and vibration data
+Central idea in data integration strategy: we can get the best picture from data integration.
+We must have a strategy to collect and use data from different sensors at the same time. To increase our reliability
+The main purpose of data integration is to check a predictive model that takes data from several independent witnesses and sensors and returns a decision to you.
+The more the number of sensors, the less the number of errors because a sensor may be damaged or not calibrated or affected by noise, in this case, the decision maker will make a mistake. Therefore, the integration of several sensors increases the stability of our system, so it greatly reduces the impossible data and greatly reduces the effect of noise.
+We also get help from various evidences in data integration, which means that there are more decision-makers and estimators.
+Exponentially, we can see that the slope is decreasing
+ 
+Horizontal axis: number of sensors and vertical axis: error.
+Increasing the number of sensors greatly reduces the amount of error and also reduces costs and gives an accurate and good estimation
+This should be considered for each system.
+The purpose of the data integration strategy: I want to show the reliability of the estimate I have.
+Data integration through diversifying:
+1-Evidence (decision makers) 2-Information sources
+It moves towards its main goal.
+Data sources
+Take information from the subject and record it. Temperature-sound-vibrations-infrared images-elite and experienced people
+Information sources have no role in the analysis of information and only measure information and provide it to the witness.
+Sensors: distance meters
+Sensors: Accelerometers
+Sensors: Microphone
+Sound vibration measurement sensors
+ 
+Evidence: estimators-classifiers-decision makers
+Evidence is the center of analysis of data taken from information sources.
+Every witness must have: natural or artificial intelligence - decision-making power - data change process modeling - data classification power - estimator and estimator
+Types of evidence:
+• Expert and experienced people
+• Evidence-based experience
+• Logic-based evidence
+Evidence with artificial intelligence (ability to be trained)
+The advantage of natural intelligence is that it does not need much training, but neural networks must be trained many times.
+Data preprocessing:
+If there is wrong information and wrong decision-making, here we need to have a processing step that is between the resource step and the necessary evidence step. that false information should be removed. Hidden and useful information can be extracted and made available as evidence. Inject the information into the data in a controlled manner.
+
+Information preprocessing methods:
+• Fast Fourier transform: converts time domain signals to frequency domain - extracts information of a system
+• Short-time Fourier transform
+• Fourier continuous and discrete wavelet transform
+• Denoising wavelet transform: denoising signals
+• Various filters
+• Education of decision-makers
+• Deodorization of the environment: it is a simple and important task.
+• Compilation of experience-based rules and database
+
+Data integration has three levels:
+Signal level (raw data level): A raw signal is given directly to the witness without any action. We do –
+Limitations: the data must be the same so that we can add them together - numerical data processing cannot be done - noise dominates it (that is, you did not pre-process
+applications:
+Amplification of the main signal against the secondary signal
+Consolidation of numerical data
+Incorporation of non-profit data
+Combining similar data
+Combining all kinds of photos and images
+Feature level: expressing the features of the system, the effect of noise and noise is very reduced, the central idea: instead of summing them, first extract their information and then combine these extracted features, now we have a group of features and train the system and Then we analyze and make a decision -
+Advantages: We can combine different outputs, that is, the features of the sound and image sensor can be combined. The level of decision and feature are very powerful and close to each other.
+Disadvantages: increasing the input space leads to loss and does not have the power to combine the data of sensors with a numerical nature.
+Decision level (consolidation of categories): At this level, we come and combine decisions, and at this level, we have independent estimates. We have the most accuracy and the least error. We have the largest volume of calculations. If we combine the data too much, the accuracy will not be more than 80 or 85%. Too much can have a negative effect and confusion. Here, the subsystems have separate analyses and estimations-processing-classification-extraction has its features and combination of classifications and decision making.
+Pros: The most powerful - covers the flaws of the previous levels - and this level uses a few determinations
+How to integrate the classifications: it should be in a way that increases the accuracy - does not increase the information of the sensors - and uses the results of all the classifications, a lot of research has been done and many theories have been approved.
+Combination at the data level (combination of signals):
+We can add or multiply these together. The data must be in the form of a wave-like sound.
+They strengthen the original signal against noises. First, we get the signal and then they are combined with different methods, such as combining photos, and then they enter the analysis and finally make a decision.
+Weighted average method: simple and understandable, high speed. It is used for industrial systems where speed is more important than accuracy.
+Equations: Each source has a weight.
+
+Determining the weight of evidence: the main weakness: how to choose the weight of evidence? Use his experience and qualifications and add up their weights.
+establishing an important condition: n: the number of information sources (sensors)
+ 
+Kalman filter: It is one of the best predictive algorithms. It takes system data step by step and estimates based on it.
+ 
+x: System mode
+z: the function that outputs to the system
+ 
+U: To apply control at the entrance
+In the condition that we consider f to be linear:
+ 
+We can even predict the next state of the system.
+ 
+H is the matrix of fixed coefficients
+It gives us the state of the system with a linear function.
+Data fusion at the feature level: feature extraction-feature fusion-combined selection of superior features
+Providing features instead of raw signal:
+ 
+Instead of the signal, it gives us the properties of the signal.
+It is better to have a denoising stage before data mining:
+ 
+A good and creative feature extraction can greatly reduce the data space, achieve better results with less computation, and increase accuracy.
+
+
+# Feature Functions:
+ 
+respectively mean, maximum, root mean square, standard deviation
+ 
+Variance, elongation, skewness (if it is around 3, normal conditions), shape factor
+
+
+ 
+Impact factor, crest factor, third central moment, fourth central moment
+ 
+IDE development distance evaluation method
+How this method brings out the best features of a system.
+The best feature should have the following two conditions:
+Its values for a class (decision) should be as close as possible to each other.
+The values of their sets for two different classes (decisions) should be as far as possible from each other.
+As a result: the higher the score of a characteristic in the IDE method means, the values of that characteristic are farther apart for signals of two different classes and closer to each other for one class.
+How we determine the features: We set a threshold limit and the features whose score is higher than the threshold limit are selected as superior features.
+This method does not change the characteristics but gives points and you must have good support.
+Indicators of the IDE method:
+c: number of classes m: number of samples in each class j: number of extracted features
+The average distance between the values of a feature extracted from different samples of a class:
+  The distance between features in a class
+Maximum changes of dc,j:
+ 
+The smaller this index, the more accurate a feature is to identify that signal.
+The average distance between the values of a feature in each class:
+ 
+The average values of a feature for all samples of a class are as follows:
+ 
+The distance between the average values of an attribute in classes through the formula:
+
+
+We do real examples in MATLAB environment.
+Suppose we have one witness and three class categories. In the rows are the real states and in the columns are the witnesses of this estimate.
+>> a=[.75.1.15; .12 .78 .1; .15 .14 .69]
+
+a =
+
+     0.7500 0.1000 0.1500
+     0.1200 0.7800 0.1000
+     0.1500 0.1400 0.6900
+First line: When the first state occurs, the witness recognizes 75% of the first state, 10% of the second state, and 15% of the third state, with a total of 25% errors.
+In the confusing neural network, the rows and columns are the opposite of the top.
+In the neural network, if we add the columns together, the sum will be one
+The main diameter reservoirs in the theory of Dempster-Shafer: the main theory is the witness about the real position of that system. For example, the numbers 1 and 3 mean that your main number is 1 and your witness recognized 3
+Sometimes we know what state is ruling the system and sometimes we don't know..and when we don't know what state is ruling the system, we can use Jager's or Dempstershafer's improved theory, which models the conflict between them and can get a good result.
+I will put my second witness b and explain the same theory to him.
+In this theory, the numbers must be normalized to one.
+b=[.8.1.1;.05.87.08; .12 .13 .75]
+
+b =
+
+     0.8000 0.1000 0.1000
+     0.0500 0.8700 0.0800
+     0.1200 0.1300 0.7500
+Now we want to see how to combine these two.
+a1=[.75.1.15] estimate of the first witness from the first case
+
+a1 =
+
+     0.7500 0.1000 0.1500
+
+b1=[.8.1.1] first witness's estimate of the second case
+
+b1 =
+
+     0.8000 0.1000 0.1000
+Now for integration: we mix matrix multiplication. It must be one column to multiply.
+So we have:
+Multiply b1 by a1.
+>> c1=b1'*a1
+
+c1 =
+
+     0.6000 0.0800 0.1200
+     0.0750 0.0100 0.0150
+     0.0750 0.0100 0.0150
+K Where the evidence was conflicting.
+Except for the main diameter of any lake, there is a conflict.
+k=.08+.12+.075+.015+.075+.01
+
+k =
+
+     0.3750
+Now the compensation factor is equal to:
+
+f=1-k
+
+f =
+
+     0.6250
+Now the matrix c, which is the combination of these, becomes:
+fusion1=c1/f
+
+fusion1 =
+
+     0.9600 0.1280 0.1920
+     0.1200 0.0160 0.0240
+     0.1200 0.0160 0.0240
+Diagnoses:
+m12=[96 1.6 2.4]
+
+m12 =
+
+    96.0000 1.6000 2.4000
+Result: the accuracy of the error is reduced. The accuracy in detecting the correct state has increased, but it has decreased in detecting the wrong state
+So, the combination of these evidences could provide us with better results and create reassurance.
+Now if we add these three together:
+96.0000 1.6000 2.4000
+It can be 100%, that is, we did not make any mistake for our witness. We did not accept at all that our witness had the slightest problem.
+
+Suppose we have:
+d =
+
+     0.2500 0.1000 0.1500
+     0.2700 0.3800 0.3500
+     0.1500 0.4000 0.4500
+In this matrix, there is a conflict between the evidence. Here our error has increased.
+a =
+
+     0.7500 0.1000 0.1500
+     0.1200 0.7800 0.1000
+     0.1500 0.1400 0.6900
+Here is a situation. Conflicts between the evidence occurred and accuracy below 50%
+To see the combination of these in a state where they are contradictory:
+d1=[15.6.25]
+
+d1 =
+
+     0.2500 0.6000 0.1500
+
+>> ad=d1'*a1
+
+ad=
+
+     0.1875 0.0250 0.0375
+     0.4500 0.0600 0.0900
+     0.1125 0.0150 0.0225
+
+>> k=.025+.0375+.45+.09+.1125+.015
+
+k =
+
+     0.7300
+f=1-k
+
+f =
+
+     0.2700
+fusion2=ad/f
+
+fusion2 =
+
+wa=.9
+
+wa =
+
+     0.9000
+
+>> wb=1
+
+wb =
+
+      1
+Now we multiply their weight by themselves.
+an=wa*a
+
+an =
+
+     0.6750 0.0900 0.1350
+     0.1080 0.7020 0.0900
+     0.1350 0.1260 0.6210
+
+>> a
+
+a =
+
+     0.7500 0.1000 0.1500
+     0.1200 0.7800 0.1000
+     0.1500 0.1400 0.6900
+We can see that the accuracy has decreased compared to the previous state.
+That is, when we came, we weakened the witness, that is, we took some of his weight from him.
+We gave it a 10% probability of error.
+I don't know what the 10% is: this 10% is added to the end of an
+Its weight is 0.9, but its accuracy is 10%, we don't know what happened and we put 0.1000.
+For b, since its weight is 1, we must add 1 weight to that witness. And we put 0, which means we trust b completely.
+
+>>
+
+an =
+
+     0.6750 0.0900 0.1350 0.1000
+     0.1080 0.7020 0.0900 0.1000
+     0.1350 0.1260 0.6210 0.1000
+
+>> an1=[.675.09.135.1]
+
+an1 =
+
+     0.6750 0.0900 0.1350 0.1000
+
+>> b
+
+b =
+
+     0.8000 0.1000 0.1000 0
+     0.0500 0.8700 0.0800 0
+     0.1200 0.1300 0.7500
+
+>> b1=[.8.1.1.0]
+
+b1 =
+
+     0.8000 0.1000 0.1000 0
+
+>> ab1=b1'*an1
+
+ab1 =
+
+     0.5400 0.0720 0.1080 0.0800
+     0.0675 0.0090 0.0135 0.0100
+     0.0675 0.0090 0.0135 0.0100
+          0 0 0 0
+
+>>
+The first to the third row and column is the witness's estimate of the states, and the last one is our witness's estimate of I don't know.
+We want to recognize the accuracy of mode one here.
+Wherever there is a possibility that a state may occur, it should go in the face
+So our consolidated accuracy is:
+acc=.54+0+.08
+
+acc =
+
+     0.6200
+Now we have to calculate the compensation factor.
+k=.072+.1080+.0675+.0135+.0675+.009
+
+k =
+
+     0.3375
+f=1-k
+
+f =
+
+     0.6625
+fusion=ab1/f
+
+fusion =
+
+     0.8151 0.1087 0.1630 0.1208
+     0.1019 0.0136 0.0204 0.0151
+     0.1019 0.0136 0.0204 0.0151
+          0 0 0 0
+12% of the witnesses do not know what happened in case 1
+And one percent do not know what happened in state 2
+1.5% do not know what happened in mode 3
+What is important for us is 0.8151, which means the combined accuracy of the witnesses in recognizing the first condition when the first condition has occurred.
+Now let's see if this has value for us or not.
+Our combined accuracy in mode 1 was 81%. This did not add much value to us.
+When we don't have a conflict between the evidence, the usual Dempstershaffer method works better for us.
+It is more accurate and increases the accuracy better. When we have a conflict, this method is wrong and Yager's method works better.
+Jager's method is more reliable, even though its accuracy is less than Dempstershafer's method
+
+Assumption: The evidence chose these.
+>> a=[.1 0 .9]
+
+a =
+
+     0.1000 0 0.9000
+
+>> b=[.1 .9 0]
+
+b =
+
+     0.1000 0.9000 0
+
+>>
+
+
+Through the usual Dempster-Shafer method, we check:
+ab1=b'*a
+
+ab1 =
+
+     0.0100 0 0.0900
+     0.0900 0 0.8100
+          0 0 0
+
+>> k=.09+.09+.81
+
+k =
+
+     0.9900
+
+>> f=1-k
+
+f =
+
+     0.0100
+
+>>
+Our compensation factor is one percent, whose accuracy should be divided by the accuracy of this.
+acc1=ab1/f
+
+acc1 =
+
+     1.0000 0 9.0000
+     9.0000 0 81.0000
+          0 0 0
+Drayah 1 says that he chose mode 1 for us 100%
+If I want to write its main diameter linearly:
+acc=[100 0 0]
+
+acc =
+
+    100 0 0
+
+Because this method cannot manage the conflict between the evidence and the witness has no chance to say I don't know.
+Now we come and weigh:
+wa=.95
+
+wa =
+
+     0.9500
+
+>> wb=.85
+
+wb =
+
+     0.8500
+I weakened one piece of evidence against another
+an=wa*a
+
+an =
+
+     0.0950 0 0.8550
+
+>> bn=wb*b
+
+bn =
+
+     0.0850 0.7650 0
+Now, I don't know if the invoice should come along with it:
+a=[a 1-wa]
+
+a =
+
+     0.1000 0 0.9000 0.0500
+5% of witnesses have made this mistake for their hood
+
+>> an=[an 1-wa]
+
+an =
+
+     0.0950 0 0.8550 0.0500
+
+>> bn=[bn 1-wb]
+
+bn =
+
+     0.0850 0.7650 0 0.1500
+Now I do my consolidation matrix.
+an_bn=bn'*an
+
+an_bn =
+
+     0.0081 0 0.0727 0.0043
+     0.0727 0 0.6541 0.0383
+          0 0 0 0
+     0.0143 0 0.1283 0.0075
+Now we want to know how to calculate the integrated accuracy from these numbers.
+To calculate the compensation factor or k: we don't have anything to do with the last row and column, and the classifier that our witness said, I don't know what happened, doesn't play, and doesn't count.
+k=0+0.0727+0.0727+0.6541+0+0
+
+k =
+
+     0.7995
+
+>> f2=1-k
+
+
+f2 =
+
+     0.2005
+Now what do we want to see for each state:
+an_bn =
+
+     0.0081 0 0.0727 0.0043
+     0.0727 0 0.6541 0.0383
+          0 0 0 0
+     0.0143 0 0.1283 0.0075
+>> acn=[.0081+.0143+.0043; 0+0+.0383; 0+0+.1283]
+
+acn =
+
+     0.0267
+     0.0383
+     0.1283
+This is our integrated precision factor in the Jager method integration
+To obtain the integrated accuracy by Jaeger's method:
+acc_fusion=acn/f2
+
+acc_fusion =
+
+     0.1332
+     0.1910
+     0.6399
+In this method, Dempster-Shafer trusts the evidence.
+However, in Yager's method, the probability of a normal state and the second state has decreased, but in the third state, the accuracy is reasonable according to the weight of the evidence.
+So Jaeger's method managed the contradictions.
+Now we enter the codes in MATLAB:
+
+for i=1:360;
+    Feature_time{i,1}=mean(B{i,1});
+    Feature_time{i,2}=max(B{i,1});
+    Feature_time{i,3}=rms(B{i,1}); % rms=sqrt((X.^2)/size(X))
+    Feature_time{i,4}=std(B{i,1});  % std=sqrt(((X-mean(X)).^2)/size(X))
+    Feature_time{i,5}=var(B{i,1});
+    Feature_time{i,6}=skewness(B{i,1});
+    Feature_time{i,7}=kurtosis(B{i,1});
+    Feature_time{i,8}=rms(B{i,1})/mean(abs(B{i,1}));
+    Feature_time{i,9}=max(B{i,1})/mean(abs(B{i,1}));
+    Feature_time{i,10}=max(B{i,1})/rms(B{i,1});
+    Feature_time{i,11}=moment(B{i,1},3); %moment(X,k)
+    Feature_time{i,12}=moment(B{i,1},4);
+    Feature_time{i,13}=moment(B{i,1},5);
+    Feature_time{i,14}=moment(B{i,1},6);
+    Feature_time{i,15}=moment(B{i,1},4)/var(B{i,1})^2;
+end;
+
+The above program has a for loop with 360 iterations. In each round of the loop, the time feature values are calculated from signal `B' and stored in the `Feature_time' matrix. In this program, 15-time characteristics (magnitude, average, root mean square, standard deviation, variance, adherence to the heterogeneity distribution, Kotchi distribution, root mean square to absolute mean ratio, magnitude to absolute mean ratio, magnitude to root mean square ratio, children's share dummy (blinking makes the other non-significant), fourth dummy (skin effect not constant), fifth dummy (almost fixed effect), sixth dummy (almost infinitely finite) and fourth dummy's ratio to variance) calculated
+
+This program is a for loop that runs from 1 to 360. In each iteration of the loop, the feature values for each row in the B matrix are calculated and stored in the Feature_time matrix.
+
+1. In each iteration of the loop, the average value of vector B for the desired row is stored as the first feature in the first column of the Feature_time matrix.
+2. The value of the largest member of vector B for the desired row is stored as the second feature in the second column of the Feature_time matrix.
+3. The mean square root value of vector B for the desired row is stored as the third feature in the third column of the Feature_time matrix.
+4. The value of the standard deviation of vector B for the desired row is stored as the fourth feature in the fourth column of the Feature_time matrix.
+5. The value of the variance of vector B for the desired row is stored as the fifth feature in the fifth column of the Feature_time matrix.
+6. The sequence value of vector B for the desired row is stored as the sixth feature in the sixth column of the Feature_time matrix.
+7. The kurtosis value of vector B for the desired row is stored as the seventh feature in the seventh column of the Feature_time matrix.
+8. The root mean square value of vector B divided by the absolute value of mean vector B for the desired row is stored as the eighth feature in the eighth column of the Feature_time matrix.
+9. The value of the largest member of the vector B divided by the absolute value of the mean of the vector B for the desired row is stored as the ninth feature in the ninth column of the Feature_time matrix.
+10. The value of the largest member of vector B divided by the mean square root of vector B for the desired row is stored as the tenth feature in the tenth column of the Feature_time matrix.
+11. The value of the third moment of vector B for the desired row is stored as the eleventh feature in the eleventh column of the Feature_time matrix.
+12. The value of the fourth moment of vector B for the desired row is stored as the twelfth feature in the twelfth column of the Feature_time matrix.
+13. The value of the fifth moment of vector B for the desired row is stored as the 13th feature in the 13th column of the Feature_time matrix.
+14. The value of the sixth moment of vector B for the desired row is stored as the fourteenth feature in the fourteenth column of the Feature_time matrix.
+15. The value of the fourth moment of vector B divided by the variance of B to the power of 2 for the desired row is stored as the 15th feature in the 15th column of the Feature_time matrix.
+
+
+for i=1:360;
+    Feature_freq{i,1}=mean(f_f_t{i,1});
+    Feature_freq{i,2}=max(f_f_t{i,1});
+    Feature_freq{i,3}=rms(f_f_t{i,1}); % rms=sqrt((X.^2)/size(X))
+    Feature_freq{i,4}=std(f_f_t{i,1});  % std=sqrt(((X-mean(X)).^2)/size(X))
+    Feature_freq{i,5}=var(f_f_t{i,1});
+    Feature_freq{i,6}=skewness(f_f_t{i,1});
+    Feature_freq{i,7}=kurtosis(f_f_t{i,1});
+    Feature_freq{i,8}=rms(f_f_t{i,1})/mean(abs(f_f_t{i,1}));
+    Feature_freq{i,9}=max(f_f_t{i,1})/mean(abs(f_f_t{i,1}));
+    Feature_freq{i,10}=max(f_f_t{i,1})/rms(f_f_t{i,1});
+    Feature_freq{i,11}=moment(f_f_t{i,1},3); %moment(X,k)
+    Feature_freq{i,12}=moment(f_f_t{i,1},4);
+    Feature_freq{i,13}=moment(f_f_t{i,1},5);
+    Feature_freq{i,14}=moment(f_f_t{i,1},6);
+    Feature_freq{i,15}=moment(f_f_t{i,1},4)/var(f_f_t{i,1})^2;
+end;
+
+
+
+This code creates a for loop that counts from 1 to 360. At each step of the loop, different values are calculated and stored in the Feature_freq variable. The calculated values are:
+- The average of the values in the f_f_t array
+- Maximum of the values in the f_f_t array
+- The mean square root of the values in the f_f_t array
+- standard deviation of the values in the f_f_t array
+- The variance of the values in the f_f_t array
+- Squeegee relative to the values in the f_f_t array
+- Kurtosis relative to the values in the f_f_t array
+- Root mean square divided by the absolute mean value of the values in the f_f_t array
+- The maximum is divided by the average absolute value of the values in the f_f_t array
+- Maximum divided by the root mean square of the values in the f_f_t array
+- The third moment of the values in the f_f_t array
+- The fourth moment of the values in the f_f_t array
+- The fifth moment of the values in the f_f_t array
+- The sixth moment of the values in the f_f_t array
+- The fourth moment is divided by the squared variance of the values in the f_f_t array
+
+%Step 1: calculating the average distance of the same class samples
+N_feature=25;     %Number of features
+Mc=120;           % Number of samples
+C=3               % Number of classes
+for c=1:C;
+    for j=1:N_feature;
+        HELPa=0;
+        for m=1:Mc;
+            for l=1:Mc;
+                if m==l
+                    continue;
+                end;
+                difference=abs(q{1,c}(m,j)-q{1,c}(l,j));
+                HELPa=difference+HELPa;
+            end;
+        end;
+        d(c,j)=HELPa/(Mc*(Mc-1));
+    end;
+end;
+d_w=sum(d)/C;
+%Step 2: calculating Variance for d_w
+v_w=abs(max(d)./min(d));
+ 
+%Step 3: calculating values of features of all samples under same
+%class
+for c=1:C;
+  for j=1:N_feature;
+        HELPa=0;  
+        for m=1:Mc;
+            SUMATION=q{1,c}(m,j);
+            HELPa=SUMATION+HELPa;
+        end;
+            u(c,j)=HELPa/Mc;
+  end;
+end;
+for j=1:N_feature;
+    diffrence=0;
+    HELPa=0;
+    for c=1:C;
+        for e=1:C;
+            if c==e;
+                continue;
+            end;
+            diffrence=abs(u(c,j)-u(e,j));
+            HELPa=diffrence+HELPa;
+        end;
+    end;
+    d_b(j)=HELPa/(C*(C-1));
+end;
+for j=1:N_feature;
+        HELPa=0; 
+        diffrence=0;
+        for c=1:C;
+        for e=1:C;
+            if c==e
+                continue;
+            end;
+            diffrence(c,j)=abs(u(c,j)-u(e,j));
+        end;
+        end;
+end;
+v_b=abs(max(diffrence)/min(diffrence));
+ 
+landa=1./(v_w/max(v_w)+v_b/max(v_b));
+ 
+alpha=landa.*(d_b/d_w);
+ 
+alphaBAR1=alpha/max(alpha);
+ 
+plot(alphaBAR1)
+hold all
+
+This program implements different parts of an audio requirements detection algorithm. In the first step of the program, the average distance of samples of the same class is calculated. In the second step, the variance is calculated for the average distance calculated in the previous step. Then, in the third step, the attribute values of all samples in the same class are calculated. Finally, the values of all samples are plotted in a graph.
+  This program is used to calculate the features extracted from the data of a class in a research.
+The steps of the program are:
+1. Calculation of the average distance between samples of the same class
+2. Calculating the variance for the average class distance
+3. Compute feature values for all samples in each class
+4. Calculate the value for beta and add it to a chart.
+
+
+%a=input('Please enter the accuracy of first classifier: ');
+%b=input('Please enter the accuracy of second classifier: ');
+clear
+a=[13 45 12 14 16;
+15 12 55 10 8; 10 15 70 3 2; 10 5 12 65 8; 5 15 6 14 60]
+b=[45 13 12 14 16;
+15 55 12 10 8; 10 15 35 38 2; 10 5 12 65 8; 5 15 26 14 40]
+a=a/100; b=b/100;
+c=  5        % c=Number of classes
+ 
+one=ones(c,c)-eye(c,c);
+for i=1:c;
+f=b(i,:)'*a(i,:);
+k(i,1)=1-sum(sum(f.*one));
+end;
+ 
+ 
+ 
+ 
+ 
+for i=1:c;
+    for j=1:c;
+ f=b(i,:)'*a(i,:); 
+ac(i,j)=f(j,j);
+end;
+end;
+ 
+for i=1:c;
+    for j=1:c;
+accuracy(i,j)=ac(i,j)/k(i,1);
+    end;
+end;
+accuracy
+
+
+
+This program performs an accuracy calculation based on two matrices a and b. At first, two input matrices a and b are taken, and then the dimensions of matrix c are determined based on the number of available classes.
+
+Then the matrix of all ones except the diagonal digits is created and stored in the one matrix.
+
+Using two iteration loops, for each class in matrix a and for each class in matrix b, the number of matches in normal diagonal digits in matrix f is calculated and stored in matrix k.
+
+Then, using the iteration loop again, for each class in matrix a and each class in matrix b, the matches in normal diagonal digits are divided by the total number of matches of each class and stored in the accuracy matrix.
+
+Finally, the accuracy matrix displays the result.
+
+
+%a=input('Please enter the accuracy of first classifieer: ');
+%wa=input('Please enter the weight of first classifieer: ');
+%b=input('Please enter the accuracy of second classifieer: ');
+%wb=input('Please enter the weight of second classifieer: ');
+ 
+clear
+a=[13 45 12 14 16;
+15 12 55 10 8; 10 15 70 3 2; 10 5 12 65 8; 5 15 6 14 60]
+b=[45 13 12 14 16;
+15 55 12 10 8; 10 15 35 38 2; 10 5 12 65 8; 5 15 26 14 40]
+ 
+a=E1'/50;b=E2'/50;
+wa=85; wb=100;
+a=a/100;b=b/100;wa=wa/100;wb=wb/100;
+a=a*wa;b=b*wb;
+c=  6       % c=Number of classes
+ 
+one=ones(c,c)-eye(c,c);
+for i=1:c;
+f=b(i,:)'*a(i,:);
+k(i,1)=1-sum(sum(f.*one));
+end;
+ 
+ 
+ 
+d=ones(c,1)-(wa.*ones(c,1));
+a=[a d];
+e=ones(c,1)-(wb.*ones(c,1));
+b=[b e];
+ 
+for i=1:c;
+    for j=1:c+1;
+ f=b(i,:)'*a(i,:); 
+ac(i,j)=f(j,j)+f(j,c+1)+f(c+1,j);
+end;
+end;
+ 
+for i=1:c;
+    for j=1:c;
+accuracy(i,j)=ac(i,j)/k(i,1);
+    end;
+end;
+
+
+
+This code performs several operations:
+
+1. Reading accuracy and weight of different categories from the user (initial commands starting with %).
+2. Clear all variables and clear the command line.
+3. Definition of two matrices a and b.
+4. Divide each row of matrices a and b by 50 and store them in matrices a and b.
+5. Divide each column of matrix a and b by 100 and store in matrices a and b.
+6. Multiply each member in matrix a by the corresponding weight and store in matrix a.
+7. Calculate the class confrontation value for each class (f) using matrix a and b.
+8. Calculation of vector k, which contains the value of class confrontation for each class.
+9. Calculation of the ac matrix, which contains the results of the class confrontation value for each pair of classes.
+10. Calculation of the accuracy matrix, which includes the accuracy of each pair of classes.
+
+
+%% Image Fusion
+% The principle of image fusion using wavelets is to merge the wavelet
+% decompositions of the two original images using fusion methods applied to
+% approximations coefficients and details coefficients. The two images must
+% be of the same size and are supposed to be associated with indexed images
+% on a common colormap (see extend to resize images).
+%
+% Two examples are examined: the first one merges two different images
+% leading to a new image and the second restores an image from two fuzzy
+% versions of an original image.
+ 
+% Copyright 2006-2010 The MathWorks, Inc.
+ 
+%% Fusion of Two Different Images
+% Load two original images: a mask and a bust. 
+load mask; X1 = X;
+load bust; X2 = X;
+%%
+% Merge the two images from wavelet decompositions at level 1 using db2 by
+% taking two different fusion methods: fusion by taking the mean for both
+% approximations and details: 
+XFUSmean = wfusimg(X1, X2, 'db2',1, 'mean', 'mean');
+%%
+% and fusion by taking the maximum for approximations and the minimum for
+% the details.
+XFUSmaxmin = wfusimg(X1, X2,'db2',1, 'max', 'min');
+%%
+% Plot original and synthesized images. 
+colormap(map);
+subplot(221), image(X1), axis square, title('Mask')
+subplot(222), image(X2), axis square, title('Bust')
+subplot(223), image(XFUSmean), axis square, 
+title('Synthesized image, mean mean)
+subplot(224), image(XFUSmaxmin), axis square, 
+title('Synthesized image, max-min)
+ 
+%% Restoration by Fusion from Fuzzy Images
+% Load two fuzzy versions of an original image. 
+load cathe_1; X1 = X;
+load cathe_2; X2 = X;
+%%
+% Merge the two images from wavelet decompositions at level 5 using sym4 by
+% taking the maximum absolute value of the coefficients for both
+% approximations and details. 
+XFUS = wfusimg(s1,s2, 'sym4',5, 'max', 'max');
+%%
+% Plot original and synthesized images. 
+figure('Color','white'),colormap(map);
+subplot(221), image(s1), axis square, 
+title('Catherine 1')
+subplot(222), image(s2), axis square, 
+title('Catherine 2')
+subplot(223), image(XFUS), axis square, 
+title('Synthesized image')
+ 
+ 
+displayEndOfDemoMessage(mfilename)
+
+
+Here, two files are used, which are two files, one containing features extracted from sound acoustics and the second containing features extracted from sound vibrations. Now we want to combine these features.
+
+This program is used to combine two images. The program first loads two original images (a mask and a boost) and then combines the decomposed images from wavelet decomposition of the images at level 1 using different fusion methods. Then it displays the original and synthesized images. In the second example, it performs a similar operation to recover the original image from two shark versions of the original image.
+This program performs two important operations:
+
+1. Combining two different images to create a new image:
+- The first image (X1) is a mask.
+- The second image (X2) is a basset.
+- Combines two images through wavelet decomposition of original images using different compression methods for proximity and detail coefficients.
+- The final result is two images combined.
+
+2. Image reconstruction from matte images:
+- There are two binary versions of the same original image.
+- Combines two binary images by wavelet decomposition of the original images using different compression methods for proximity and detail coefficients.
+- The final result is a synthesized image.
+The result of this program is:
+
+By running the following codes, we have
+tar(1,1:60)=1;
+tar(1,61:120)=1;
+tar(1,121:180)=1
+tar(1,181:240)=1;
+tar(1,241:300)=1;
+
+tar =
+
+  Columns ۱ through ۱۳
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۱۴ through ۲۶
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۲۷ through ۳۹
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۴۰ through ۵۲
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۵۳ through ۶۵
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۶۶ through ۷۸
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۷۹ through ۹۱
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۹۲ through ۱۰۴
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۱۰۵ through ۱۱۷
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۱۱۸ through ۱۳۰
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۱۳۱ through ۱۴۳
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۱۴۴ through ۱۵۶
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۱۵۷ through ۱۶۹
+
+     1     1     1     1     1     1     1     1     1     1     1     1     1
+
+  Columns ۱۷۰ through ۱۸۰
+
+     1     1     1     1     1     1     1     1     1     1     1
+
+
+We have the string matrix: this matrix says that from 1 to 60 is the first class and the rest are all zero. From 61 to 120, it is the second class, and its second line is one and the rest are zero. The last class is one and the rest are zero. He turns on the last class and introduces it to the network.
+Based on this, we go and run the network.
+We can raise the network with the protocol code
+Or you can select the neural net pattern recognition option from the Apps menu.
+Now we click on next and we don't have much to do with the network.
+We mostly want to do data integration systems, so:
+We select the number of hidden nurses as 10 and after next we select the most options.
+He trains and tests the network and draws his confusion matrix
+The accuracy of the neural network given here is 75% in the All Confusion Matrix.
+ 
+Class 1 is recognized 100% correctly
+In the second class, out of 60 samples, 52 were correctly recognized 3 were recognized as class 4, and 5 were recognized as class 5.
+The third class, in the real state, the third class identified 40, 2 were recognized as state 1, 7 were recognized as state 2, 8 were recognized as state 4, and 3 were recognized as state 5.
+We can use test and train, we choose one as our witness, for example, we choose the last one. This intensity of the accuracy of the grid with a vibrating witness
+We go back and follow the same path for the acoustic data.
+For these data, we can see that the accuracy was: 77%
+ 
+There is no contradiction in the evidence here
+We consider each of these as a witness so that we can combine them.
+Before I use Dempstershaffer's methods to integrate these data, we will give an example of why we should use data integration at the decision level.
+We put all the data in one place called all and repeat the above method for all.
+After most and.. our accuracy is: the same 75 percent
+
+Data integration at the feature level: that is, we took the vibration features, we also took the sound features and integrated them, and we saw that it had no effect, that is, the integration of the input increase feature has no effect beyond a certain limit.
+And sometimes this increase in input has a negative effect. Here too, we had a 2% decrease in accuracy because the network got confused and could not distinguish the states or could not do it with good accuracy. 75% accuracy in mechanical systems troubleshooting is not enough for us, this accuracy is not desirable and we need high accuracy, at least 85-90% is acceptable.
+Now, to combine these, we have to write three matrices. each of these three matrices is assigned a witness.
+Now I write these numbers in MATLAB variable and these numbers must be transferred.
+We enter three variables according to the three matrices we have.
+This is how we sing
+ 
+We have 60 repetitions for each, so we have to divide by 60.
+Enter the following code
+
+%a=input('Please enter the accuracy of first classifier: ');
+%b=input('Please enter the accuracy of second classifier: ');
+clear
+a=[13 45 12 14 16;
+15 12 55 10 8; 10 15 70 3 2; 10 5 12 65 8; 5 15 6 14 60]
+b=[45 13 12 14 16;
+15 55 12 10 8; 10 15 35 38 2; 10 5 12 65 8; 5 15 26 14 40]
+a=a/100; b=b/100;
+c=  5        % c=Number of classes
+ 
+one=ones(c,c)-eye(c,c);
+for i=1:c;
+f=b(i,:)'*a(i,:);
+k(i,1)=1-sum(sum(f.*one));
+end;
+ 
+ 
+ 
+ 
+ 
+for i=1:c;
+    for j=1:c;
+ f=b(i,:)'*a(i,:); 
+ac(i,j)=f(j,j);
+end;
+end;
+ 
+for i=1:c;
+    for j=1:c;
+accuracy(i,j)=ac(i,j)/k(i,1);
+    end;
+end;
+accuracy
+
+
+The accuracies are good, but in some classes, 81 and 83 are not acceptable accuracies for us. To solve this problem, we use the third witness. The same accuracy was extracted based on all features. We have:
+When fusion failed to increase our accuracy, we were able to use it at the decision level.
+
+And this was the simple way to use Detfershafer
+
+
+In this code, the accuracy of the first category and the accuracy of the second category are taken from the user. Then the matrix a and b defines numbers with values between 0 and 100. Next, it normalizes the values of a and b between 0 and 1. Then it sets the variable c, which represents the number of classes, equal to 5.
+
+Then, for each class in the number of classes, it defines the matrix f, which is equal to the linear transpose of the left side of matrix b with the left side of matrix a. Then, it calculates the sum of elements of the main diameter of matrix f and stores it in matrix k.
+
+Then, for all pairs of classes, it calculates the f matrix and stores it in the ac matrix.
+
+Next, it calculates the accuracy for all pairs of classes and stores it in the accuracy matrix. Finally, the output code prints the accuracy.
+
+%a=input('Please enter the accuracy of first classifieer: ');
+%wa=input('Please enter the weight of first classifieer: ');
+%b=input('Please enter the accuracy of second classifieer: ');
+%wb=input('Please enter the weight of second classifieer: ');
+ 
+clear
+a=[13 45 12 14 16;
+15 12 55 10 8; 10 15 70 3 2; 10 5 12 65 8; 5 15 6 14 60]
+b=[45 13 12 14 16;
+15 55 12 10 8; 10 15 35 38 2; 10 5 12 65 8; 5 15 26 14 40]
+ 
+a=E1'/50;b=E2'/50;
+wa=85; wb=100;
+a=a/100;b=b/100;wa=wa/100;wb=wb/100;
+a=a*wa;b=b*wb;
+c=  6       % c=Number of classes
+ 
+one=ones(c,c)-eye(c,c);
+for i=1:c;
+f=b(i,:)'*a(i,:);
+k(i,1)=1-sum(sum(f.*one));
+end;
+ 
+ 
+ 
+d=ones(c,1)-(wa.*ones(c,1));
+a=[a d];
+e=ones(c,1)-(wb.*ones(c,1));
+b=[b e];
+ 
+for i=1:c;
+    for j=1:c+1;
+ f=b(i,:)'*a(i,:); 
+ac(i,j)=f(j,j)+f(j,c+1)+f(c+1,j);
+end;
+end;
+ 
+for i=1:c;
+    for j=1:c;
+accuracy(i,j)=ac(i,j)/k(i,1);
+    end;
+end;
+
+
+
+The program initially asks the user to enter the accuracy and weight of different categories. Then it defines two matrices a and b. After that, it divides the values in the matrix a and b by percentage and weight, respectively. Then it calculates the sum of the co-matrices and creates a one matrix with dimensions c*c.
+  It then uses a for loop to calculate the k matrix. Then it columns matrices a and b with matrices d and e. Next, it uses another for loop to calculate the ac matrix. Finally, by using another for loop again, it calculates the accuracy matrix and finally shows the final result to the user.
+
+%% Image Fusion
+% The principle of image fusion using wavelets is to merge the wavelet
+% decompositions of the two original images using fusion methods applied to
+% approximations coefficients and details coefficients. The two images must
+% be of the same size and are supposed to be associated with indexed images
+% on a common colormap (see extend to resize images).
+%
+% Two examples are examined: the first one merges two different images
+% leading to a new image and the second restores an image from two fuzzy
+% versions of an original image.
+ 
+% Copyright 2006-2010 The MathWorks, Inc.
+ 
+%% Fusion of Two Different Images
+% Load two original images: a mask and a bust. 
+load mask; X1 = X;
+load bust; X2 = X;
+%%
+% Merge the two images from wavelet decompositions at level 1 using db2 by
+% taking two different fusion methods: fusion by taking the mean for both
+% approximations and details: 
+XFUSmean = wfusimg(X1,X2, 'db2',1, 'mean', 'mean');
+%%
+% and fusion by taking the maximum for approximations and the minimum for
+% the details.
+XFUSmaxmin = wfusimg(X1, X2,'db2',1, 'max', 'min');
+%%
+% Plot original and synthesized images. 
+colormap(map);
+subplot(221), image(X1), axis square, title('Mask')
+subplot(222), image(X2), axis square, title('Bust')
+subplot(223), image(XFUSmean), axis square, 
+title('Synthesized image, mean mean)
+subplot(224), image(XFUSmaxmin), axis square, 
+title('Synthesized image, max-min)
+ 
+%% Restoration by Fusion from Fuzzy Images
+% Load two fuzzy versions of an original image. 
+load cathe_1; X1 = X;
+load cathe_2; X2 = X;
+%%
+% Merge the two images from wavelet decompositions at level 5 using sym4 by
+% taking the maximum absolute value of the coefficients for both
+% approximations and details. 
+XFUS = wfusimg(s1,s2, 'sym4',5, 'max', 'max');
+%%
+% Plot original and synthesized images. 
+figure('Color','white'),colormap(map);
+subplot(221), image(s1), axis square, 
+title('Catherine 1')
+subplot(222), image(s2), axis square, 
+title('Catherine 2')
+subplot(223), image(XFUS), axis square, 
+title('Synthesized image')
+ 
+ 
+displayEndOfDemoMessage(mfilename)
+
+
