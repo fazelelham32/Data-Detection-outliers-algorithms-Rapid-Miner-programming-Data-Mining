@@ -1,0 +1,618 @@
+#  Data Mining
+## Why data mining?
+## What is data mining?
+## On what kind of data:
+## Data mining functionality:
+## Classification of data mining system:
+## Major issues in data mining:
+
+
+        
+    
+     
+     
+     
+  	    
+   
+   Data mining plays an essential role in the knowledge discovery process from data (KDD).
+        A large of raw data                                                                  knowledge
+Noise < Data < Information < knowledge
+
+Data mining: Discovering interesting patterns from large amounts of data
+A KDD process includes data cleaning, data integration, data selection, transformation, data mining, pattern evaluation, and knowledge presentation
+
+## Mining can be performed in a variety of information repositories
+Data mining functions: characterization, discrimination, association, classification, clustering, outlier and trend analysis, etc.
+
+### Knowledge discovery from data:
+-data cleaning
+-data integration 
+-data selection 
+-data transformation
+-data mining
+-pattern evaluation
+-knowledge presentation
+
+###  Medical Data Mining:
+- Health care and medical data mining – often adopted such a view in statistics and machine learning
+- Preprocessing of the data (including feature extraction and dimension reduction)
+- Classification or/and clustering processes
+- Post-processing for presentation
+### Applications of Data Mining:
+-          Web page analysis: classification, clustering, ranking
+-          Collaborative analysis and recommender systems
+-          Basket data analysis to targeted marketing
+-          Biological and medical data analysis
+-          Data mining and software engineering
+-          Data mining and text analysis
+-          Data mining and social and information network analysis
+-          Built-in (invisible data mining) functions in Google, MS, Yahoo!, Linked, Facebook,…
+-          Major dedicated data mining systems/tools
+Contents: Orange, R programming language, Weka, Rapid Miner, SPSS, Summary
+
+Simple data types: database data - data warehouse data - equations and transactions
+More complex types: audio-image-stream data-tree data and...
+What types of patterns can be identified: 1. Predictive 2. Descriptive
+
+### Types of patterns:
+1. Class or concept description: characterization, discrimination
+2. Frequent pattern, association, and correlation
+3. Classification and regression for predictive analysis: SVM, SVR, MLP, RRF
+4. Cluster analysis: SOM, K-means, FCM
+5. Anomaly detection: e.g. outlier detection
+The important pattern includes knowledge.
+- It is easily understandable for humans.
+- Valid for new data set.
+- potentially efficient.
+- Modernist
+- Validate a logical assumption.
+
+Important difficulties in the path of data mining: data mining methods - communication with the user - efficiency, and scalability - a variety of data that can be explored - data mining's relationship with social and legal issues
+Examining the path of data generation: 1960s and before: we had the creation of databases and data collection.
+From the 1970s to the mid-1980s, we were creating a series of database management systems. Database management system
+From the mid-1980s to the present: advanced database systems
+A parallel path that started in the late 1980s and data mining is placed in this path: advanced data analysis and includes data mining.
+Data mining is more of a problem than methods - converting the problem of data mining into methods to reach information
+Intelligent systems were created based on the need (creating systems that think for us - possess analysis and thinking).
+Necessarily, the quality of all the data we have is not available to us properly. We have to do something about the data.
+Data preprocessing includes one of the following states:
+- Data cleaning: In this method, the things we need to solve are:
+Missing value-1 solutions for this method: delete the record, fill it with arbitrary values (manual quantification), use a global constant, for example, n/a, use a central criterion such as median-average, use a central criterion related to the same class, using the most likely common values {simple and classified (hard and soft)
+2 Data contaminated with noise: a) regression: smoothing b) classification c) outlier data (the best way is to remove these data)
+- Data Integration: aggregating data
+1-Names of different fields
+2- Removing additional and dependent fields
+3- Duplicate data
+4- Some inconsistency
+-: Data reduction due to memory limitations and processing (time) limitations, preventing time and computing resources (reducing the volume or number of data features)
+1- Dimensionality reduction: selecting a subset of features (1. Forward-2. Backward- 3. Forward-backward) PCA: NPCA, ICA-- Manifolds - Associative Neural Networks
+2- Reducing the number: parametric = regression models, non-parametric = histogram, clustering, sampling, neural networks and fuzzy systems
+3- Information compression (such as JPGE-2000): lossy and lossless
+- Data transformation: data mapping - transferring data to a better space
+1- Smoothing
+2- Feature extraction or construction
+3- Aggregation methods
+4- Normalization: linear-statistical-scaling-decimalization
+5- Discretization
+6- Fuzzification
+7- Conceptual trees
+The topic of classification: the most important human knowledge that has been achieved so far.
+Class or class (label) of observations (they are properties of an object)
+The goal is to make a chip that attaches to the body that has access to vital resources, to give the appropriate warning
+If the resulting class or class is discrete, it can be classified, and if it is continuous, it can be regression
+These tags are also not orderable, for example, a specific cancer disease does not have three treatment patterns - pattern A, B, and C, these are treatment tags and these are characteristic and have no numerical ratio.
+Classification is done in two steps:
+1. Education or training stage
+2. Prediction stage (experiment or classification) - practical or applied stage
+
+For example, in granting a loan, if the applicant is young, he is not a safe person
+If the applicant has a high income, he is a safe person.
+If the applicant is middle-aged and has a low income, he is not a safe person.
+Definition of a leaf in a tree: A node that has no children
+
+### How to train a decision tree:
+TDT(D)T
+: D dataset and T: decision tree
+1. A tree called T is created.
+2. If all members of D belong to the same class, we create a leaf node with the corresponding class label.
+3. If the separator attribute list is empty, we create a leaf labeled with the class that has the most members.
+4. Therefore, we find the best feature of the separator.
+5. According to the values of the best distinguishing feature, we create branches.
+6. For each branch j, the set Dj contains all values that apply to that branch. We call the TDT(Dj) function and add its result to the main (mother) tree.
+7. We return the tree T (mother) as a result.
+If we limit the branches to only binaries, binary branching can be more decisive
+• Bayesian Networks
+• Case-based reasoning
+• Intelligent and evolutionary optimization algorithms
+• Artificial neural networks ANN= MLP, RBF, SVM, LVQ
+• Fuzzy systems = ANFIS
+
+### Clustering or other names including:
+Clustering
+Cluster analysis
+Automatic classification
+Data segmentation
+Suppose a manager in the CRM department wants to check the birds of his customers.
+How can he divide this work among his experts?
+We are dealing with an unsupervised learning problem
+
+### Comparison of clustering and classification
+: supervised learning, learning by examples, (X, Y) classification
+X: input observation
+Y: target labels
+: clustering, unsupervised learning, learning by observation
+It has only (X).
+Clustering is a more sophisticated issue. Because different aspects of it can be seen.
+In the business problem, business intelligence can be used in CRM units, for example, in the classification of customers.
+When human intelligence is not used, search engines passively use our presence and from the user's behavior, they understand which is more important for the customer.
+
+It also uses clustering here. Project and resource management uses clustering a lot.
+In the problem of color reduction in different tasks: we choose 100 clusters and the representative of 100 clusters becomes the color that is used.
+In the case of image segmentation or data segmentation, classification is used to separate different parts of the image.
+All of these have one thing in common we don't have access to an observer/expert.
+Sometimes we have to go to clustering: either we don't have the knowledge, or we don't have access to the supervisor, or this problem cannot be proposed as a classification.
+In this method, the agent must identify himself and there is no label.
+Clustering methods:
+1- methods based on partitioning methods
+Lloyd's Algorithm (K-means)
+Among these methods
+• Lloyd's k-means algorithm
+k-means = the median of k-medoids (which is used as the median or representatives that are calculated as the median.)
+Fuzzy k-means: FCM=Fuzzy c-means
+2- Hierarchical clustering methods
+          Bottom upAgglomerative AGNES
+Top-down Divisive DIANA
+3- Density-based clustering methods
+DBSCAN
+4- Tabular Grid-based clustering methods
+
+Among the smart methods we can to
+- Fuzzy systems and sets
+- competitive neural networks of self-organizing mappings
+Self-organizing Feature Maps (SOM) or (SOFM)
+
+Solving some clustering problems in MATLAB:
+We bring its documentation with the following command:
+Doc k-means
+IDX=Kmeans (X, k) partitions the points in the n-by-p data matrix X into k clusters.
+You are going to form k groups whose members have the most similarity with each other and the least similarity with other members of the groups. Related to the issue in Kmeans.
+And from each group, from each cluster, from each cluster, a representative is introduced, which is the average of the members of that group.
+  If we want to get them too, we use the following syntax.
+[IDX, C] = K-means (X, k)
+Suppose X is a real matrix XϵR100×2
+100 is the number of samples and 2 is the number of fields/records.
+And we say that k is equal to 3 when we call.
+As a result, ϵR100×1 IDX is always a constant and we know that ϵ {1, 2, 3} IDXi
+This K-means (X, k) function can have different outputs
+X has any number of rows, IDX has the same number, and C is the center of those clusters
+If ϵRn×p IDX and ϵ {1, ……, k} IDXi
+And we have up to k clusters. Each cluster has a center, and its center is in the space where the inputs were defined, and the input is from dimension p. We had p to characteristic. So ϵRk×p C
+[IDX, C] = K-means(X, k), X: n×p, C: k×p, IDX: n×1
+∑k i=1∑xϵci Distance(x, ci)
+on all Xs that are members of the i cluster. The highlighted part is called Within cluster distance
+And we minimize the sum of intracluster distances. If we want to have this highlight for all clusters, we will add another variable to it.
+[IDX, C, sumd] = K-means(X, k) returns the within-cluster sums of point-to-centroid distances in the 1-by-k vector sumd.
+[IDX, C, sumd, D] = K-means(X, k) returns distances from each point to each centroid in the n-by-k matrix D.
+It is possible that a cluster gets lost during calculations and loses in competitions and nothing is done.
+
+
+Empty action is to give an error: if a cluster is empty
+The drop means deleting the cluster
+Singleton: It means to consider data that has the greatest distance from its corresponding center as a cluster.
+
+Description of folder clustering in MATLAB: We generate a series of data that we can draw a conclusion based on.
+We randomly place one cluster center on (0 and 0) another cluster center on (3 and 3) and another one on (2 and 4) and randomly distribute some data around them.
+We denote the centers with c.
+C01 Center of the first cluster
+n number of elements
+X is the data (several numbers) that are inside each cluster
+n1 is the number of samples inside the cluster and 2 is the number of our dimensions :(n1,2)
+X1(:,1)=X1(:,1)+c01(1); along the first dimension X1+ c01 along the first dimension
+X1=randn(n1,2); Normal random function
+
+
+
+We do this in line with the second dimension. And for the third cluster, it becomes:
+c03=[4 2];
+n3=20;
+X3=randn(n3,3);
+X3(:,1)=X3(:,1)+c03(1);
+X3(:,3)=X3(:,3)+c03(3);
+From the section, we can see the numbers created in each dimension for three clusters.
+First cluster plotplot(X1(:,1), X1(:,2), 'bo');
+X1(:,1), the first column (X1(:,2, the second column as blue circles 'bo'
+plot(X2(:,1), X2(:,2), 'rs'); Draw the second cluster with red squares
+plot(X3(:,1), X3(:,2), 'kp'); Draw the third cluster with black stars
+equal axis;
+If we want to see the data better than the command
+This command makes each of your data the same size vertically and horizontally
+ 
+X=[ X1,X2,X3 ] our entire data
+We can right-click X from the workspace and save it as mydata1 do nothing about this program and create a new program.
+With
+CLC
+clear
+close all;
+
+x=x is inside this data, of course, instead of these two lines
+data=load('mydata1');
+X=data.x;
+
+We can easily write:
+load mydata1;
+
+
+We set the IDX to I and the centers are also c
+
+
+
+3 clusters
+From the MATLAB help section, we can read function syntax and other information and use it in the program.
+ 
+ 
+To separate these, we use the for loop.
+We also create HSV colors
+
+IDX means the index of the cluster should be Xi=X(IDX==i, :);
+
+plot(Xi(:,1),Xi(:,2),'o','Color',Colors(i,:));
+Use the last line for its color
+If we want, we can also draw the centers.
+     plot(C(i,1), C(i,2),' ks', 'MarkerSize',12, 'MarkerFaceColor', Colors(i,:));
+
+Draw the center of the first and second as a black and bigger square 12, and consider the color of the marker as Colorts(i,:).
+Let's make sure that 'MarkerSize',12 is smaller than
+'Color'
+It is drawn in the previous line, we add this line 'MarkerSize', 10 to it.
+
+If we make it 500, it means that the number of data will increase, the clusters will be as follows
+ 
+Now we come and save X again as mydata2
+
+From the values of the centers, we can see that by increasing the data, he was able to even identify the exact centers.
+
+
+#### Next issue:
+If the data is uniformly distributed,
+We want to create a series of random numbers with a uniform distribution between 0-10 - 1000 samples and two dimensions.
+
+Now we come and save X again as mydata3
+Since these data are uniform, they cannot be separated spherically.
+Almost every time we run it, we have different results
+ 
+Now we come and save X again as mydata4
+The lines between the colors are perpendicular to the line segments that connect the centers between the two clusters.
+
+
+Regression: method and approach in statistical analysis, from data mining methods
+y output input x
+Y=f(x, ø) y=f(x) output is a function of input
+X: input - known, independent variable
+Y: known output, intermediate variable
+Ø: parameter-unknown, independent variable
+F: unknown model structure
+output target input target
+Error ˗+
+            Model output
+
+Inside the model, there is an adjustment screw that we have to adjust to reduce its distance from the phenomenon.
+y=f(x, ø)=ax+b
+ei: the distance of each point of the model error of the i-th sample that must be zero-you can say minimize a cost function that is a function of a,b.
+If you want to take the average, we will divide it by n
+You have to change this a,b so that it becomes a line.
+The modeling problem in the sense that it was said here is an optimization problem.
+Because of the adjusting screw ø: We are looking for a combination of these øs that minimizes the error.
+So, we have an objective function - our decision and independent variables are øs.
+We seek to minimize an error function, the same as an optimization problem.
+On the other hand, we said assume y=f(x, ø).
+The classification problem is a special case of the regression problem.
+Some y's are discrete, but it is not a classification issue.
+Types of regression models:
+1. Classical and statistical methods: linear-multilinear-multinomial
+2. Neural networks: MLP-RBF-SVR
+3. Fuzzy and fuzzy neural systems: ANFIS (the advantage of fuzzy systems is the production of human knowledge, the advantage of neural fuzzy: the non-human knowledge that is given can be used) - the regression tree can also produce human knowledge
+4. Bayesian networks
+5. Intelligent optimization algorithms: GP: genetic programming is an exception because it constructs the model itself - they write programs.
+There is an error that we want to be as close to zero as possible.
+We minimize the multi-objective problem and turn it into a single-objective problem
+We minimize what caused us the most problems:
+
+
+
+Dimensional reduction: when the frequency of measurement features is too high - especially in the field of bioinformatics
+We have thousands of quantities
+
+Let's hit that big problem on the head so that it becomes a small one
+
+
+Dimensional reduction: when the frequency of measurement features is too high - especially in the field of bioinformatics
+We have a thousand quantities that are included in one record.
+For example, in the stock market - image processing (we want to compress the images as much as possible) and signal
+
+PCA algorithm: principal component analysis
+Principal component analysis: a linear method that has no operational properties in itself, only the principal component identification method - can be used to reduce dimensions. Closely related to concepts of linear algebra is SVD. It is used to identify the structure of information.
+Suppose a set of data is distributed in two-dimensional space as follows.
+We have two quantities x1 and x2.
+The red line showed the general trend and a new coordinate axis.
+These two vectors are the distribution directions of these two vectors
+And the y1 axis is the most distribution direction - in fact, we found two directions in the two-dimensional space and arranged them in the order of variance, that is, any data we have in the x, and y space, we can depict on the axes.
+ 
+At the same time, the quantities are related to each other, and here there is a correlation, and the basic directions of the changes change - we are looking to find a series of directions.
+Assume x is the matrix of our observations.
+This problem has up to p answers according to the existing conditions
+To make this work more conceptual, I will open a MATLAB environment.
+svd doc command:
+[U, S, V] = svd(A)
+Syntax
+s = svd(A)
+[U, S, V] = svd(A)
+[U,S,V] = svd(A,'econ')
+[U,S,V] = svd(A,0)
+
+Singular values: 15.0000, 6.9282, 3.4641
+If we take the transpose of the product of these three and subtract A
+U*S*V'-A
+
+ans =
+
+    1.0e-13 *
+
+    -0.3908 -0.0222 0.3286
+    -0.0133 -0.0178 -0.0089
+     0.3642 -0.0178 -0.3975
+A number is too small
+But it is better to say S(3,3)=0
+But you removed one of these directions and you can do it with two numbers.
+What happens if we set S(2,2)=0?
+Now if we do the calculations again
+>> U*S*V'
+
+ans =
+
+     5.0000 5.0000 5.0000
+     5.0000 5.0000 5.0000
+     5.0000 5.0000 5.0000
+It means that he has compressed as much as he can.
+What happens if we want to apply an image?
+We try to compress the data. We want to load an image in MATLAB.
+Why did you use the odd number - because it has the most variance - it has the most number
+We call A again in the MATLAB environment: the difference between the highest and lowest even number here is 6, but the difference between the highest and lowest odd numbers is 8 units. We try to compress the data and divide it into even and odd numbers.
+That is, it keeps part of the information that we can make the most judgment.
+We call the vectors U, and V. Especially the V vector is very important.
+We call an image from our MATLAB images.
+img=imread('rice.png');
+In MATLAB, I have to enter the command like this:
+read - Read image from a graphics file
+
+     This MATLAB function reads the image from the file specified by filename,
+     inferring the format of the file from its contents.
+
+     A = imread(filename)
+     A = imread(filename,fmt)
+     A = imread(___,idx)
+     A = imread(___,Name,Value)
+     [A,map] = imread(___)
+     [A,map,transparency] = imread(___)
+
+s = diag(S);
+
+ 
+The following command causes the image to fade and delete part of the information that is completely visible in jpg images.
+ 
+ 
+One-sixteenth of the information in this image
+So far we have done a PCA with image data, now we want to work with non-image data.
+Here S represents the variance and the answer is the covariance matrix related to this data: used several vectors - if we omit some vectors, we can reduce the dimensions with this key equation.
+In addition, if we choose dimensions that are not dependent on each other and whose vectors are completely perpendicular, they can also have the greatest effect on discrimination. This is the pattern that we have in PCA and we see that it is nothing special and two names for the same phenomenon - we can say the use of SVD in the discussion of information analysis:
+We can say the size of matrix x (I-PPT): it shows how much information we lost.
+PCA function outputs in MATLAB environment:
+ 
+T2 is a statistic
+We create the PCA folder in the MATLAB environment. We create a series of multivariate normal data. We use Mvnrnd.
+which includes mean and sigma, which can be a unit matrix like this [1 0; 0 1] and 1000 samples that we store in x.
+ 
+For the images to be shown squarely, use the axis square command;
+
+A histogram two. The next one shows the complete situation.
+ 
+
+Description of MATLAB codes in F:\NEW\importent folder\main folder\Papers of projects\Data mining\Data mining with MATLAB
+ 
+
+Well, to run the ver command in MATLAB, just type it in the Command Window. The ver command shows the list of all packages installed in MATLAB along with their current version.
+If you enter the ver command in the Command Window, you will see an output similar to the following:
+>> ver
+
+----------------------------------------------------- --------------------------------
+MATLAB Version: 9.10.0.1602886 (R2021a)
+MATLAB License Number: 1234567890
+Operating System: Windows 10 Pro Version 2004 (Build 19041)
+Java Version: Java 1.8.0_281-b09 with Oracle Corporation Java HotSpot(TM) 64-Bit Server VM mixed mode
+----------------------------------------------------- --------------------------------
+MATLAB Version 9.10 (R2021a)
+Simulink Version 10.2 (R2021a)
+Aerospace Blockset Version 4.3 (R2021a)
+...
+Please note that your version number and system information may differ from the example above.
+. If you run the "ver" command and find that the "Statistics and Machine Learning Toolbox" package is not in the list of installed packages, you need to add this package to your MATLAB.
+If I open our Excel data file, I have three classes of these flowers. That is, they measured three different types of plants and each plant has 4 characteristics, 150 items, and each class has 50 members.
+We give the input and output data to fit.
+Variables based on which predictions are made: predictor Names
+It shows 9 to ninety in this way.
+We divide the data into three groups
+ 
+There are three important phases in the training process of any system.
+Train: data for training - tips according to which the training is injected into the learner's mind, everything is known
+Test: It is done after training and is unknown
+Validation: from the point of view that during training it is similar to the training data and from the point of view that the unknown is similar to the test data.
+There is something positive about overtraining or overfitting
+A percentage of the data
+If Validation gets worse after 10 steps, I will stop it and return it to the place where it had the best performance.
+Test: We wait until the process is finished.
+Cross-validation to measure the effectiveness of the training process.
+
+We must have examples in all three spaces.
+Weakness of Cross_validation: These people may use channels that should be isolated from each other.
+4 = 4 layers, that's why they call it k-fold -k: the number of data
+By searching kfoldLoss in MATLAB: we read its document.
+We must have a cvmodel=crossvalidationmodel.
+One way is to turn on cross-validation here
+ 
+ 
+Naive: Simple
+Among all the classifiers we can define, this classifier has the best possible result in theory.
+But the conditions are very restrictive.
+ 
+We are looking for an index that maximizes the equation j above.
+Suppose
+ 
+We assume that we have a classifier that.
+How can we create this system with Biz:
+ 
+The probability ci is a fixed number and can be obtained from the data.
+In the classification problem, a data set with a given label is provided, provided that our sampling is uniform and we take diabetes tests from people.
+The main issue is p(x\ci).
+ 
+The above formula is a breakdown into constituent factors in the form of independence from each other.
+ 
+What percentage of people who were labeled as safe are safe?
+This is to agree that the data is discrete.
+ 
+For example, suppose:
+ 
+N is the probability of normality with the mentioned conditions
+We want to know what class x is a member of and we need to find j.
+Finally, j becomes the formula above: any i that can maximize this becomes j, and x is a member of it.
+Classes compete for ownership of an observation.
+In MATLAB, we have the name NaïveBayes and we call it with the following command.
+doc NaïveBayes
+To find answers to your questions, you can use the official learning resources of each software. For example, to find information about NaïveBayes and follows in MATLAB R2020b, you can refer to the following two guides:
+
+     Guide to Naïve Bayes in MATLAB:
+     https://www.mathworks.com/help/stats/naive-bayes-classification.html
+     Guide to the kfoldLoss function in MATLAB:
+     https://www.mathworks.com/help/stats/kfoldloss.html
+Another type of classifier that is widely used is KNN.
+
+: CBRs are part of this category.
+KNN's philosophy: A person is similar to people who have a similar weighted average.
+If we want to classify a data file, we need to see which data it is similar to. And which class is it?
+Among all cases, I consider the three cases that are closer to the desired data. K = 3
+KNN usually gives an image that is faster but not smooth.
+K close neighbor
+We have problems with this classifier: how should we define this proximity?
+What can be done for lost data?
+load fisheries;
+X=meas; %Inputs
+Y=species;
+X times the measurements
+The result of running the final code: the lowest value of the red graph for the neighbor is 1. It is normal because it is overtrained.
+The blue graph value is not interesting. This issue is good for 7-9 neighbors
+ 
+ 
+
+Outlier detection/Anomaly detection
+This data does not work as expected.
+This data does not work as expected
+It complicates problems
+ 
+
+Outlier data types:
+1- Global
+2- A contextual field that depends on space-time and so on. It is based on the behavior or characteristic being investigated.
+3- Collective gathering
+Outlier detection methods:
+1- Supervised: design as a classification problem
+2- Unsupervised: clustering
+3- Semi-supervised: combined-generalized
+ 
+For this, we must have a standard. One good measure is T2. (radius is the statistical normalized data)
+ 
+The goal in the figure above: is to isolate C:
+ 
+Let's see how this can be done.
+Assumption of Landa's matrix is a diagonal matrix and its square root is also a diagonal matrix
+ 
+be normalized
+ 
+Alfa can determine it based on our knowledge or expertise.
+A little report on the accuracy of that data in classification:
+We have a series of data that we use means to get to the center
+S is related to each cluster:
+ 
+Now we write the program in MATLAB software.
+First, we load the data of this program.
+CLC
+clear
+close all;
+ 
+dada=load('fisheriris');
+We define X. By hitting the tab, we can choose between meas and species.
+X=data.measures;
+
+We want to calculate the supervised part for each one separately.
+We want to calculate the supervised part for each one separately.
+Now we can define outlier detection for each of the classes. So we define the class data as follows.
+x1=X(1:50,:);
+x2=X(51:100,:);
+x3=X(101:150,:);
+And for it to be applicable in the for loop, we put an index for the Xs.
+x{1}=X(1:50,:);
+x{2}=X(51:100,:);
+x{3}=X(101:150,:);
+We can calculate the average of all these, and to normalize, we must have calculated the average, we must calculate the variance. Based on the same formulas that we wrote, we write here.
+We remove the averages from it. We can also calculate softs z's.
+znorm{i}=zeros(n(i),1);
+An empty matrix of size n(i) in one: for which end we want to get a number.
+End of line:
+         znorm{i}(j)=norm(z{i}(j,:));
+
+This makes us get one number for everyone in the class. which is acceptable if it is less than or equal to alpha, otherwise it is considered an outlier.
+We want to create a flag.
+is_normal=cell(size(x));
+We define and say:
+is_normal{i}=(znorm{i}<=alpha);
+The following sentence shows a vector:
+(x{i}(j,:)-m{i})'
+The following expression calculates the internal z norm, so we delete the expressions we wrote for it.
+z{i}(j,:)=(x{i}(j,:)-m{i})*inv(S{i})*(x{i}(j,:)-m{i} )';
+m: Mean
+instead of znorm z=
+Our goal is to remove the bad 2%, we have to make alpha bigger
+We draw on two dimensions.
+dim1=3;
+dim2=4;
+in red and in the form of o,
+
+Let's say again, those who are not normal for class I:
+plot(x{1}(~is_normal{1},dim1),x{1}(~is_normal{1},dim2),'xr', 'LineWidth',2, 'MarkerSize',10);
+
+Now we draw for the following code.
+figure
+plot(x{1}(:,dim1),x{1}(:,dim2),'or');
+hold on
+plot(x{2}(:,dim1),x{2}(:,dim2),'ob');
+plot(x{3}(:,dim1),x{3}(:,dim2),'ok');
+ 
+plot(x{1}(~is_normal{1},dim1),x{1}(~is_normal{1},dim2),'xr','LineWidth',2);
+plot(x{2}(~is_normal{2},dim1),x{2}(~is_normal{2},dim2),'xb','LineWidth',2);
+plot(x{3}(~is_normal{3},dim1),x{3}(~is_normal{3},dim2),'xk','LineWidth',2);
+ 
+figure
+plot(x{1}(:,dim1),x{1}(:,dim2),' or', 'MarkerSize',12);
+hold on
+plot(x{2}(:,dim1),x{2}(:,dim2), 'ob', 'MarkerSize',12);
+plot(x{3}(:,dim1),x{3}(:,dim2), 'ok', 'MarkerSize',12);
+ 
+plot(x{1}(~is_normal{1},dim1),x{1}(~is_normal{1},dim2),'xr','LineWidth',2,'MarkerSize',10);
+plot(x{2}(~is_normal{2},dim1),x{2}(~is_normal{2},dim2),'xb','LineWidth',2,'MarkerSize',10);
+plot(x{3}(~is_normal{3},dim1),x{3}(~is_normal{3},dim2),'xk','LineWidth',2,'MarkerSize',10);
+ 
+The outlier data is shown with a cross in the figure.
+If we go back to the code and put alpha 5 instead of 10. what will happen?
+
+The number of outliers increases.
+If we consider a very large number, for example, should we make alpha 100? All are normal data
+ 
+The good thing is that it is working in a normalized environment.
+
